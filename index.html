@@ -11,7 +11,7 @@
     .btn{font-size:1.25rem;padding:.7rem 1.4rem;min-width:220px;margin:.4rem;border:none;border-radius:6px;cursor:pointer;color:#fff}
     .azul{background:#007bff}
     .verde{background:#28a745}
-    /* input "invisible" pero funcional */
+    /* input invisible pero funcional */
     input[type=file]{opacity:0;width:0;height:0;position:absolute}
     /* línea discontinua azul gruesa */
     .dropZone{border:3px dashed #007bff;border-radius:6px;padding:1rem;margin:.5rem 0;transition:.2s}
@@ -28,10 +28,10 @@
   <!-- 1. UNIR PDFs + título IZQUIERDA -->
   <div class="box">
     <h2>1) Unir PDFs y poner título a la IZQUIERDA</h2>
-    <div class="dropZone" id="dropLeft">
-      <input type="file" id="pdfLeft" accept="application/pdf" multiple>
+    <div class="dropZone" id="zoneLeft">
       <label for="pdfLeft" class="btn azul">📁 Elegir archivos</label>
       <span style="margin-left:1rem">o arrastra aquí</span>
+      <input type="file" id="pdfLeft" accept="application/pdf" multiple>
       <div class="barra"><div class="progreso" id="progLeft"></div></div>
       <div class="porcentaje" id="pctLeft">0 %</div>
     </div>
@@ -42,10 +42,10 @@
   <!-- 2. UNIR PDFs + título CENTRADO -->
   <div class="box">
     <h2>2) Unir PDFs y poner título CENTRADO</h2>
-    <div class="dropZone" id="dropCenter">
-      <input type="file" id="pdfCenter" accept="application/pdf" multiple>
+    <div class="dropZone" id="zoneCenter">
       <label for="pdfCenter" class="btn azul">📁 Elegir archivos</label>
       <span style="margin-left:1rem">o arrastra aquí</span>
+      <input type="file" id="pdfCenter" accept="application/pdf" multiple>
       <div class="barra"><div class="progreso" id="progCenter"></div></div>
       <div class="porcentaje" id="pctCenter">0 %</div>
     </div>
@@ -56,10 +56,10 @@
   <!-- 3. CONVERTIR TODO A PDF + UNIR -->
   <div class="box">
     <h2>3) Convertir TODO a PDF y unir con título</h2>
-    <div class="dropZone" id="dropAll">
-      <input type="file" id="allFiles" multiple>
+    <div class="dropZone" id="zoneAll">
       <label for="allFiles" class="btn azul">📁 Elegir archivos</label>
       <span style="margin-left:1rem">o arrastra aquí</span>
+      <input type="file" id="allFiles" multiple>
       <div class="barra"><div class="progreso" id="progAll"></div></div>
       <div class="porcentaje" id="pctAll">0 %</div>
     </div>
@@ -70,10 +70,10 @@
   <!-- 4. EXTRAER CARPETA NUMERADA → PDFs -->
   <div class="box">
     <h2>4) Extraer carpeta numerada → PDFs</h2>
-    <div class="dropZone" id="dropNum">
-      <input type="file" id="numFolder" webkitdirectory multiple>
+    <div class="dropZone" id="zoneNum">
       <label for="numFolder" class="btn azul">📁 Elegir carpeta numerada</label>
       <span style="margin-left:1rem">o arrastra aquí</span>
+      <input type="file" id="numFolder" webkitdirectory multiple>
       <div class="barra"><div class="progreso" id="progNum"></div></div>
       <div class="porcentaje" id="pctNum">0 %</div>
     </div>
@@ -84,10 +84,10 @@
   <!-- 5. RENOMBRAR POR PATRÓN REGEX -->
   <div class="box">
     <h2>5) Renombrar archivos de carpeta (regex)</h2>
-    <div class="dropZone" id="dropRename">
-      <input type="file" id="renameFolder" webkitdirectory multiple>
+    <div class="dropZone" id="zoneRename">
       <label for="renameFolder" class="btn azul">📁 Elegir carpeta</label>
       <span style="margin-left:1rem">o arrastra aquí</span>
+      <input type="file" id="renameFolder" webkitdirectory multiple>
       <div class="barra"><div class="progreso" id="progRename"></div></div>
       <div class="porcentaje" id="pctRename">0 %</div>
     </div>
@@ -104,10 +104,10 @@
   <!-- 6. EXTRAIR .eml → EXCEL (columnas exactas) -->
   <div class="box">
     <h2>6) Extraer mails .eml → Excel</h2>
-    <div class="dropZone" id="dropEml">
-      <input type="file" id="emlFolder" webkitdirectory multiple>
+    <div class="dropZone" id="zoneEml">
       <label for="emlFolder" class="btn azul">📁 Carpeta con .eml</label>
       <span style="margin-left:1rem">o arrastra aquí</span>
+      <input type="file" id="emlFolder" webkitdirectory multiple>
       <div class="barra"><div class="progreso" id="progEml"></div></div>
       <div class="porcentaje" id="pctEml">0 %</div>
     </div>
@@ -137,27 +137,28 @@
     $(pctId).textContent = pct + ' %';
   }
 
-  /* ---------- drag & drop + file picker ---------- */
-  function setupZone(zoneId, inputId, cbFiles){
+  /* ---------- zona común (click + drag) ---------- */
+  function setupZone(zoneId, inputId, onFiles){
     const zone = $(zoneId);
     const inp  = $(inputId);
 
     // click normal
-    inp.addEventListener('change', () => cbFiles(inp.files));
+    inp.addEventListener('change', () => onFiles(inp.files));
 
     // drag
     zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
     zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
     zone.addEventListener('drop', e => {
       e.preventDefault(); zone.classList.remove('dragover');
-      inp.files = e.dataTransfer.files; // pegar al input
-      cbFiles(e.dataTransfer.files);
+      const files = e.dataTransfer.files;
+      inp.files = files; // pegar files al input
+      onFiles(files);
     });
   }
 
   /* ---------- 1. LEFT ---------- */
   let bufLeft = [];
-  setupZone('dropLeft', 'pdfLeft', async files => {
+  setupZone('zoneLeft', 'pdfLeft', async files => {
     bufLeft = []; log('logLeft', ''); setProg('progLeft', 'pctLeft', 0);
     const total = files.length;
     for (let i = 0; i < total; i++){
@@ -179,7 +180,7 @@
 
   /* ---------- 2. CENTER ---------- */
   let bufCenter = [];
-  setupZone('dropCenter', 'pdfCenter', async files => {
+  setupZone('zoneCenter', 'pdfCenter', async files => {
     bufCenter = []; log('logCenter', ''); setProg('progCenter', 'pctCenter', 0);
     const total = files.length;
     for (let i = 0; i < total; i++){
@@ -201,7 +202,7 @@
 
   /* ---------- 3. ALL TO PDF ---------- */
   let bufAll = [];
-  setupZone('dropAll', 'allFiles', async files => {
+  setupZone('zoneAll', 'allFiles', async files => {
     bufAll = []; log('logAll', ''); setProg('progAll', 'pctAll', 0);
     const total = files.length;
     for (let i = 0; i < total; i++){
@@ -240,11 +241,14 @@
 
   /* ---------- 4. CARPETA NUMERADA ---------- */
   let bufNum = [];
-  setupZone('dropNum', 'numFolder', async files => {
+  setupZone('zoneNum', 'numFolder', async files => {
     bufNum = []; log('logNum', ''); setProg('progNum', 'pctNum', 0);
-    const total = files.length;
+    const sorted = Array.from(files).sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'})
+    );
+    const total = sorted.length;
     for (let i = 0; i < total; i++){
-      const f = files[i];
+      const f = sorted[i];
       const ext = f.name.split('.').pop().toLowerCase();
       let pdfBytes;
       try {
@@ -276,7 +280,7 @@
   });
 
   /* ---------- 5. RENOMBRAR POR PATRÓN ---------- */
-  setupZone('dropRename', 'renameFolder', async files => {
+  setupZone('zoneRename', 'renameFolder', async files => {
     log('logRename', ''); setProg('progRename', 'pctRename', 0);
     $('#btnRename').onclick = async () => {
       const pattern = $('#regexIn').value.trim();
@@ -306,7 +310,7 @@
   });
 
   /* ---------- 6. EXTRAIR .eml → EXCEL ---------- */
-  setupZone('dropEml', 'emlFolder', async files => {
+  setupZone('zoneEml', 'emlFolder', async files => {
     log('logEml', ''); setProg('progEml', 'pctEml', 0);
     const mailparser = await import('https://cdn.skypack.dev/mailparser');
     const XLSX = await import('https://cdn.skypack.dev/xlsx');
