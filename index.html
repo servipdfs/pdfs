@@ -3,26 +3,8 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ServiPDF Pro - PDF a PowerPoint</title>
+  <title>ServiPDF Pro - Soluciones PDF Avanzadas</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#4338ca',
-            secondary: '#16a34a',
-            accent: '#dc2626',
-            dark: '#1e293b',
-            light: '#f8fafc'
-          },
-          animation: {
-            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-          }
-        }
-      }
-    }
-  </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -54,7 +36,7 @@
     }
     .pulse-animation {
       display: inline-block;
-      animation: pulse-slow;
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
     .file-input {
       opacity: 0;
@@ -62,89 +44,263 @@
       height: 0;
       position: absolute;
     }
-    .limitations {
-      background-color: #fffbeb;
-      border-left: 4px solid #f59e0b;
-      padding: 1rem;
-      border-radius: 0 0.5rem 0.5rem 0;
-      margin-top: 1rem;
-      font-size: 0.85rem;
-    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen pt-6 pb-12">
-  <div class="max-w-3xl mx-auto px-4">
-    <header class="text-center mb-8">
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4">
-        <i class="fas fa-file-powerpoint text-3xl text-primary"></i>
+  <div class="max-w-6xl mx-auto px-4">
+    <header class="text-center mb-12">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-100 mb-4">
+        <i class="fas fa-file-pdf text-3xl text-blue-600"></i>
       </div>
-      <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-2">
-        PDF a PowerPoint
+      <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+        ServiPDF Pro
       </h1>
       <p class="text-gray-600 max-w-2xl mx-auto text-lg">
-        Convierte tus documentos PDF a presentaciones de PowerPoint con numeración automática
+        Soluciones avanzadas para documentos PDF en tu navegador - Sin subidas a servidores, 100% privado
       </p>
     </header>
 
-    <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-8">
-      <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
-        <h2 class="text-white text-xl font-bold flex items-center">
-          <i class="fas fa-file-powerpoint mr-3"></i>
-          Conversor PDF → PowerPoint
-        </h2>
+    <div class="grid md:grid-cols-2 gap-6 mb-12">
+      <!-- 1. PDF → POWERPOINT con numeración -->
+      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
+          <h2 class="text-white text-xl font-bold flex items-center">
+            <i class="fas fa-file-powerpoint mr-3"></i>
+            PDF a PowerPoint con hojas numeradas
+          </h2>
+        </div>
+        <div class="p-5">
+          <div class="dropZone border-2 border-dashed border-blue-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zonePpt">
+            <i class="fas fa-cloud-upload-alt text-blue-500 text-4xl mb-3 pulse-animation"></i>
+            <label for="pdfPpt" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
+              <i class="fas fa-file-pdf mr-2"></i>Seleccionar PDFs
+            </label>
+            <p class="text-gray-500 mt-2 text-sm">Una diapositiva por página + numeración automática</p>
+            <input type="file" id="pdfPpt" accept="application/pdf" multiple class="file-input">
+          </div>
+
+          <div class="mb-4">
+            <div class="flex justify-between text-sm mb-1">
+              <span class="font-medium">Progreso</span>
+              <span id="pctPpt" class="text-gray-600 font-medium">0 %</span>
+            </div>
+            <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
+              <div id="progPpt" class="progress-fill h-full bg-blue-500 rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <button id="btnPpt" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+            <i class="fas fa-download mr-2"></i>Descargar PowerPoint
+          </button>
+
+          <div id="logPpt" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
+        </div>
       </div>
-      <div class="p-5">
-        <div class="dropZone border-2 border-dashed border-blue-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zonePowerPoint">
-          <i class="fas fa-cloud-upload-alt text-blue-500 text-4xl mb-3 pulse-animation"></i>
-          <label for="pdfPowerPoint" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
-            <i class="fas fa-file-pdf mr-2"></i>Seleccionar archivo PDF
-          </label>
-          <p class="text-gray-500 mt-2 text-sm">Arrastra tu archivo PDF aquí</p>
-          <input type="file" id="pdfPowerPoint" accept="application/pdf" class="file-input">
+
+      <!-- 2. IMÁGENES → PDF ÚNICO -->
+      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="bg-gradient-to-r from-emerald-500 to-cyan-600 p-4">
+          <h2 class="text-white text-xl font-bold flex items-center">
+            <i class="fas fa-images mr-3"></i>
+            Fotos a PDF en un solo fichero
+          </h2>
         </div>
-        
-        <div class="mb-4">
-          <div class="flex justify-between text-sm mb-1">
-            <span class="font-medium">Progreso</span>
-            <span id="pctPowerPoint" class="text-gray-600 font-medium">0%</span>
+        <div class="p-5">
+          <div class="dropZone border-2 border-dashed border-emerald-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneImages">
+            <i class="fas fa-cloud-upload-alt text-emerald-500 text-4xl mb-3 pulse-animation"></i>
+            <label for="imagesFiles" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
+              <i class="fas fa-images mr-2"></i>Seleccionar imágenes
+            </label>
+            <p class="text-gray-500 mt-2 text-sm">JPG, PNG, GIF - Se crearán en un solo PDF</p>
+            <input type="file" id="imagesFiles" accept="image/*" multiple class="file-input">
           </div>
-          <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
-            <div id="progPowerPoint" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
+
+          <div class="mb-4">
+            <div class="flex justify-between text-sm mb-1">
+              <span class="font-medium">Progreso</span>
+              <span id="pctImages" class="text-gray-600 font-medium">0%</span>
+            </div>
+            <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
+              <div id="progImages" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
+            </div>
           </div>
+
+          <button id="btnImages" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+            <i class="fas fa-download mr-2"></i>Descargar PDF único
+          </button>
+
+          <div id="logImages" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
         </div>
-        
-        <button id="btnPowerPoint" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-          <i class="fas fa-download mr-2"></i>Descargar PowerPoint
-        </button>
-        
-        <div id="logPowerPoint" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-48 overflow-y-auto text-left text-sm font-mono"></div>
-        
-        <div class="limitations">
-          <p class="font-medium text-yellow-800 mb-1">Importante: Limitaciones de la conversión</p>
-          <ul class="list-disc list-inside text-yellow-700 space-y-1">
-            <li>Esta conversión extrae principalmente texto (imágenes no se transfieren)</li>
-            <li>El formato original puede no conservarse completamente</li>
-            <li>Documentos complejos pueden requerir ajustes manuales posteriores</li>
-            <li>El límite recomendado es de 50 páginas por conversión</li>
-          </ul>
+      </div>
+
+      <!-- 3. CONVERTIR TODO A PDF + UNIR -->
+      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="bg-gradient-to-r from-purple-500 to-pink-600 p-4">
+          <h2 class="text-white text-xl font-bold flex items-center">
+            <i class="fas fa-sync-alt mr-3"></i>
+            Convertir y unir múltiples formatos
+          </h2>
+        </div>
+        <div class="p-5">
+          <div class="dropZone border-2 border-dashed border-purple-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneAll">
+            <i class="fas fa-cloud-upload-alt text-purple-500 text-4xl mb-3 pulse-animation"></i>
+            <label for="allFiles" class="bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
+              <i class="fas fa-file-import mr-2"></i>Seleccionar archivos
+            </label>
+            <p class="text-gray-500 mt-2 text-sm">PDF, Word, Imágenes, Texto y más</p>
+            <input type="file" id="allFiles" multiple class="file-input">
+          </div>
+
+          <div class="mb-4">
+            <div class="flex justify-between text-sm mb-1">
+              <span class="font-medium">Progreso</span>
+              <span id="pctAll" class="text-gray-600 font-medium">0%</span>
+            </div>
+            <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
+              <div id="progAll" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <button id="btnAll" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+            <i class="fas fa-download mr-2"></i>Descargar Todo en PDF
+          </button>
+
+          <div id="logAll" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
+        </div>
+      </div>
+
+      <!-- 4. EXTRAER CARPETA NUMERADA → PDFs -->
+      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="bg-gradient-to-r from-orange-500 to-amber-600 p-4">
+          <h2 class="text-white text-xl font-bold flex items-center">
+            <i class="fas fa-folder-open mr-3"></i>
+            Carpeta numerada a PDFs
+          </h2>
+        </div>
+        <div class="p-5">
+          <div class="dropZone border-2 border-dashed border-orange-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneNum">
+            <i class="fas fa-folder-open text-orange-500 text-4xl mb-3 pulse-animation"></i>
+            <label for="numFolder" class="bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
+              <i class="fas fa-folder mr-2"></i>Seleccionar carpeta
+            </label>
+            <p class="text-gray-500 mt-2 text-sm">Archivos serán convertidos y numerados</p>
+            <input type="file" id="numFolder" webkitdirectory multiple class="file-input">
+          </div>
+
+          <div class="mb-4">
+            <div class="flex justify-between text-sm mb-1">
+              <span class="font-medium">Progreso</span>
+              <span id="pctNum" class="text-gray-600 font-medium">0%</span>
+            </div>
+            <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
+              <div id="progNum" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <button id="btnNum" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+            <i class="fas fa-download mr-2"></i>Descargar como ZIP
+          </button>
+
+          <div id="logNum" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
+        </div>
+      </div>
+
+      <!-- 5. RENOMBRAR POR PATRÓN REGEX -->
+      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="bg-gradient-to-r from-rose-500 to-fuchsia-600 p-4">
+          <h2 class="text-white text-xl font-bold flex items-center">
+            <i class="fas fa-magic mr-3"></i>
+            Renombrar archivos con regex
+          </h2>
+        </div>
+        <div class="p-5">
+          <div class="dropZone border-2 border-dashed border-rose-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneRename">
+            <i class="fas fa-magic text-rose-500 text-4xl mb-3 pulse-animation"></i>
+            <label for="renameFolder" class="bg-rose-600 hover:bg-rose-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
+              <i class="fas fa-folder mr-2"></i>Seleccionar carpeta
+            </label>
+            <p class="text-gray-500 mt-2 text-sm">Renombra archivos masivamente</p>
+            <input type="file" id="renameFolder" webkitdirectory multiple class="file-input">
+          </div>
+
+          <div class="mb-4">
+            <div class="flex justify-between text-sm mb-1">
+              <span class="font-medium">Progreso</span>
+              <span id="pctRename" class="text-gray-600 font-medium">0%</span>
+            </div>
+            <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
+              <div id="progRename" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="space-y-3 mb-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Patrón regex:</label>
+              <input type="text" id="regexIn" value="^(.+?)\s*-\s*(\d{4}-\d{2}-\d{2}\s+\d{4}(?:-\d+)?)(\.eml)$" 
+                class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Nuevo formato (usa $1, $2…):</label>
+              <input type="text" id="replaceFmt" value="$2.$1$3" 
+                class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent">
+            </div>
+          </div>
+
+          <button id="btnRename" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+            <i class="fas fa-download mr-2"></i>Descargar carpeta renombrada
+          </button>
+
+          <div id="logRename" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
+        </div>
+      </div>
+
+      <!-- 6. EXTRAIR .eml → EXCEL -->
+      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="bg-gradient-to-r from-cyan-500 to-teal-600 p-4">
+          <h2 class="text-white text-xl font-bold flex items-center">
+            <i class="fas fa-envelope mr-3"></i>
+            Extraer correos .eml a Excel
+          </h2>
+        </div>
+        <div class="p-5">
+          <div class="dropZone border-2 border-dashed border-cyan-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneEml">
+            <i class="fas fa-envelope-open-text text-cyan-500 text-4xl mb-3 pulse-animation"></i>
+            <label for="emlFolder" class="bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
+              <i class="fas fa-folder mr-2"></i>Seleccionar carpeta .eml
+            </label>
+            <p class="text-gray-500 mt-2 text-sm">Convierte correos a formato Excel</p>
+            <input type="file" id="emlFolder" webkitdirectory multiple class="file-input">
+          </div>
+
+          <div class="mb-4">
+            <div class="flex justify-between text-sm mb-1">
+              <span class="font-medium">Progreso</span>
+              <span id="pctEml" class="text-gray-600 font-medium">0%</span>
+            </div>
+            <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
+              <div id="progEml" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <button id="btnEml" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+            <i class="fas fa-download mr-2"></i>Descargar Excel
+          </button>
+
+          <div id="logEml" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
         </div>
       </div>
     </div>
 
     <footer class="text-center mt-8 pt-8 border-t border-gray-200 text-gray-500">
-      <p class="mb-2">ServiPDF Pro &copy; 2025 - Conversión 100% en tu navegador</p>
+      <p class="mb-2">ServiPDF Pro &copy; 2025 - Procesamiento 100% en tu navegador</p>
       <p class="text-sm">Ningún archivo se envía a servidores externos. Tu privacidad es nuestra prioridad.</p>
     </footer>
   </div>
 
   <!-- libs -->
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/build/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script>
-  // Configurar worker de pdf.js
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/build/pdf.worker.min.js';
-  
   /* ---------- helpers ---------- */
   const $ = id => document.getElementById(id);
   function log(boxId, txt){
@@ -165,169 +321,496 @@
   }
   function setProg(barId, pctId, pct){
     $(barId).style.width = pct + '%';
-    $(pctId).textContent = pct + '%';
+    $(pctId).textContent = pct + ' %';
   }
 
-  /* ---------- zona (click + drag) ---------- */
+  /* ---------- zona común (click + drag) ---------- */
   function setupZone(zoneId, inputId, onFiles){
     const zone = $(zoneId);
     const inp  = $(inputId);
 
     // click normal
-    inp.addEventListener('change', () => {
-      if (inp.files.length > 0) {
-        onFiles(inp.files[0]);
-      }
-    });
+    inp.addEventListener('change', () => onFiles(inp.files));
 
     // drag
-    zone.addEventListener('dragover', e => { 
-      e.preventDefault(); 
-      zone.classList.add('dragover'); 
-    });
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
     zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
     zone.addEventListener('drop', e => {
-      e.preventDefault(); 
-      zone.classList.remove('dragover');
-      if (e.dataTransfer.files.length > 0) {
-        const file = e.dataTransfer.files[0];
-        if (file.type === 'application/pdf') {
-          inp.files = e.dataTransfer.files;
-          onFiles(file);
-        } else {
-          log('logPowerPoint', `<span class="text-red-600">❌ Solo se aceptan archivos PDF</span>`);
-        }
-      }
+      e.preventDefault(); zone.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      inp.files = files; // pegar files al input
+      onFiles(files);
     });
   }
 
-  /* ---------- PDF a POWERPOINT ---------- */
-  let currentPdfFile = null;
-  
-  setupZone('zonePowerPoint', 'pdfPowerPoint', async file => {
-    currentPdfFile = file;
-    log('logPowerPoint', `<span class="text-blue-600">✔ Archivo seleccionado: ${file.name}</span>`);
-    log('logPowerPoint', '<span class="text-gray-600">Listo para convertir. Pulsa el botón para iniciar.</span>');
+  /* ---------- 1. PDF → POWERPOINT con numeración ---------- */
+  let pptFiles = [];
+  setupZone('zonePpt', 'pdfPpt', async files => {
+    pptFiles = []; log('logPpt', ''); setProg('progPpt', 'pctPpt', 0);
+    const total = files.length;
+    for (let i = 0; i < total; i++){
+      const f = files[i];
+      if (!f.name.toLowerCase().endsWith('.pdf')) {
+        log('logPpt', `<span class="text-yellow-600">⚠ Saltado: ${f.name} (no es PDF)</span>`);
+        continue;
+      }
+      pptFiles.push(f);
+      log('logPpt', `✔ ${f.name}`);
+      setProg('progPpt', 'pctPpt', Math.round((i + 1) / total * 100));
+    }
+    if (pptFiles.length) {
+      log('logPpt', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR PPTX.</span>');
+    }
   });
 
-  $('#btnPowerPoint').addEventListener('click', async () => {
-    if (!currentPdfFile) { 
-      alert('Primero selecciona un archivo PDF'); 
+  $('#btnPpt').addEventListener('click', async () => {
+    if (pptFiles.length === 0) { alert('Selecciona al menos un PDF'); return; }
+    try {
+      log('logPpt', '<span class="text-blue-600">Generando PowerPoint...</span>');
+      const pptx = await pdfToPowerPoint(pptFiles);
+      downloadBlob(pptx, 'PDF_a_PowerPoint.pptx');
+      log('logPpt', '<span class="text-green-700 font-bold">✅ Presentación descargada</span>');
+    } catch (err) {
+      log('logPpt', `<span class="text-red-600">❌ Error: ${err.message}</span>`);
+    }
+  });
+
+  /* ---------- 2. IMÁGENES → PDF ÚNICO ---------- */
+  let imageFiles = [];
+  setupZone('zoneImages', 'imagesFiles', async files => {
+    imageFiles = []; log('logImages', ''); setProg('progImages', 'pctImages', 0);
+    const total = files.length;
+    for (let i = 0; i < total; i++){
+      const f = files[i];
+      const ext = f.name.split('.').pop().toLowerCase();
+      if (!['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
+        log('logImages', `<span class="text-yellow-600">⚠ Saltado: ${f.name} (formato no soportado)</span>`);
+        continue;
+      }
+      imageFiles.push(f);
+      log('logImages', `✔ ${f.name}`);
+      setProg('progImages', 'pctImages', Math.round((i + 1) / total * 100));
+    }
+    if (imageFiles.length > 0) {
+      log('logImages', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR para crear el PDF.</span>');
+    } else {
+      log('logImages', '<span class="text-red-600 font-medium">⚠ No se seleccionaron imágenes válidas</span>');
+    }
+  });
+
+  $('#btnImages').addEventListener('click', async () => {
+    if (imageFiles.length === 0) { 
+      alert('Primero selecciona imágenes válidas'); 
       return; 
+    }
+    try {
+      log('logImages', '<span class="text-blue-600">Creando PDF con ' + imageFiles.length + ' imágenes...</span>');
+      const pdfBytes = await imagesToSinglePdf(imageFiles);
+      downloadBlob(new Blob([pdfBytes], {type: 'application/pdf'}), 'IMAGENES_UNIDAS.pdf');
+      log('logImages', '<span class="text-green-700 font-bold">✅ PDF creado y descargado</span>');
+    } catch (err) {
+      log('logImages', `<span class="text-red-600">❌ Error: ${err.message}</span>`);
+    }
+  });
+
+  /* ---------- 3. ALL TO PDF ---------- */
+  let bufAll = [];
+  setupZone('zoneAll', 'allFiles', async files => {
+    bufAll = []; log('logAll', ''); setProg('progAll', 'pctAll', 0);
+    const total = files.length;
+    for (let i = 0; i < total; i++){
+      const f = files[i];
+      const ext = f.name.split('.').pop().toLowerCase();
+      let pdfBytes;
+      try {
+        if (ext === 'pdf') {
+          pdfBytes = await f.arrayBuffer();
+        } else if (['docx'].includes(ext)) {
+          pdfBytes = await word2pdf(f);
+        } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
+          pdfBytes = await img2pdf(f);
+        } else if (ext === 'txt') {
+          pdfBytes = await txt2pdf(f);
+        } else {
+          log('logAll', `<span class="text-yellow-600">⚠ Saltado: ${f.name} (formato no soportado)</span>`);
+          continue;
+        }
+        const stamped = await stampPdf(pdfBytes, f.name.replace(/\.[^.]+$/i, ''), 'center');
+        bufAll.push(stamped);
+      } catch (err) {
+        log('logAll', `<span class="text-red-600">⚠ Error en ${f.name}: ${err.message}</span>`);
+      }
+      setProg('progAll', 'pctAll', Math.round((i + 1) / total * 100));
+      log('logAll', `✔ ${f.name}`);
+    }
+    if (bufAll.length > 0) {
+      log('logAll', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR.</span>');
+    }
+  });
+  $('#btnAll').addEventListener('click', async () => {
+    if (!bufAll.length) { alert('Primero elige o arrastra archivos'); return; }
+    const merged = await mergePdfs(bufAll);
+    downloadBlob(merged, 'TODO_UNIDO_ROJO.pdf');
+    log('logAll', '<span class="text-green-700 font-bold">✅ Descarga iniciada</span>');
+  });
+
+  /* ---------- 4. CARPETA NUMERADA ---------- */
+  let bufNum = [];
+  setupZone('zoneNum', 'numFolder', async files => {
+    bufNum = []; log('logNum', ''); setProg('progNum', 'pctNum', 0);
+    const sorted = Array.from(files).sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'})
+    );
+    const total = sorted.length;
+    for (let i = 0; i < total; i++){
+      const f = sorted[i];
+      const ext = f.name.split('.').pop().toLowerCase();
+      let pdfBytes;
+      try {
+        if (ext === 'pdf') {
+          pdfBytes = await f.arrayBuffer();
+        } else if (['docx'].includes(ext)) {
+          pdfBytes = await word2pdf(f);
+        } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
+          pdfBytes = await img2pdf(f);
+        } else if (ext === 'txt') {
+          pdfBytes = await txt2pdf(f);
+        } else {
+          log('logNum', `<span class="text-yellow-600">⚠ Saltado: ${f.name}</span>`);
+          continue;
+        }
+        const newName = f.name.replace(/\.[^.]+$/, '.pdf');
+        bufNum.push({name: newName, blob: new Blob([pdfBytes], {type: 'application/pdf'})});
+      } catch (err) {
+        log('logNum', `<span class="text-red-600">⚠ Error en ${f.name}: ${err.message}</span>`);
+      }
+      setProg('progNum', 'pctNum', Math.round((i + 1) / total * 100));
+      log('logNum', `✔ ${f.name}`);
+    }
+    const zip = new JSZip();
+    bufNum.forEach(f => zip.file(f.name, f.blob));
+    const content = await zip.generateAsync({type: 'blob'});
+    downloadBlob(content, 'CARPETA_NUMERADA_PDFs.zip');
+    log('logNum', '<span class="text-green-700 font-bold">✅ ZIP descargado</span>');
+  });
+
+  /* ---------- 5. RENOMBRAR POR PATRÓN ---------- */
+  let renameFiles = [];
+  setupZone('zoneRename', 'renameFolder', async files => {
+    renameFiles = Array.from(files);
+    log('logRename', '<span class="text-blue-600">Archivos cargados. Configura el patrón y pulsa DESCARGAR.</span>'); 
+    setProg('progRename', 'pctRename', 0);
+  });
+
+  $('#btnRename').addEventListener('click', async () => {
+    if (renameFiles.length === 0) { alert('Primero elige o arrastra archivos'); return; }
+    
+    const pattern = $('#regexIn').value.trim();
+    const repl = $('#replaceFmt').value.trim();
+    let regex;
+    try { 
+      regex = new RegExp(pattern, 'i'); 
+    } catch (e) {
+      log('logRename', `<span class="text-red-600">❌ Regex inválido: ${e.message}</span>`);
+      return;
+    }
+    
+    const zip = new JSZip();
+    const total = renameFiles.length;
+    let processed = 0;
+    
+    for (let i = 0; i < total; i++){
+      const f = renameFiles[i];
+      const name = f.name;
+      const m = name.match(regex);
+      if (!m) { 
+        log('logRename', `<span class="text-yellow-600">⚠ Sin coincidencia: ${name}</span>`); 
+        processed++;
+        setProg('progRename', 'pctRename', Math.round(processed / total * 100));
+        continue; 
+      }
+      
+      let nuevo = repl;
+      m.forEach((g, idx) => {
+        if (idx > 0) {
+          nuevo = nuevo.replaceAll(`$${idx}`, g || '');
+        }
+      });
+      
+      try {
+        const content = await f.arrayBuffer();
+        zip.file(nuevo, content);
+        log('logRename', `✔ ${name} → ${nuevo}`);
+      } catch (e) {
+        log('logRename', `<span class="text-red-600">⚠ Error procesando ${name}: ${e.message}</span>`);
+      }
+      
+      processed++;
+      setProg('progRename', 'pctRename', Math.round(processed / total * 100));
+    }
+    
+    const blob = await zip.generateAsync({type: 'blob'});
+    downloadBlob(blob, 'CARPETA_RENOMBRADA.zip');
+    log('logRename', '<span class="text-green-700 font-bold">✅ ZIP descargado</span>');
+  });
+
+  /* ---------- 6. EXTRAIR .eml → EXCEL ---------- */
+  setupZone('zoneEml', 'emlFolder', async files => {
+    log('logEml', ''); setProg('progEml', 'pctEml', 0);
+    const validFiles = Array.from(files).filter(f => f.name.toLowerCase().endsWith('.eml'));
+    if (validFiles.length === 0) {
+      log('logEml', '<span class="text-yellow-600">⚠ No se encontraron archivos .eml en la carpeta seleccionada</span>');
+      return;
     }
     
     try {
-      log('logPowerPoint', '<span class="text-blue-600">🚀 Iniciando conversión...</span>');
+      const [mailparser, xlsx] = await Promise.all([
+        import('https://cdn.skypack.dev/mailparser@3.4.6'),
+        import('https://cdn.skypack.dev/xlsx@0.18.5')
+      ]);
       
-      // Leer el PDF
-      const arrayBuffer = await currentPdfFile.arrayBuffer();
+      const rows = [];
+      const total = validFiles.length;
       
-      // Cargar el PDF con pdf.js para extracción de texto
-      const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
-      const numPages = pdf.numPages;
-      
-      log('logPowerPoint', `<span class="text-blue-600">📄 Procesando ${numPages} páginas...</span>`);
-      
-      if (numPages > 50) {
-        if (!confirm(`El documento tiene ${numPages} páginas. Esto puede tardar mucho tiempo y consumir muchos recursos. ¿Continuar?`)) {
-          log('logPowerPoint', '<span class="text-yellow-600">⚠ Conversión cancelada por el usuario</span>');
-          return;
+      for (let i = 0; i < total; i++){
+        const f = validFiles[i];
+        try {
+          const raw = await f.text();
+          const msg = await mailparser.simpleParser(raw);
+          rows.push({
+            'Fecha': msg.date ? new Date(msg.date).toLocaleString('es-ES') : '',
+            'Remitente': msg.from?.text || '',
+            'Asunto': msg.subject || '',
+            'Destinatario': Array.isArray(msg.to) ? msg.to.map(t => t.text).join('; ') : (msg.to?.text || ''),
+            'Cuerpo de mail': (msg.text || '').replace(/\s+/g, ' ').substring(0, 32767),
+            'Nombre de ficheros adjuntos': msg.attachments?.map(a => a.filename).join('; ') || ''
+          });
+          log('logEml', `✔ ${f.name}`);
+        } catch (e) {
+          log('logEml', `<span class="text-red-600">⚠ Error en ${f.name}: ${e.message}</span>`);
         }
+        setProg('progEml', 'pctEml', Math.round((i + 1) / total * 100));
       }
       
-      // Crear nueva presentación
-      const pptx = new PptxGenJS();
-      pptx.layout = 'LAYOUT_16x9'; // Formato panorámico
-      
-      // Procesar cada página
-      for (let pageNum = 1; pageNum <= numPages; pageNum++) {
-        const page = await pdf.getPage(pageNum);
-        const textContent = await page.getTextContent();
-        
-        // Extraer texto de la página
-        let pageText = '';
-        textContent.items.forEach(item => {
-          if (item.str && item.str.trim()) {
-            pageText += item.str.trim() + ' ';
-          }
-        });
-        
-        // Limpiar y formatear el texto
-        pageText = pageText.replace(/\s+/g, ' ').trim();
-        
-        // Si no hay texto, crear una diapositiva vacía con un mensaje
-        if (!pageText || pageText.length < 10) {
-          pageText = '[Contenido no extraíble o página en blanco]';
-        }
-        
-        // Limitar el texto para que quepa en la diapositiva
-        if (pageText.length > 1000) {
-          pageText = pageText.substring(0, 997) + '...';
-        }
-        
-        // Crear diapositiva
-        const slide = pptx.addSlide();
-        
-        // Título con numeración
-        slide.addText(`Página ${pageNum} de ${numPages}`, {
-          x: 0.5,
-          y: 0.5,
-          w: '90%',
-          fontSize: 16,
-          bold: true,
-          color: '000080',
-          align: 'center'
-        });
-        
-        // Contenido principal
-        slide.addText(pageText, {
-          x: 0.75,
-          y: 1.0,
-          w: '85%',
-          h: '75%',
-          fontSize: 14,
-          color: '333333',
-          align: 'left',
-          valign: 'top',
-          margin: 5,
-          breakLine: true
-        });
-        
-        // Pie de página con numeración
-        slide.addText(`Documento: ${currentPdfFile.name} | Página ${pageNum}`, {
-          x: 0.5,
-          y: 6.0,
-          w: '90%',
-          fontSize: 10,
-          color: '555555',
-          align: 'center',
-          italic: true
-        });
-        
-        // Actualizar progreso
-        const progress = Math.round(pageNum / numPages * 100);
-        setProg('progPowerPoint', 'pctPowerPoint', progress);
-        log('logPowerPoint', `✔ Página ${pageNum} procesada`);
+      if (!rows.length) { 
+        log('logEml', '<span class="text-red-600">❌ No se pudo procesar ningún correo</span>');
+        return; 
       }
       
-      // Generar y descargar el PowerPoint
-      log('logPowerPoint', '<span class="text-blue-600">💾 Generando archivo PowerPoint...</span>');
-      
-      const pptxBlob = await pptx.writeFile({ fileName: "presentacion_generada.pptx" });
-      
-      log('logPowerPoint', '<span class="text-green-700 font-bold">✅ PowerPoint creado exitosamente</span>');
-      log('logPowerPoint', `<span class="text-green-600">📄 ${numPages} diapositivas creadas con numeración automática</span>`);
-      
-      // Reiniciar para siguiente conversión
-      currentPdfFile = null;
-      setProg('progPowerPoint', 'pctPowerPoint', 0);
-      
-    } catch (err) {
-      log('logPowerPoint', `<span class="text-red-600">❌ Error en la conversión: ${err.message}</span>`);
-      log('logPowerPoint', '<span class="text-yellow-600">💡 Consejo: Intenta con un PDF más simple o con menos páginas</span>');
-      console.error('Error detallado:', err);
+      const ws = xlsx.utils.json_to_sheet(rows);
+      const wb = xlsx.utils.book_new();
+      xlsx.utils.book_append_sheet(wb, ws, 'Mails');
+      const blob = xlsx.write(wb, {bookType: 'xlsx', type: 'blob'});
+      downloadBlob(blob, 'Mails_desde_EML.xlsx');
+      log('logEml', '<span class="text-green-700 font-bold">✅ Excel descargado</span>');
+    } catch (e) {
+      log('logEml', `<span class="text-red-600">❌ Error cargando librerías: ${e.message}</span>`);
+      log('logEml', '<span class="text-yellow-600">ℹ️ Por favor, actualiza tu navegador para esta función</span>');
     }
   });
+
+  /* ---------- core ---------- */
+  async function stampPdf(pdfBytes, texto, align) {
+    const pdf = await PDFLib.PDFDocument.load(pdfBytes);
+    const font = await pdf.embedFont(PDFLib.StandardFonts.HelveticaBold);
+    const txt = texto.toUpperCase().substring(0, 40);
+    const fontSize = 10;
+    const pages = pdf.getPages();
+    pages.forEach(page => {
+      const {width} = page.getSize();
+      const textWidth = font.widthOfTextAtSize(txt, fontSize);
+      const x = (align === 'left') ? 30 : (width - textWidth) / 2;
+      page.drawText(txt, {x, y: page.getHeight() - 30, size: fontSize, font, color: PDFLib.rgb(1, 0, 0)});
+    });
+    return await pdf.save();
+  }
+  
+  async function mergePdfs(arrBytes) {
+    const merged = await PDFLib.PDFDocument.create();
+    for (const bytes of arrBytes) {
+      const doc = await PDFLib.PDFDocument.load(bytes);
+      const copiedPages = await merged.copyPages(doc, doc.getPageIndices());
+      copiedPages.forEach((page) => merged.addPage(page));
+    }
+    return await merged.save();
+  }
+  
+  async function imagesToSinglePdf(files) {
+    const pdfDoc = await PDFLib.PDFDocument.create();
+    for (const file of files) {
+      try {
+        const imgBytes = await file.arrayBuffer();
+        let image;
+        const ext = file.name.split('.').pop().toLowerCase();
+        if (ext === 'png') {
+          image = await pdfDoc.embedPng(imgBytes);
+        } else if (['jpg', 'jpeg'].includes(ext)) {
+          image = await pdfDoc.embedJpg(imgBytes);
+        } else {
+          log('logImages', `<span class="text-yellow-600">⚠ GIF no soportado: ${file.name} (usa JPG/PNG)</span>`);
+          continue;
+        }
+        const page = pdfDoc.addPage([image.width, image.height]);
+        page.drawImage(image, {x: 0, y: 0, width: image.width, height: image.height});
+      } catch (error) {
+        log('logImages', `<span class="text-red-600">⚠ Error procesando ${file.name}: ${error.message}</span>`);
+      }
+    }
+    return await pdfDoc.save();
+  }
+  
+  async function word2pdf(f) {
+    throw new Error("Conversión de Word no soportada en esta versión. Usa archivos PDF directamente.");
+  }
+  
+  async function img2pdf(f) {
+    const img = await f.arrayBuffer();
+    const pdf = await PDFLib.PDFDocument.create();
+    let imgObj;
+    const ext = f.name.split('.').pop().toLowerCase();
+    try {
+      if (ext === 'png') {
+        imgObj = await pdf.embedPng(img);
+      } else if (['jpg', 'jpeg'].includes(ext)) {
+        imgObj = await pdf.embedJpg(img);
+      } else {
+        throw new Error(`Formato de imagen no soportado: ${ext}`);
+      }
+    } catch (e) {
+      throw new Error(`Error procesando imagen: ${e.message}`);
+    }
+    const page = pdf.addPage([imgObj.width, imgObj.height]);
+    page.drawImage(imgObj, {x: 0, y: 0, width: imgObj.width, height: imgObj.height});
+    return await pdf.save();
+  }
+  
+  async function txt2pdf(f) {
+    const text = await f.text();
+    const pdf = await PDFLib.PDFDocument.create();
+    const font = await pdf.embedFont(PDFLib.StandardFonts.Helvetica);
+    const fontSize = 12;
+    const lineHeight = fontSize * 1.5;
+    const margin = 50;
+    let page = pdf.addPage();
+    let y = page.getHeight() - margin;
+    const lines = text.split('\n');
+    for (const line of lines) {
+      if (y < margin + fontSize) {
+        page = pdf.addPage();
+        y = page.getHeight() - margin;
+      }
+      page.drawText(line, {x: margin, y: y, size: fontSize, font: font, color: PDFLib.rgb(0, 0, 0)});
+      y -= lineHeight;
+    }
+    return await pdf.save();
+  }
+
+  /* ---------- conversor PDF → PPTX ---------- */
+  async function pdfToPowerPoint(pdfFiles) {
+    const JSZip = (await import('https://cdn.skypack.dev/jszip@3.10.1')).default;
+    const pptx = new JSZip();
+    const slideUrls = [];
+
+    // ---- crear diapositivas ----
+    for (let idx = 0; idx < pdfFiles.length; idx++){
+      const pdfBytes = await pdfFiles[idx].arrayBuffer();
+      const pdf = await PDFLib.PDFDocument.load(pdfBytes);
+      const totalPages = pdf.getPageCount();
+
+      for (let p = 0; p < totalPages; p++){
+        const page = pdf.getPage(p);
+        const { width, height } = page.getSize();
+        const jpgBytes = await pdfToJpgPage(pdf, p);
+        const relName = `ppt/media/slide${slideUrls.length + 1}.jpg`;
+        pptx.file(relName, jpgBytes);
+        slideUrls.push({ width, height, rel: relName });
+      }
+    }
+
+    // ---- contenido mínimo PPTX ----
+    const slideXmls = slideUrls.map((u, i) =>
+      `<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+              xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+              xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+        <p:cSld><p:spTree>
+          <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
+          <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:grpSpPr>
+          <p:pic>
+            <p:nvPicPr><p:cNvPr id="2" name="Imagen" descr="Slide ${i + 1}"/>
+              <p:cNvPicPr><a:picLocks noGrp="1"/></p:cNvPicPr><p:nvPr/></p:nvPicPr>
+            <p:blipFill><a:blip r:embed="rId1"/><a:stretch><a:fillRect/></a:stretch></p:blipFill>
+            <p:spPr>
+              <a:xfrm><a:off x="0" y="0"/><a:ext cx="${Math.round(u.width * 9525)}" cy="${Math.round(u.height * 9525)}"/></a:xfrm>
+              <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
+            </p:spPr>
+          </p:pic>
+          <p:sp>
+            <p:nvSpPr><p:cNvPr id="3" name="Número"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr>
+            <p:spPr>
+              <a:xfrm><a:off x="${Math.round(u.width * 9525 - 200000)}" y="${Math.round(u.height * 9525 - 100000)}"/>
+                     <a:ext cx="200000" cy="100000"/></a:xfrm>
+              <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
+              <a:solidFill><a:srgbClr val="FF0000"/></a:solidFill>
+            </p:spPr>
+            <p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>${i + 1}</a:t></a:r></a:p></p:txBody>
+          </p:sp>
+        </p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>`
+    );
+
+    const rels = slideUrls.map((u, i) =>
+      `<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="${u.rel}"/>`
+    );
+
+    // ---- ensamblar ZIP ----
+    for (let i = 0; i < slideUrls.length; i++){
+      pptx.file(`ppt/slides/slide${i + 1}.xml`, slideXmls[i]);
+      pptx.file(`ppt/slides/_rels/slide${i + 1}.xml.rels`, `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${rels[i]}</Relationships>`);
+    }
+
+    pptx.file('[Content_Types].xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+      <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+        <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+        <Default Extension="xml" ContentType="application/xml"/>
+        <Default Extension="jpg" ContentType="image/jpeg"/>
+        <Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>
+        ${slideUrls.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>`).join('\n')}
+      </Types>`);
+
+    pptx.file('ppt/presentation.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+      <p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+                      xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+                      xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+        <p:sldIdLst>${slideUrls.map((_, i) => `<p:sldId id="${i + 256}" r:id="rId${i + 1}"/>`).join('\n')}</p:sldIdLst>
+        <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
+        <p:notesSz cx="9144000" cy="6858000"/>
+      </p:presentation>`);
+
+    pptx.file('_rels/.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+      <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+        <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="ppt/presentation.xml"/>
+      </Relationships>`);
+
+    pptx.file('ppt/_rels/presentation.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+      <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+        ${slideUrls.map((_, i) => `<Relationship Id="rId${i + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slides/slide${i + 1}.xml"/>`).join('\n')}
+      </Relationships>`);
+
+    return await pptx.generateAsync({type: 'blob'});
+  }
+
+  /* ---------- helper: PDF → JPG (página) ---------- */
+  async function pdfToJpgPage(pdfDoc, pageIndex) {
+    const page = pdfDoc.getPage(pageIndex);
+    const { width, height } = page.getSize();
+    const scale = 2; // más resolución
+    const canvas = document.createElement('canvas');
+    canvas.width = width * scale;
+    canvas.height = height * scale;
+    const ctx = canvas.getContext('2d');
+    await page.render({ canvasContext: ctx, viewport: page.getViewport({ scale }) }).promise;
+    return new Promise(res => canvas.toBlob(blob => res(blob), 'image/jpeg', 0.9));
+  }
   </script>
 </body>
 </html>
