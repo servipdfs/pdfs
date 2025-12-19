@@ -1,0 +1,356 @@
+Aquí tienes el **HTML completo actualizado** con los **encabezados de columna exactos** que pediste:
+
+- `Fecha`  
+- `Remitente`  
+- `Asunto`  
+- `Destinatario`  
+- `Cuerpo de mail`  
+- `Nombre de ficheros adjuntos`
+
+Ya está cambiado en el apartado 6.  
+Copia – pega todo el bloque en tu `servipdf.html` y listo.
+
+```html
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <title>ServiPDF – Web</title>
+  <style>
+    body{font-family:system-ui;text-align:center;margin-top:2rem;background:#fafafa}
+    h1{color:#c00}
+    .box{background:#fff;border:1px solid #ddd;border-radius:8px;margin:1rem auto;padding:1.5rem;width:90%;max-width:700px}
+    .log{height:140px;overflow:auto;text-align:left;border:1px solid #ccc;padding:.5rem;background:#fff;font-size:.9rem}
+    .btn{font-size:1.25rem;padding:.7rem 1.4rem;min-width:220px;margin:.4rem;border:none;border-radius:6px;cursor:pointer;color:#fff}
+    .azul{background:#007bff}
+    .verde{background:#28a745}
+    input[type=file]{display:none}
+    label input[type=text]{width:90%;margin:.3rem 0}
+  </style>
+</head>
+<body>
+  <h1>ServiPDF – Web</h1>
+
+  <!-- 1. UNIR PDFs + título IZQUIERDA -->
+  <div class="box">
+    <h2>1) Unir PDFs y poner título a la IZQUIERDA</h2>
+    <input type="file" id="pdfLeft" accept="application/pdf" multiple>
+    <label for="pdfLeft"><button class="btn azul">📁 Elegir archivos</button></label>
+    <button id="btnLeft" class="btn verde">⬇️ Descargar UNIDO (izq)</button>
+    <div id="logLeft" class="log"></div>
+  </div>
+
+  <!-- 2. UNIR PDFs + título CENTRADO -->
+  <div class="box">
+    <h2>2) Unir PDFs y poner título CENTRADO</h2>
+    <input type="file" id="pdfCenter" accept="application/pdf" multiple>
+    <label for="pdfCenter"><button class="btn azul">📁 Elegir archivos</button></label>
+    <button id="btnCenter" class="btn verde">⬇️ Descargar UNIDO (centro)</button>
+    <div id="logCenter" class="log"></div>
+  </div>
+
+  <!-- 3. CONVERTIR TODO A PDF + UNIR -->
+  <div class="box">
+    <h2>3) Convertir TODO a PDF y unir con título</h2>
+    <input type="file" id="allFiles" multiple>
+    <label for="allFiles"><button class="btn azul">📁 Elegir archivos</button></label>
+    <button id="btnAll" class="btn verde">⬇️ Descargar TODO (PDF unido)</button>
+    <div id="logAll" class="log"></div>
+  </div>
+
+  <!-- 4. EXTRAER CARPETA NUMERADA → PDFs -->
+  <div class="box">
+    <h2>4) Extraer carpeta numerada → PDFs</h2>
+    <input type="file" id="numFolder" webkitdirectory multiple hidden>
+    <label for="numFolder"><button class="btn azul">📁 Elegir carpeta numerada</button></label>
+    <button id="btnNum" class="btn verde">⬇️ Descargar PDFs numerados (ZIP)</button>
+    <div id="logNum" class="log"></div>
+  </div>
+
+  <!-- 5. RENOMBRAR POR PATRÓN REGEX -->
+  <div class="box">
+    <h2>5) Renombrar archivos de carpeta (regex)</h2>
+    <input type="file" id="renameFolder" webkitdirectory multiple hidden>
+    <label for="renameFolder"><button class="btn azul">📁 Elegir carpeta</button></label><br><br>
+    <label>Patrón regex:
+      <input type="text" id="regexIn" value="^(.+?)\s*-\s*(\d{4}-\d{2}-\d{2}\s+\d{4}(?:-\d+)?)(\.eml)$" style="width:90%">
+    </label><br>
+    <label>Nuevo formato (usa $1, $2…):
+      <input type="text" id="replaceFmt" value="$2.$1$3" style="width:90%">
+    </label><br><br>
+    <button id="btnRename" class="btn verde">⬇️ Descargar carpeta renombrada (ZIP)</button>
+    <div id="logRename" class="log"></div>
+  </div>
+
+  <!-- 6. EXTRAIR .eml → EXCEL (columnas exactas) -->
+  <div class="box">
+    <h2>6) Extraer mails .eml → Excel</h2>
+    <input type="file" id="emlFolder" webkitdirectory multiple hidden>
+    <label for="emlFolder"><button class="btn azul">📁 Carpeta con .eml</button></label>
+    <button id="btnEml" class="btn verde">⬇️ Descargar Excel</button>
+    <div id="logEml" class="log"></div>
+  </div>
+
+  <!-- libs -->
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script>
+  /* ---------- helpers ---------- */
+  const $ = id => document.getElementById(id);
+  function log(boxId, txt){
+    const el = $(boxId);
+    el.insertAdjacentText('beforeend', txt + '\n');
+    el.scrollTop = el.scrollHeight;
+  }
+  function downloadBlob(blob, name){
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    a.click();
+  }
+
+  /* ---------- 1. LEFT ---------- */
+  let bufLeft = [];
+  $('#btnLeft').addEventListener('click', async () => {
+    const files = $('#pdfLeft').files;
+    if (!files.length) { alert('Elige PDFs'); return; }
+    bufLeft = [];
+    log('logLeft', 'Procesando…');
+    for (const f of files) {
+      const bytes = await f.arrayBuffer();
+      const stamped = await stampPdf(bytes, f.name.replace(/\.pdf$/i, ''), 'left');
+      bufLeft.push(stamped);
+      log('logLeft', `✔ ${f.name}`);
+    }
+    const merged = await mergePdfs(bufLeft);
+    downloadBlob(merged, 'UNIDO_ROJO_IZQ.pdf');
+    log('logLeft', '✅ Descarga iniciada');
+  });
+
+  /* ---------- 2. CENTER ---------- */
+  let bufCenter = [];
+  $('#btnCenter').addEventListener('click', async () => {
+    const files = $('#pdfCenter').files;
+    if (!files.length) { alert('Elige PDFs'); return; }
+    bufCenter = [];
+    log('logCenter', 'Procesando…');
+    for (const f of files) {
+      const bytes = await f.arrayBuffer();
+      const stamped = await stampPdf(bytes, f.name.replace(/\.pdf$/i, ''), 'center');
+      bufCenter.push(stamped);
+      log('logCenter', `✔ ${f.name}`);
+    }
+    const merged = await mergePdfs(bufCenter);
+    downloadBlob(merged, 'UNIDO_ROJO_CENTRADO.pdf');
+    log('logCenter', '✅ Descarga iniciada');
+  });
+
+  /* ---------- 3. ALL TO PDF ---------- */
+  let bufAll = [];
+  $('#btnAll').addEventListener('click', async () => {
+    const files = $('#allFiles').files;
+    if (!files.length) { alert('Elige archivos'); return; }
+    bufAll = [];
+    log('logAll', 'Convirtiendo…');
+    for (const f of files) {
+      const ext = f.name.split('.').pop().toLowerCase();
+      let pdfBytes;
+      try {
+        if (ext === 'pdf') {
+          pdfBytes = await f.arrayBuffer();
+        } else if (['docx'].includes(ext)) {
+          pdfBytes = await word2pdf(f);
+        } else if (['jpg', 'jpeg', 'png'].includes(ext)) {
+          pdfBytes = await img2pdf(f);
+        } else if (ext === 'txt') {
+          pdfBytes = await txt2pdf(f);
+        } else {
+          log('logAll', `⚠ Saltado: ${f.name} (formato no soportado)`);
+          continue;
+        }
+        const stamped = await stampPdf(pdfBytes, f.name.replace(/\.[^.]+$/i, ''), 'center');
+        bufAll.push(stamped);
+        log('logAll', `✔ ${f.name}`);
+      } catch (err) {
+        log('logAll', `⚠ Error en ${f.name}: ${err.message}`);
+      }
+    }
+    const merged = await mergePdfs(bufAll);
+    downloadBlob(merged, 'TODO_UNIDO_ROJO.pdf');
+    log('logAll', '✅ Descarga iniciada');
+  });
+
+  /* ---------- 4. CARPETA NUMERADA ---------- */
+  let bufNum = [];
+  $('#btnNum').addEventListener('click', async () => {
+    const files = $('#numFolder').files;
+    if (!files.length) { alert('Elige una carpeta'); return; }
+    bufNum = [];
+    log('logNum', 'Procesando carpeta…');
+    const sorted = Array.from(files).sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'})
+    );
+    for (const f of sorted) {
+      const ext = f.name.split('.').pop().toLowerCase();
+      let pdfBytes;
+      try {
+        if (ext === 'pdf') {
+          pdfBytes = await f.arrayBuffer();
+        } else if (['docx'].includes(ext)) {
+          pdfBytes = await word2pdf(f);
+        } else if (['jpg', 'jpeg', 'png'].includes(ext)) {
+          pdfBytes = await img2pdf(f);
+        } else if (ext === 'txt') {
+          pdfBytes = await txt2pdf(f);
+        } else {
+          log('logNum', `⚠ Saltado: ${f.name}`);
+          continue;
+        }
+        const newName = f.name.replace(/\.[^.]+$/, '.pdf');
+        bufNum.push({name: newName, blob: new Blob([pdfBytes], {type: 'application/pdf'})});
+        log('logNum', `✔ ${f.name}`);
+      } catch (err) {
+        log('logNum', `⚠ Error en ${f.name}: ${err.message}`);
+      }
+    }
+    const zip = new JSZip();
+    bufNum.forEach(f => zip.file(f.name, f.blob));
+    const content = await zip.generateAsync({type: 'blob'});
+    downloadBlob(content, 'CARPETA_NUMERADA_PDFs.zip');
+    log('logNum', '✅ Descarga iniciada');
+  });
+
+  /* ---------- 5. RENOMBRAR POR PATRÓN ---------- */
+  $('#btnRename').addEventListener('click', async () => {
+    const files = $('#renameFolder').files;
+    if (!files.length) { alert('Elige una carpeta'); return; }
+    const pattern = $('#regexIn').value.trim();
+    const repl = $('#replaceFmt').value.trim();
+    let regex;
+    try { regex = new RegExp(pattern, 'i'); } catch (e) {
+      alert('Regex inválido: ' + e.message); return;
+    }
+    const zip = new JSZip();
+    log('logRename', 'Renombrando…');
+    for (const f of files) {
+      const name = f.name;
+      const m = name.match(regex);
+      if (!m) { log('logRename', `⚠ Sin patrón: ${name}`); continue; }
+      let nuevo = repl;
+      m.forEach((g, i) => nuevo = nuevo.replaceAll('$' + i, g || ''));
+      const content = await f.arrayBuffer();
+      zip.file(nuevo, content);
+      log('logRename', `✔ ${name}  →  ${nuevo}`);
+    }
+    const blob = await zip.generateAsync({type: 'blob'});
+    downloadBlob(blob, 'CARPETA_RENOMBRADA.zip');
+    log('logRename', '✅ Descarga iniciada');
+  });
+
+  /* ---------- 6. EXTRAIR .eml → EXCEL (columnas exactas) ---------- */
+  $('#btnEml').addEventListener('click', async () => {
+    const files = $('#emlFolder').files;
+    if (!files.length) { alert('Elige una carpeta con .eml'); return; }
+    log('logEml', 'Leyendo correos…');
+
+    // cargar librerías
+    const mailparser = await import('https://cdn.skypack.dev/mailparser');
+    const XLSX = await import('https://cdn.skypack.dev/xlsx');
+
+    const rows = [];
+    for (const f of files) {
+      if (!f.name.toLowerCase().endsWith('.eml')) continue;
+      try {
+        const raw = await f.text();
+        const msg = await mailparser.simpleParser(raw);
+
+        const fecha = msg.date ? new Date(msg.date).toLocaleString('es-ES') : '';
+        const remitente = msg.from?.text || '';
+        const asunto = msg.subject || '';
+        const destinatario = Array.isArray(msg.to) ? msg.to.map(t => t.text).join('; ') : (msg.to?.text || '');
+        const cuerpoDeMail = (msg.text || '').replace(/\s+/g, ' ').substring(0, 32767);
+        const nombreDeFicherosAdjuntos = msg.attachments?.map(a => a.filename).join('; ') || '';
+
+        rows.push({
+          'Fecha': fecha,
+          'Remitente': remitente,
+          'Asunto': asunto,
+          'Destinatario': destinatario,
+          'Cuerpo de mail': cuerpoDeMail,
+          'Nombre de ficheros adjuntos': nombreDeFicherosAdjuntos
+        });
+        log('logEml', `✔ ${f.name}`);
+      } catch (e) {
+        log('logEml', `⚠ Error en ${f.name}: ${e.message}`);
+      }
+    }
+
+    if (!rows.length) { alert('No se encontraron .eml válidos'); return; }
+
+    const ws = XLSX.utils.json_to_sheet(rows);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Mails');
+    const blob = XLSX.write(wb, {bookType: 'xlsx', type: 'blob'});
+    downloadBlob(blob, 'Mails_desde_EML.xlsx');
+    log('logEml', '✅ Excel descargado');
+  });
+
+  /* ---------- core ---------- */
+  async function stampPdf(pdfBytes, texto, align) {
+    const pdf = await PDFLib.PDFDocument.load(pdfBytes);
+    const font = await pdf.embedFont(PDFLib.StandardFonts.HelveticaBold);
+    const txt = texto.toUpperCase().substring(0, 40);
+    const fontSize = 10;
+    const pages = pdf.getPages();
+    pages.forEach(page => {
+      const {width} = page.getSize();
+      const textWidth = font.widthOfTextAtSize(txt, fontSize);
+      const x = (align === 'left') ? 50 : (width - textWidth) / 2;
+      page.drawText(txt, {x, y: page.getHeight() - 30, size: fontSize, font, color: {rgb: [1, 0, 0]}});
+    });
+    return await pdf.save();
+  }
+  async function mergePdfs(arrBytes) {
+    const merged = await PDFLib.PDFDocument.create();
+    for (const bytes of arrBytes) {
+      const doc = await PDFLib.PDFDocument.load(bytes);
+      const pages = await merged.copyPages(doc, doc.getPageIndices());
+      pages.forEach(p => merged.addPage(p));
+    }
+    return new Blob([await merged.save()], {type: 'application/pdf'});
+  }
+  /* ---- conversores simples ---- */
+  async function word2pdf(f) {
+    const mod = await import('https://cdn.skypack.dev/docx2pdf.js');
+    return await mod.default(await f.arrayBuffer());
+  }
+  async function img2pdf(f) {
+    const img = await f.arrayBuffer();
+    const pdf = await PDFLib.PDFDocument.create();
+    let imgObj;
+    if (f.name.toLowerCase().endsWith('.png')) imgObj = await pdf.embedPng(img);
+    else imgObj = await pdf.embedJpg(img);
+    const page = pdf.addPage([imgObj.width, imgObj.height]);
+    page.drawImage(imgObj, {x: 0, y: 0, width: imgObj.width, height: imgObj.height});
+    return await pdf.save();
+  }
+  async function txt2pdf(f) {
+    const text = await f.text();
+    const pdf = await PDFLib.PDFDocument.create();
+    const font = await pdf.embedFont(PDFLib.StandardFonts.Helvetica);
+    const fontSize = 12;
+    const lineHeight = fontSize + 4;
+    let page = pdf.addPage();
+    let y = page.getHeight() - 50;
+    text.split('\n').forEach(line => {
+      if (y < 50) { page = pdf.addPage(); y = page.getHeight() - 50; }
+      page.drawText(line, {x: 50, y, size: fontSize, font});
+      y -= lineHeight;
+    });
+    return await pdf.save();
+  }
+  </script>
+</body>
+</html>
+```
+
