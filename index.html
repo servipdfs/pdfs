@@ -338,7 +338,7 @@
     zone.addEventListener('drop', e => {
       e.preventDefault(); zone.classList.remove('dragover');
       const files = e.dataTransfer.files;
-      inp.files = files; // pegar files al input
+      inp.files = files;
       onFiles(files);
     });
   }
@@ -803,7 +803,7 @@
   async function pdfToJpgPage(pdfDoc, pageIndex) {
     const page = pdfDoc.getPage(pageIndex);
     const { width, height } = page.getSize();
-    const scale = 2; // más resolución
+    const scale = 2;
     const canvas = document.createElement('canvas');
     canvas.width = width * scale;
     canvas.height = height * scale;
