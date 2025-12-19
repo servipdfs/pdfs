@@ -4,18 +4,24 @@
   <meta charset="utf-8"/>
   <title>ServiPDF – Web</title>
   <style>
-    body{font-family:system-ui;text-align:center;margin-top:2rem;background:#fafafa}
-    h1{color:#c00}
-    .box{background:#fff;border:1px solid #ddd;border-radius:8px;margin:1rem auto;padding:1.5rem;width:90%;max-width:700px}
-    .log{height:140px;overflow:auto;text-align:left;border:1px solid #ccc;padding:.5rem;background:#fff;font-size:.9rem}
-    .btn{font-size:1.25rem;padding:.7rem 1.4rem;min-width:220px;margin:.4rem;border:none;border-radius:6px;cursor:pointer;color:#fff}
-    .azul{background:#007bff}
-    .verde{background:#28a745}
-    /* input invisible pero funcional */
-    input[type=file]{position:absolute;left:-9999px;opacity:0;width:0}
-    .dropZone{border:2px dashed #bbb;border-radius:6px;padding:1rem;margin:.5rem 0;transition:.2s}
-    .dropZone.dragover{background:#eef6ff;border-color:#007bff}
-  </style>
+  body{font-family:system-ui;text-align:center;margin-top:2rem;background:#fafafa}
+  h1{color:#c00}
+  .box{background:#fff;border:1px solid #ddd;border-radius:8px;margin:1rem auto;padding:1.5rem;width:90%;max-width:700px}
+  .log{height:140px;overflow:auto;text-align:left;border:1px solid #ccc;padding:.5rem;background:#fff;font-size:.9rem}
+  .btn{font-size:1.25rem;padding:.7rem 1.4rem;min-width:220px;margin:.4rem;border:none;border-radius:6px;cursor:pointer;color:#fff}
+  .azul{background:#007bff}
+  .verde{background:#28a745}
+  input[type=file]{position:absolute;left:-9999px;opacity:0;width:0}
+  /* LÍNEA DISCONTINUA AZUL Y MÁS GRUESA */
+  .dropZone{
+    border:3px dashed #007bff;   /* grosor 3 px + azul */
+    border-radius:6px;
+    padding:1rem;
+    margin:.5rem 0;
+    transition:.2s;
+  }
+  .dropZone.dragover{background:#eef6ff}
+</style>
 </head>
 <body>
   <h1>ServiPDF – Web</h1>
@@ -363,3 +369,4 @@
   </script>
 </body>
 </html>
+
