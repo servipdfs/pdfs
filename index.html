@@ -62,6 +62,28 @@
       height: 0;
       position: absolute;
     }
+    .coming-soon {
+      background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .coming-soon::after {
+      content: "PRÓXIMAMENTE";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      font-weight: bold;
+      color: rgba(255,255,255,0.2);
+      font-size: 2.5rem;
+      letter-spacing: 0.2rem;
+      white-space: nowrap;
+    }
+    .coming-soon .dropZone,
+    .coming-soon button {
+      cursor: not-allowed !important;
+      opacity: 0.7;
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen pt-6 pb-12">
@@ -79,75 +101,75 @@
     </header>
 
     <div class="grid md:grid-cols-2 gap-6 mb-12">
-      <!-- 1. UNIR PDFs + título IZQUIERDA -->
-      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+      <!-- 1. PDF a POWERPOINT -->
+      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden coming-soon">
         <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
           <h2 class="text-white text-xl font-bold flex items-center">
-            <i class="fas fa-align-left mr-3"></i>
-            Unir PDFs con título a la izquierda
+            <i class="fas fa-file-powerpoint mr-3"></i>
+            PDF a PowerPoint con hojas numeradas
           </h2>
         </div>
         <div class="p-5">
-          <div class="dropZone border-2 border-dashed border-blue-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneLeft">
-            <i class="fas fa-cloud-upload-alt text-blue-500 text-4xl mb-3 pulse-animation"></i>
-            <label for="pdfLeft" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
-              <i class="fas fa-file-import mr-2"></i>Seleccionar archivos PDF
-            </label>
-            <p class="text-gray-500 mt-2 text-sm">o arrastra tus archivos aquí</p>
-            <input type="file" id="pdfLeft" accept="application/pdf" multiple class="file-input">
+          <div class="dropZone border-2 border-dashed border-blue-400 rounded-xl p-6 text-center mb-5 cursor-not-allowed">
+            <i class="fas fa-ban text-gray-400 text-4xl mb-3"></i>
+            <p class="text-gray-500 mt-2 text-sm font-medium">Esta función estará disponible próximamente</p>
           </div>
           
           <div class="mb-4">
             <div class="flex justify-between text-sm mb-1">
               <span class="font-medium">Progreso</span>
-              <span id="pctLeft" class="text-gray-600 font-medium">0%</span>
+              <span class="text-gray-600 font-medium">0%</span>
             </div>
             <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
-              <div id="progLeft" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
+              <div class="progress-fill h-full bg-blue-500 rounded-full" style="width: 0%"></div>
             </div>
           </div>
           
-          <button id="btnLeft" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-            <i class="fas fa-download mr-2"></i>Descargar PDF Unido
+          <button disabled class="w-full bg-blue-400 cursor-not-allowed text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors flex items-center justify-center">
+            <i class="fas fa-download mr-2"></i>Función no disponible aún
           </button>
           
-          <div id="logLeft" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
+          <div class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono text-gray-500">
+            <div>⚠️ Esta función está en desarrollo</div>
+            <div>Proximamente podrás convertir tus PDFs a</div>
+            <div>presentaciones de PowerPoint con numeración automática</div>
+          </div>
         </div>
       </div>
 
-      <!-- 2. UNIR PDFs + título CENTRADO -->
+      <!-- 2. FOTOS A PDF ÚNICO -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         <div class="bg-gradient-to-r from-emerald-500 to-cyan-600 p-4">
           <h2 class="text-white text-xl font-bold flex items-center">
-            <i class="fas fa-align-center mr-3"></i>
-            Unir PDFs con título centrado
+            <i class="fas fa-images mr-3"></i>
+            Fotos a PDF en un solo fichero
           </h2>
         </div>
         <div class="p-5">
-          <div class="dropZone border-2 border-dashed border-emerald-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneCenter">
+          <div class="dropZone border-2 border-dashed border-emerald-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneImages">
             <i class="fas fa-cloud-upload-alt text-emerald-500 text-4xl mb-3 pulse-animation"></i>
-            <label for="pdfCenter" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
-              <i class="fas fa-file-import mr-2"></i>Seleccionar archivos PDF
+            <label for="imagesFiles" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
+              <i class="fas fa-images mr-2"></i>Seleccionar imágenes
             </label>
-            <p class="text-gray-500 mt-2 text-sm">o arrastra tus archivos aquí</p>
-            <input type="file" id="pdfCenter" accept="application/pdf" multiple class="file-input">
+            <p class="text-gray-500 mt-2 text-sm">JPG, PNG, GIF - Se crearán en un solo PDF</p>
+            <input type="file" id="imagesFiles" accept="image/*" multiple class="file-input">
           </div>
           
           <div class="mb-4">
             <div class="flex justify-between text-sm mb-1">
               <span class="font-medium">Progreso</span>
-              <span id="pctCenter" class="text-gray-600 font-medium">0%</span>
+              <span id="pctImages" class="text-gray-600 font-medium">0%</span>
             </div>
             <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
-              <div id="progCenter" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
+              <div id="progImages" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
             </div>
           </div>
           
-          <button id="btnCenter" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-            <i class="fas fa-download mr-2"></i>Descargar PDF Unido
+          <button id="btnImages" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+            <i class="fas fa-download mr-2"></i>Descargar PDF único
           </button>
           
-          <div id="logCenter" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
+          <div id="logImages" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
         </div>
       </div>
 
@@ -228,7 +250,7 @@
         <div class="bg-gradient-to-r from-rose-500 to-fuchsia-600 p-4">
           <h2 class="text-white text-xl font-bold flex items-center">
             <i class="fas fa-magic mr-3"></i>
-            Renombrar con expresiones regulares
+            Renombrar archivos con regex
           </h2>
         </div>
         <div class="p-5">
@@ -379,48 +401,43 @@
     });
   }
 
-  /* ---------- 1. LEFT ---------- */
-  let bufLeft = [];
-  setupZone('zoneLeft', 'pdfLeft', async files => {
-    bufLeft = []; log('logLeft', ''); setProg('progLeft', 'pctLeft', 0);
+  /* ---------- 2. IMÁGENES A PDF ÚNICO ---------- */
+  let imageFiles = [];
+  setupZone('zoneImages', 'imagesFiles', async files => {
+    imageFiles = []; log('logImages', ''); setProg('progImages', 'pctImages', 0);
     const total = files.length;
     for (let i = 0; i < total; i++){
       const f = files[i];
-      const bytes = await f.arrayBuffer();
-      const stamped = await stampPdf(bytes, f.name.replace(/\.pdf$/i, ''), 'left');
-      bufLeft.push(stamped);
-      setProg('progLeft', 'pctLeft', Math.round((i + 1) / total * 100));
-      log('logLeft', `✔ ${f.name}`);
+      const ext = f.name.split('.').pop().toLowerCase();
+      if (!['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
+        log('logImages', `<span class="text-yellow-600">⚠ Saltado: ${f.name} (formato no soportado)</span>`);
+        continue;
+      }
+      imageFiles.push(f);
+      log('logImages', `✔ ${f.name}`);
+      setProg('progImages', 'pctImages', Math.round((i + 1) / total * 100));
     }
-    log('logLeft', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR.</span>');
-  });
-  $('#btnLeft').addEventListener('click', async () => {
-    if (!bufLeft.length) { alert('Primero elige o arrastra PDFs'); return; }
-    const merged = await mergePdfs(bufLeft);
-    downloadBlob(merged, 'UNIDO_ROJO_IZQ.pdf');
-    log('logLeft', '<span class="text-green-700 font-bold">✅ Descarga iniciada</span>');
+    if (imageFiles.length > 0) {
+      log('logImages', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR para crear el PDF.</span>');
+    } else {
+      log('logImages', '<span class="text-red-600 font-medium">⚠ No se seleccionaron imágenes válidas</span>');
+    }
   });
 
-  /* ---------- 2. CENTER ---------- */
-  let bufCenter = [];
-  setupZone('zoneCenter', 'pdfCenter', async files => {
-    bufCenter = []; log('logCenter', ''); setProg('progCenter', 'pctCenter', 0);
-    const total = files.length;
-    for (let i = 0; i < total; i++){
-      const f = files[i];
-      const bytes = await f.arrayBuffer();
-      const stamped = await stampPdf(bytes, f.name.replace(/\.pdf$/i, ''), 'center');
-      bufCenter.push(stamped);
-      setProg('progCenter', 'pctCenter', Math.round((i + 1) / total * 100));
-      log('logCenter', `✔ ${f.name}`);
+  $('#btnImages').addEventListener('click', async () => {
+    if (imageFiles.length === 0) { 
+      alert('Primero selecciona imágenes válidas'); 
+      return; 
     }
-    log('logCenter', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR.</span>');
-  });
-  $('#btnCenter').addEventListener('click', async () => {
-    if (!bufCenter.length) { alert('Primero elige o arrastra PDFs'); return; }
-    const merged = await mergePdfs(bufCenter);
-    downloadBlob(merged, 'UNIDO_ROJO_CENTRADO.pdf');
-    log('logCenter', '<span class="text-green-700 font-bold">✅ Descarga iniciada</span>');
+    
+    try {
+      log('logImages', '<span class="text-blue-600">Creando PDF con ' + imageFiles.length + ' imágenes...</span>');
+      const pdfBytes = await imagesToSinglePdf(imageFiles);
+      downloadBlob(new Blob([pdfBytes], {type: 'application/pdf'}), 'IMAGENES_UNIDAS.pdf');
+      log('logImages', '<span class="text-green-700 font-bold">✅ PDF creado y descargado</span>');
+    } catch (err) {
+      log('logImages', `<span class="text-red-600">❌ Error: ${err.message}</span>`);
+    }
   });
 
   /* ---------- 3. ALL TO PDF ---------- */
@@ -437,7 +454,7 @@
           pdfBytes = await f.arrayBuffer();
         } else if (['docx'].includes(ext)) {
           pdfBytes = await word2pdf(f);
-        } else if (['jpg', 'jpeg', 'png'].includes(ext)) {
+        } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
           pdfBytes = await img2pdf(f);
         } else if (ext === 'txt') {
           pdfBytes = await txt2pdf(f);
@@ -453,7 +470,9 @@
       setProg('progAll', 'pctAll', Math.round((i + 1) / total * 100));
       log('logAll', `✔ ${f.name}`);
     }
-    log('logAll', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR.</span>');
+    if (bufAll.length > 0) {
+      log('logAll', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR.</span>');
+    }
   });
   $('#btnAll').addEventListener('click', async () => {
     if (!bufAll.length) { alert('Primero elige o arrastra archivos'); return; }
@@ -479,7 +498,7 @@
           pdfBytes = await f.arrayBuffer();
         } else if (['docx'].includes(ext)) {
           pdfBytes = await word2pdf(f);
-        } else if (['jpg', 'jpeg', 'png'].includes(ext)) {
+        } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
           pdfBytes = await img2pdf(f);
         } else if (ext === 'txt') {
           pdfBytes = await txt2pdf(f);
@@ -640,7 +659,44 @@
       const copiedPages = await merged.copyPages(doc, doc.getPageIndices());
       copiedPages.forEach((page) => merged.addPage(page));
     }
-    return new Blob([await merged.save()], {type: 'application/pdf'});
+    return await merged.save();
+  }
+  
+  async function imagesToSinglePdf(files) {
+    const pdfDoc = await PDFLib.PDFDocument.create();
+    
+    for (const file of files) {
+      try {
+        const imgBytes = await file.arrayBuffer();
+        let image;
+        const ext = file.name.split('.').pop().toLowerCase();
+        
+        if (ext === 'png') {
+          image = await pdfDoc.embedPng(imgBytes);
+        } else if (['jpg', 'jpeg'].includes(ext)) {
+          image = await pdfDoc.embedJpg(imgBytes);
+        } else if (ext === 'gif') {
+          // GIF no es soportado directamente por pdf-lib, lo saltamos
+          log('logImages', `<span class="text-yellow-600">⚠ GIF no soportado: ${file.name} (usa JPG/PNG)</span>`);
+          continue;
+        } else {
+          throw new Error(`Formato de imagen no soportado: ${ext}`);
+        }
+        
+        // Crear página con dimensiones de la imagen
+        const page = pdfDoc.addPage([image.width, image.height]);
+        page.drawImage(image, {
+          x: 0,
+          y: 0,
+          width: image.width,
+          height: image.height,
+        });
+      } catch (error) {
+        log('logImages', `<span class="text-red-600">⚠ Error procesando ${file.name}: ${error.message}</span>`);
+      }
+    }
+    
+    return await pdfDoc.save();
   }
   
   /* ---- conversores simples ---- */
@@ -657,11 +713,13 @@
     try {
       if (ext === 'png') {
         imgObj = await pdf.embedPng(img);
-      } else {
+      } else if (['jpg', 'jpeg'].includes(ext)) {
         imgObj = await pdf.embedJpg(img);
+      } else {
+        throw new Error(`Formato de imagen no soportado: ${ext}`);
       }
     } catch (e) {
-      throw new Error(`Formato de imagen no soportado: ${ext}`);
+      throw new Error(`Error procesando imagen: ${e.message}`);
     }
     
     const page = pdf.addPage([imgObj.width, imgObj.height]);
