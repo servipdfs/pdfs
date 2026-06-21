@@ -1,34 +1,266 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <title>Prueba descarga</title>
-</head>
-<body>
-  <button id="btnTest">1. Descargar archivo de prueba</button>
-  <button id="btnPpt">2. Descargar PowerPoint (con PDF)</button>
-  <br><br>
-  <input type="file" id="pdfInput" accept=".pdf" multiple />
-  
-  <div id="log" style="border:1px solid #ccc; padding:10px; height:200px; overflow:auto; margin-top:20px; font-family: monospace; background: #f9f9f9;"></div>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ServiPDF Pro - Soluciones PDF Avanzadas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f8fafc; }
+    .dropZone.dragover { background-color: #eef6ff; }
+    .feature-card { transition: all 0.3s ease; cursor: pointer; }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); }
+    .progress-bar { overflow: hidden; border-radius: 9999px; }
+    .progress-fill { transition: width 0.3s ease; }
+    .log-container {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5e1 #f1f5f9;
+      font-size: 0.75rem;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.75rem;
+      padding: 0.75rem;
+      height: 150px;
+      overflow-y: auto;
+    }
+    .log-container::-webkit-scrollbar { width: 6px; }
+    .log-container::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 9999px; }
+    .log-container::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    .log-container::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    .pulse-animation { display: inline-block; animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite; }
+    .file-input { opacity: 0; width: 0; height: 0; position: absolute; }
 
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center; justify-content: center;
+      z-index: 1000;
+      padding: 1rem;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-content {
+      background: white;
+      border-radius: 1.5rem;
+      max-width: 700px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      animation: modalFade 0.25s ease;
+    }
+    @keyframes modalFade {
+      from { opacity: 0; transform: scale(0.95) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 1.8rem;
+      color: #6b7280;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .modal-close:hover { color: #1f2937; }
+    .modal-header {
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .modal-header i { font-size: 2rem; color: #2563eb; }
+    .modal-header h2 { font-size: 1.5rem; font-weight: 700; color: #1f2937; }
+    .btn-test {
+      background: #f59e0b;
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+    }
+    .btn-test:hover { background: #d97706; }
+    .btn-download-alt {
+      background: #8b5cf6;
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+    }
+    .btn-download-alt:hover { background: #7c3aed; }
+    .btn-danger {
+      background: #ef4444;
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+    }
+    .btn-danger:hover { background: #dc2626; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen pt-6 pb-12">
+  <div class="max-w-6xl mx-auto px-4">
+    <header class="text-center mb-12">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-100 mb-4">
+        <i class="fas fa-file-pdf text-3xl text-blue-600"></i>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+        ServiPDF Pro
+      </h1>
+      <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+        Soluciones avanzadas para documentos PDF en tu navegador - Sin subidas a servidores, 100% privado
+      </p>
+      <p class="text-sm text-gray-500 mt-2">Haz clic en cualquier tarjeta para abrir la herramienta</p>
+    </header>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <!-- Tarjeta 1: PDF → PowerPoint -->
+      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalPpt">
+        <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
+          <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-file-powerpoint mr-2"></i> PDF a PowerPoint</h2>
+        </div>
+        <div class="p-4 text-center">
+          <i class="fas fa-chevron-right text-blue-500 text-2xl mb-2"></i>
+          <p class="text-gray-600 text-sm">Convierte PDFs a PPTX con numeración</p>
+          <span class="inline-block mt-2 text-blue-600 font-medium text-sm">Abrir herramienta →</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-center mt-8 pt-8 border-t border-gray-200 text-gray-500">
+      <p class="mb-2">ServiPDF Pro &copy; 2025 - Procesamiento 100% en tu navegador</p>
+      <p class="text-sm">Ningún archivo se envía a servidores externos. Tu privacidad es nuestra prioridad.</p>
+    </footer>
+  </div>
+
+  <!-- ====== MODAL ====== -->
+  <div class="modal-overlay" id="modalPpt">
+    <div class="modal-content">
+      <button class="modal-close" data-close="modalPpt">&times;</button>
+      <div class="modal-header">
+        <i class="fas fa-file-powerpoint text-blue-600"></i>
+        <h2>PDF a PowerPoint con hojas numeradas</h2>
+      </div>
+      
+      <!-- Botones de prueba -->
+      <div class="mb-4 flex flex-wrap gap-2">
+        <button id="btnTestText" class="btn-test"><i class="fas fa-file-alt"></i> Texto</button>
+        <button id="btnTestPptx" class="btn-download-alt"><i class="fas fa-file-powerpoint"></i> PPTX vacío</button>
+        <button id="btnTestWindow" class="btn-danger"><i class="fas fa-window-maximize"></i> window.open</button>
+        <span class="text-xs text-gray-500 self-center">(prueba diferentes métodos)</span>
+      </div>
+
+      <div class="dropZone border-2 border-dashed border-blue-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zonePpt">
+        <i class="fas fa-cloud-upload-alt text-blue-500 text-4xl mb-3 pulse-animation"></i>
+        <label for="pdfPpt" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
+          <i class="fas fa-file-pdf mr-2"></i>Seleccionar PDFs
+        </label>
+        <p class="text-gray-500 mt-2 text-sm">Una diapositiva por página + numeración automática</p>
+        <input type="file" id="pdfPpt" accept="application/pdf" multiple class="file-input">
+      </div>
+
+      <div class="mb-4">
+        <div class="flex justify-between text-sm mb-1">
+          <span class="font-medium">Progreso</span>
+          <span id="pctPpt" class="text-gray-600 font-medium">0 %</span>
+        </div>
+        <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
+          <div id="progPpt" class="progress-fill h-full bg-blue-500 rounded-full" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <button id="btnPpt" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+        <i class="fas fa-download mr-2"></i>Descargar PowerPoint
+      </button>
+
+      <div id="logPpt" class="log-container"></div>
+    </div>
+  </div>
+
+  <!-- ====== LIBRERÍAS ====== -->
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- FileSaver para descargas robustas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
   <script>
-    // 🔴 SOLUCIÓN 1: Configurar el Worker de PDF.js (OBLIGATORIO)
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    // ============================================================
+    // 1. CONFIGURACIÓN
+    // ============================================================
+    if (typeof pdfjsLib !== 'undefined') {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
 
-    const log = msg => {
-      const el = document.getElementById('log');
-      el.innerHTML += `<div>${msg}</div>`;
-      el.scrollTop = el.scrollHeight;
-    };
+    const $ = id => document.getElementById(id);
+    function log(boxId, txt) {
+      const el = $(boxId);
+      if (el) {
+        el.insertAdjacentHTML('beforeend', `<div>${txt}</div>`);
+        el.scrollTop = el.scrollHeight;
+      }
+      console.log(txt.replace(/<[^>]+>/g, ''));
+    }
+    function setProg(barId, pctId, pct) {
+      const bar = $(barId);
+      const pctEl = $(pctId);
+      if (bar) bar.style.width = Math.min(pct, 100) + '%';
+      if (pctEl) pctEl.textContent = Math.round(pct) + ' %';
+    }
 
-    function downloadBlob(blob, name) {
-      if (!blob) { log('❌ Blob nulo'); return false; }
-      if (blob.size === 0) { log('❌ Blob vacío'); return false; }
+    // ============================================================
+    // 2. FUNCIONES DE DESCARGA (con FileSaver + fallbacks)
+    // ============================================================
+    function downloadWithFileSaver(blob, name) {
+      if (!blob || blob.size === 0) {
+        console.error('❌ Blob inválido o vacío');
+        return false;
+      }
+      try {
+        if (typeof saveAs === 'function') {
+          saveAs(blob, name);
+          console.log(`✅ FileSaver: descarga iniciada (${blob.size} bytes)`);
+          return true;
+        } else {
+          console.warn('FileSaver no disponible, usando método alternativo');
+          return downloadWithAnchor(blob, name);
+        }
+      } catch (e) {
+        console.error('❌ Error en FileSaver:', e);
+        return downloadWithAnchor(blob, name);
+      }
+    }
+
+    function downloadWithAnchor(blob, name) {
+      if (!blob || blob.size === 0) return false;
       try {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -36,95 +268,390 @@
         a.download = name;
         document.body.appendChild(a);
         a.click();
-        setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
-        log('✅ Descarga iniciada con éxito: ' + name);
+        setTimeout(() => {
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }, 200);
+        console.log(`✅ Anchor: descarga iniciada (${blob.size} bytes)`);
         return true;
       } catch (e) {
-        log('❌ Error al forzar la descarga: ' + e.message);
+        console.error('❌ Error en anchor:', e);
         return false;
       }
     }
 
-    // Prueba de descarga básica
-    document.getElementById('btnTest').addEventListener('click', function() {
-      const blob = new Blob(['Hola mundo. Esto es una prueba de que el navegador permite descargas.'], { type: 'text/plain' });
-      downloadBlob(blob, 'prueba_basica.txt');
-    });
-
-    // PDF a PowerPoint
-    let pdfFiles = [];
-    document.getElementById('pdfInput').addEventListener('change', function(e) {
-      pdfFiles = Array.from(e.target.files).filter(f => f.name.toLowerCase().endsWith('.pdf'));
-      log('📂 PDFs cargados en memoria: ' + pdfFiles.length);
-    });
-
-    document.getElementById('btnPpt').addEventListener('click', async function() {
-      if (pdfFiles.length === 0) { alert('Selecciona al menos un archivo PDF primero.'); return; }
-      log('⚙️ Iniciando generación...');
-      
+    function downloadWithWindowOpen(blob, name) {
+      if (!blob || blob.size === 0) return false;
       try {
-        if (typeof pdfjsLib === 'undefined') throw new Error('pdf.js no está cargado correctamente');
-        if (typeof JSZip === 'undefined') throw new Error('JSZip no está cargado correctamente');
-        
-        const pptxBlob = await pdfToPowerPoint(pdfFiles);
-        log('📦 Blob final generado. Tamaño: ' + pptxBlob.size + ' bytes');
-        
-        // Disparamos la descarga
-        downloadBlob(pptxBlob, 'prueba.pptx');
-        
+        const url = URL.createObjectURL(blob);
+        const win = window.open(url, '_blank');
+        if (!win) {
+          console.warn('window.open bloqueado, usando anchor');
+          return downloadWithAnchor(blob, name);
+        }
+        setTimeout(() => {
+          win.document.title = name;
+          // Forzar descarga en algunos navegadores
+          const a = win.document.createElement('a');
+          a.href = url;
+          a.download = name;
+          win.document.body.appendChild(a);
+          a.click();
+        }, 100);
+        console.log(`✅ window.open: descarga iniciada (${blob.size} bytes)`);
+        return true;
+      } catch (e) {
+        console.error('❌ Error en window.open:', e);
+        return downloadWithAnchor(blob, name);
+      }
+    }
+
+    // Función principal de descarga: intenta FileSaver, luego anchor, luego window.open
+    function downloadBlob(blob, name) {
+      if (!blob) {
+        console.error('❌ Blob es nulo');
+        return false;
+      }
+      if (blob.size === 0) {
+        console.error('❌ Blob vacío (tamaño 0)');
+        return false;
+      }
+      log('logPpt', `<span class="text-blue-600">📥 Intentando descargar: ${name} (${blob.size} bytes)...</span>`);
+      
+      // Intentar con FileSaver primero
+      if (typeof saveAs === 'function') {
+        try {
+          saveAs(blob, name);
+          log('logPpt', '<span class="text-green-600">✅ Descarga con FileSaver iniciada.</span>');
+          return true;
+        } catch (e) {
+          log('logPpt', `<span class="text-yellow-600">⚠ FileSaver falló: ${e.message}, usando alternativa.</span>`);
+        }
+      }
+      
+      // Segundo intento: anchor
+      if (downloadWithAnchor(blob, name)) {
+        log('logPpt', '<span class="text-green-600">✅ Descarga con anchor iniciada.</span>');
+        return true;
+      }
+      
+      // Último intento: window.open
+      if (downloadWithWindowOpen(blob, name)) {
+        log('logPpt', '<span class="text-green-600">✅ Descarga con window.open iniciada.</span>');
+        return true;
+      }
+      
+      log('logPpt', '<span class="text-red-600">❌ Todos los métodos de descarga fallaron.</span>');
+      return false;
+    }
+
+    // ============================================================
+    // 3. GESTIÓN DE MODALES
+    // ============================================================
+    document.querySelectorAll('.feature-card[data-modal]').forEach(card => {
+      card.addEventListener('click', function() {
+        const modalId = this.dataset.modal;
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+
+    document.querySelectorAll('.modal-close').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const modalId = this.dataset.close;
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
+    // ============================================================
+    // 4. BOTONES DE PRUEBA
+    // ============================================================
+    // Prueba 1: Texto con FileSaver
+    $('#btnTestText').addEventListener('click', function() {
+      const blob = new Blob(['Prueba de descarga con FileSaver\nFecha: ' + new Date().toLocaleString()], { type: 'text/plain' });
+      const ok = downloadBlob(blob, 'prueba_fs.txt');
+      if (!ok) log('logPpt', '<span class="text-red-600">❌ Falló la prueba de texto.</span>');
+    });
+
+    // Prueba 2: PPTX vacío
+    $('#btnTestPptx').addEventListener('click', async function() {
+      try {
+        const JSZip = window.JSZip;
+        if (!JSZip) throw new Error('JSZip no disponible');
+        const zip = new JSZip();
+        // Mínimo PPTX válido
+        zip.file('[Content_Types].xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+            <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+            <Default Extension="xml" ContentType="application/xml"/>
+            <Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>
+            <Override PartName="/ppt/slides/slide1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>
+          </Types>`);
+        zip.file('ppt/presentation.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+                          xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+                          xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+            <p:sldIdLst><p:sldId id="256" r:id="rId1"/></p:sldIdLst>
+            <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
+            <p:notesSz cx="9144000" cy="6858000"/>
+          </p:presentation>`);
+        zip.file('ppt/slides/slide1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+                 xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+                 xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+            <p:cSld><p:spTree>
+              <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
+              <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:grpSpPr>
+              <p:sp>
+                <p:nvSpPr><p:cNvPr id="2" name="Título"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr>
+                <p:spPr><a:xfrm><a:off x="100000" y="100000"/><a:ext cx="5000000" cy="500000"/></a:xfrm></p:spPr>
+                <p:txBody><a:bodyPr/><a:p><a:r><a:t>PowerPoint de prueba</a:t></a:r></a:p></p:txBody>
+              </p:sp>
+            </p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>`);
+        zip.file('_rels/.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+            <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="ppt/presentation.xml"/>
+          </Relationships>`);
+        zip.file('ppt/_rels/presentation.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+            <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slides/slide1.xml"/>
+          </Relationships>`);
+        const blob = await zip.generateAsync({ type: 'blob' });
+        const ok = downloadBlob(blob, 'prueba_pptx_vacio.pptx');
+        if (!ok) log('logPpt', '<span class="text-red-600">❌ Falló la prueba PPTX vacío.</span>');
       } catch (err) {
-        log('❌ Error crítico: ' + err.message);
-        console.error(err);
+        log('logPpt', `<span class="text-red-600">❌ Error en PPTX vacío: ${err.message}</span>`);
       }
     });
 
-    // Función pdfToPowerPoint simplificada (solo para probar)
+    // Prueba 3: window.open directo
+    $('#btnTestWindow').addEventListener('click', function() {
+      const blob = new Blob(['Prueba con window.open\nFecha: ' + new Date().toLocaleString()], { type: 'text/plain' });
+      const ok = downloadWithWindowOpen(blob, 'prueba_window.txt');
+      if (ok) {
+        log('logPpt', '<span class="text-green-600">✅ Prueba window.open exitosa.</span>');
+      } else {
+        log('logPpt', '<span class="text-red-600">❌ Falló la prueba window.open.</span>');
+      }
+    });
+
+    // ============================================================
+    // 5. ZONA DE ARRASTRE
+    // ============================================================
+    let pptFiles = [];
+    function setupZone(zoneId, inputId, onFiles) {
+      const zone = $(zoneId);
+      const inp = $(inputId);
+      if (!zone || !inp) return;
+
+      inp.addEventListener('change', () => onFiles(inp.files));
+
+      zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+      zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+      zone.addEventListener('drop', e => {
+        e.preventDefault();
+        zone.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        inp.files = files;
+        onFiles(files);
+      });
+    }
+
+    setupZone('zonePpt', 'pdfPpt', async files => {
+      pptFiles = [];
+      log('logPpt', '');
+      setProg('progPpt', 'pctPpt', 0);
+      const total = files.length;
+      let valid = 0;
+      for (let i = 0; i < total; i++) {
+        const f = files[i];
+        if (!f.name.toLowerCase().endsWith('.pdf')) {
+          log('logPpt', `<span class="text-yellow-600">⚠ Saltado: ${f.name} (no es PDF)</span>`);
+          continue;
+        }
+        pptFiles.push(f);
+        valid++;
+        log('logPpt', `✔ ${f.name}`);
+        setProg('progPpt', 'pctPpt', (valid / total) * 100);
+      }
+      if (pptFiles.length) {
+        log('logPpt', `<span class="text-green-600 font-medium">✅ ${pptFiles.length} PDF(s) cargados. Pulsa DESCARGAR.</span>`);
+      } else {
+        log('logPpt', '<span class="text-red-600">⚠ No se seleccionó ningún PDF válido.</span>');
+      }
+    });
+
+    // ============================================================
+    // 6. BOTÓN PRINCIPAL DE DESCARGA
+    // ============================================================
+    $('#btnPpt').addEventListener('click', async function() {
+      if (pptFiles.length === 0) {
+        alert('Selecciona al menos un PDF');
+        return;
+      }
+      log('logPpt', '<span class="text-blue-600">⏳ Iniciando generación del PowerPoint...</span>');
+      try {
+        if (typeof pdfjsLib === 'undefined') throw new Error('pdf.js no está cargado.');
+        if (typeof JSZip === 'undefined') throw new Error('JSZip no está cargado.');
+
+        log('logPpt', '<span class="text-blue-600">📄 Procesando ' + pptFiles.length + ' archivo(s)...</span>');
+        const pptxBlob = await pdfToPowerPoint(pptFiles);
+        
+        if (!pptxBlob) throw new Error('El blob generado es nulo.');
+        if (pptxBlob.size === 0) throw new Error('El archivo PowerPoint generado está vacío (0 bytes).');
+        
+        log('logPpt', `<span class="text-blue-600">📦 Tamaño del PPTX: ${(pptxBlob.size / 1024).toFixed(1)} KB (${pptxBlob.size} bytes)</span>`);
+        const ok = downloadBlob(pptxBlob, 'PDF_a_PowerPoint.pptx');
+        if (!ok) {
+          throw new Error('La descarga falló con todos los métodos.');
+        }
+      } catch (err) {
+        log('logPpt', `<span class="text-red-600">❌ Error: ${err.message}</span>`);
+        console.error('❌ Error en pdfToPowerPoint:', err);
+      }
+    });
+
+    // ============================================================
+    // 7. FUNCIÓN pdfToPowerPoint (optimizada)
+    // ============================================================
     async function pdfToPowerPoint(pdfFiles) {
       const JSZip = window.JSZip;
+      if (!JSZip) throw new Error('JSZip no disponible');
+      
       const pptx = new JSZip();
       const slideUrls = [];
-      
+
       for (let idx = 0; idx < pdfFiles.length; idx++) {
         const file = pdfFiles[idx];
-        log('📄 Procesando: ' + file.name);
-        
+        log('logPpt', `<span class="text-blue-600">📄 Procesando ${file.name}...</span>`);
         const pdfBytes = await file.arrayBuffer();
-        
-        // 🔴 SOLUCIÓN 2: Pasar los datos envueltos en un Uint8Array
-        const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(pdfBytes) });
+        const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
         const pdf = await loadingTask.promise;
         const totalPages = pdf.numPages;
-        
-        log('📑 Páginas detectadas: ' + totalPages);
-        
+        log('logPpt', `   ↳ ${totalPages} página(s)`);
+
         for (let p = 1; p <= totalPages; p++) {
-          log('🖼️ Renderizando página ' + p + ' a imagen...');
+          log('logPpt', `   ↳ Renderizando página ${p}...`);
           const page = await pdf.getPage(p);
-          const scale = 1.5; 
-          const viewport = page.getViewport({ scale });
+          const scale = 1.5;
+          const viewport = page.getViewport({ scale: scale });
+
           const canvas = document.createElement('canvas');
           const ctx = canvas.getContext('2d');
           canvas.width = viewport.width;
           canvas.height = viewport.height;
-          
-          await page.render({ canvasContext: ctx, viewport }).promise;
-          
-          const jpgBlob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.8));
-          if (!jpgBlob) throw new Error('Falló la conversión del canvas a JPG');
-          
+
+          await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+          const jpgBlob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.85));
+          if (!jpgBlob) throw new Error(`No se pudo convertir la página ${p} a JPG`);
           const jpgBytes = await jpgBlob.arrayBuffer();
+
           const relName = `ppt/media/slide${slideUrls.length + 1}.jpg`;
           pptx.file(relName, jpgBytes);
-          slideUrls.push({ width: viewport.width / scale, height: viewport.height / scale });
-          log('✅ Página ' + p + ' procesada correctamente.');
+          slideUrls.push({
+            width: viewport.width / scale,
+            height: viewport.height / scale,
+            rel: relName
+          });
+          log('logPpt', `   ✅ Página ${p} → JPG (${(jpgBytes.byteLength / 1024).toFixed(1)} KB)`);
         }
       }
-      
-      if (slideUrls.length === 0) throw new Error('No se pudo extraer ninguna diapositiva válida.');
-      
-      // Devolvemos el Blob falso para confirmar que la cadena funciona
-      return new Blob(['Este es un archivo de prueba. Se procesaron ' + slideUrls.length + ' imágenes internamente.'], { type: 'text/plain' });
+
+      if (slideUrls.length === 0) {
+        throw new Error('No se generó ninguna diapositiva.');
+      }
+
+      log('logPpt', `<span class="text-blue-600">📦 Construyendo estructura PPTX (${slideUrls.length} diapositivas)...</span>`);
+
+      // Generar XMLs
+      const slideXmls = slideUrls.map((u, i) =>
+        `<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+                xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+                xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+          <p:cSld><p:spTree>
+            <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
+            <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:grpSpPr>
+            <p:pic>
+              <p:nvPicPr><p:cNvPr id="2" name="Imagen" descr="Slide ${i+1}"/>
+                <p:cNvPicPr><a:picLocks noGrp="1"/></p:cNvPicPr><p:nvPr/></p:nvPicPr>
+              <p:blipFill><a:blip r:embed="rId1"/><a:stretch><a:fillRect/></a:stretch></p:blipFill>
+              <p:spPr>
+                <a:xfrm><a:off x="0" y="0"/><a:ext cx="${Math.round(u.width*9525)}" cy="${Math.round(u.height*9525)}"/></a:xfrm>
+                <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
+              </p:spPr>
+            </p:pic>
+            <p:sp>
+              <p:nvSpPr><p:cNvPr id="3" name="Número"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr>
+              <p:spPr>
+                <a:xfrm><a:off x="${Math.round(u.width*9525-200000)}" y="${Math.round(u.height*9525-100000)}"/>
+                       <a:ext cx="200000" cy="100000"/></a:xfrm>
+                <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
+                <a:solidFill><a:srgbClr val="FF0000"/></a:solidFill>
+              </p:spPr>
+              <p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>${i+1}</a:t></a:r></a:p></p:txBody>
+            </p:sp>
+          </p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>`
+      );
+
+      for (let i = 0; i < slideUrls.length; i++) {
+        pptx.file(`ppt/slides/slide${i+1}.xml`, slideXmls[i]);
+        pptx.file(`ppt/slides/_rels/slide${i+1}.xml.rels`, `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+            <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/slide${i+1}.jpg"/>
+          </Relationships>`);
+      }
+
+      pptx.file('[Content_Types].xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+          <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+          <Default Extension="xml" ContentType="application/xml"/>
+          <Default Extension="jpg" ContentType="image/jpeg"/>
+          <Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>
+          ${slideUrls.map((_, i) => `<Override PartName="/ppt/slides/slide${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>`).join('\n')}
+        </Types>`);
+
+      pptx.file('ppt/presentation.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+                        xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+                        xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+          <p:sldIdLst>${slideUrls.map((_, i) => `<p:sldId id="${i+256}" r:id="rId${i+1}"/>`).join('\n')}</p:sldIdLst>
+          <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
+          <p:notesSz cx="9144000" cy="6858000"/>
+        </p:presentation>`);
+
+      pptx.file('_rels/.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+          <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="ppt/presentation.xml"/>
+        </Relationships>`);
+
+      pptx.file('ppt/_rels/presentation.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+          ${slideUrls.map((_, i) => `<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slides/slide${i+1}.xml"/>`).join('\n')}
+        </Relationships>`);
+
+      log('logPpt', '<span class="text-blue-600">📦 Generando archivo ZIP final...</span>');
+      const blob = await pptx.generateAsync({ type: 'blob' });
+      return blob;
     }
+
+    console.log('✅ ServiPDF Pro con FileSaver cargado correctamente');
   </script>
 </body>
 </html>
