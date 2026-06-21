@@ -154,7 +154,7 @@
         <h2>PDF a PowerPoint con hojas numeradas</h2>
       </div>
       
-      <!-- Botones de prueba (los que funcionaron) -->
+      <!-- Botones de prueba -->
       <div class="mb-4 flex flex-wrap gap-2">
         <button id="btnTestAnchor" class="btn-test"><i class="fas fa-link"></i> Anchor</button>
         <button id="btnTestWindow" class="btn-download-alt"><i class="fas fa-window-maximize"></i> window.open</button>
@@ -218,7 +218,7 @@
     }
 
     // ============================================================
-    // FUNCIÓN DE DESCARGA (USANDO EL MÉTODO ANCHOR QUE FUNCIONÓ)
+    // FUNCIÓN DE DESCARGA (método anchor que funciona)
     // ============================================================
     function downloadBlob(blob, filename) {
       if (!blob || blob.size === 0) {
@@ -279,7 +279,7 @@
     });
 
     // ============================================================
-    // BOTONES DE PRUEBA (los que funcionaron)
+    // BOTONES DE PRUEBA
     // ============================================================
     document.getElementById('btnTestAnchor').addEventListener('click', function() {
       log('🔹 Probando anchor...');
@@ -383,7 +383,7 @@
     });
 
     // ============================================================
-    // FUNCIÓN DE CONVERSIÓN PDF → PPTX
+    // FUNCIÓN DE CONVERSIÓN PDF → PPTX (CORREGIDA)
     // ============================================================
     async function pdfToPowerPoint(pdfFiles) {
       const JSZip = window.JSZip;
@@ -462,14 +462,16 @@
           </p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>`
       );
 
+      // Archivos de relación para cada diapositiva (CORREGIDO: ruta a la imagen)
       for (let i = 0; i < slideUrls.length; i++) {
         pptx.file(`ppt/slides/slide${i+1}.xml`, slideXmls[i]);
         pptx.file(`ppt/slides/_rels/slide${i+1}.xml.rels`, `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
           <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-            <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/slide${i+1}.jpg"/>
+            <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../../media/slide${i+1}.jpg"/>
           </Relationships>`);
       }
 
+      // Archivos esenciales (sin cambios)
       pptx.file('[Content_Types].xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
           <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
@@ -503,8 +505,7 @@
       return blob;
     }
 
-    log('✅ ServiPDF Pro cargado correctamente');
-    log('💡 Prueba los botones de descarga para verificar que funciona.');
+    log('✅ ServiPDF Pro cargado correctamente (con corrección de rutas)');
   </script>
 </body>
 </html>
