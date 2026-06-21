@@ -154,10 +154,8 @@
         <h2>PDF a PowerPoint con hojas numeradas</h2>
       </div>
       
-      <!-- Botones de prueba -->
       <div class="mb-4 flex flex-wrap gap-2">
         <button id="btnTestAnchor" class="btn-test"><i class="fas fa-link"></i> Anchor</button>
-        <button id="btnTestWindow" class="btn-download-alt"><i class="fas fa-window-maximize"></i> window.open</button>
         <span class="text-xs text-gray-500 self-center">(prueba de descarga)</span>
       </div>
 
@@ -217,9 +215,6 @@
       if (pctEl) pctEl.textContent = Math.round(pct) + ' %';
     }
 
-    // ============================================================
-    // FUNCIÓN DE DESCARGA (método anchor que funciona)
-    // ============================================================
     function downloadBlob(blob, filename) {
       if (!blob || blob.size === 0) {
         log('❌ Error: blob vacío o nulo');
@@ -279,7 +274,7 @@
     });
 
     // ============================================================
-    // BOTONES DE PRUEBA
+    // BOTÓN DE PRUEBA
     // ============================================================
     document.getElementById('btnTestAnchor').addEventListener('click', function() {
       log('🔹 Probando anchor...');
@@ -287,32 +282,8 @@
       downloadBlob(blob, 'prueba_anchor.txt');
     });
 
-    document.getElementById('btnTestWindow').addEventListener('click', function() {
-      log('🔹 Probando window.open...');
-      const blob = new Blob(['Prueba de descarga con window.open\nFecha: ' + new Date().toISOString()], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const win = window.open(url, '_blank');
-      if (!win) {
-        log('⚠️ window.open bloqueado, usando anchor');
-        downloadBlob(blob, 'prueba_window.txt');
-      } else {
-        setTimeout(() => {
-          try {
-            const a = win.document.createElement('a');
-            a.href = url;
-            a.download = 'prueba_window.txt';
-            win.document.body.appendChild(a);
-            a.click();
-          } catch (e) {
-            log('⚠️ No se pudo forzar descarga en window.open');
-          }
-        }, 100);
-        log('✅ window.open iniciado');
-      }
-    });
-
     // ============================================================
-    // ZONA DE ARRASTRE PARA PDF → POWERPOINT
+    // ZONA DE ARRASTRE
     // ============================================================
     let pptFiles = [];
     function setupZone(zoneId, inputId, onFiles) {
@@ -357,7 +328,7 @@
     });
 
     // ============================================================
-    // BOTÓN PRINCIPAL DE DESCARGA
+    // BOTÓN PRINCIPAL
     // ============================================================
     document.getElementById('btnPpt').addEventListener('click', async function() {
       if (pptFiles.length === 0) {
@@ -383,14 +354,15 @@
     });
 
     // ============================================================
-    // FUNCIÓN DE CONVERSIÓN PDF → PPTX (CORREGIDA)
+    // FUNCIÓN DE CONVERSIÓN PDF → PPTX (ESTRUCTURA COMPLETA)
     // ============================================================
     async function pdfToPowerPoint(pdfFiles) {
       const JSZip = window.JSZip;
       if (!JSZip) throw new Error('JSZip no disponible');
       const pptx = new JSZip();
-      const slideUrls = [];
+      const slideData = [];
 
+      // 1. Procesar PDFs y convertir cada página a JPG
       for (let idx = 0; idx < pdfFiles.length; idx++) {
         const file = pdfFiles[idx];
         log(`📄 Procesando ${file.name}...`);
@@ -417,95 +389,230 @@
           if (!jpgBlob) throw new Error(`No se pudo convertir la página ${p} a JPG`);
           const jpgBytes = await jpgBlob.arrayBuffer();
 
-          const relName = `ppt/media/slide${slideUrls.length + 1}.jpg`;
+          const slideNumber = slideData.length + 1;
+          const relName = `ppt/media/slide${slideNumber}.jpg`;
           pptx.file(relName, jpgBytes);
-          slideUrls.push({
+          slideData.push({
             width: viewport.width / scale,
             height: viewport.height / scale,
-            rel: relName
+            rel: relName,
+            number: slideNumber
           });
           log(`   ✅ Página ${p} → JPG (${(jpgBytes.byteLength / 1024).toFixed(1)} KB)`);
         }
       }
 
-      if (slideUrls.length === 0) throw new Error('No se generó ninguna diapositiva.');
+      if (slideData.length === 0) throw new Error('No se generó ninguna diapositiva.');
 
-      log(`📦 Construyendo estructura PPTX (${slideUrls.length} diapositivas)...`);
+      log(`📦 Construyendo estructura PPTX (${slideData.length} diapositivas)...`);
 
-      // Generar XMLs (mínimo necesario)
-      const slideXmls = slideUrls.map((u, i) =>
-        `<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
-                xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
-                xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
-          <p:cSld><p:spTree>
-            <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
-            <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:grpSpPr>
-            <p:pic>
-              <p:nvPicPr><p:cNvPr id="2" name="Imagen" descr="Slide ${i+1}"/>
-                <p:cNvPicPr><a:picLocks noGrp="1"/></p:cNvPicPr><p:nvPr/></p:nvPicPr>
-              <p:blipFill><a:blip r:embed="rId1"/><a:stretch><a:fillRect/></a:stretch></p:blipFill>
-              <p:spPr>
-                <a:xfrm><a:off x="0" y="0"/><a:ext cx="${Math.round(u.width*9525)}" cy="${Math.round(u.height*9525)}"/></a:xfrm>
-                <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
-              </p:spPr>
-            </p:pic>
-            <p:sp>
-              <p:nvSpPr><p:cNvPr id="3" name="Número"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr>
-              <p:spPr>
-                <a:xfrm><a:off x="${Math.round(u.width*9525-200000)}" y="${Math.round(u.height*9525-100000)}"/>
-                       <a:ext cx="200000" cy="100000"/></a:xfrm>
-                <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
-                <a:solidFill><a:srgbClr val="FF0000"/></a:solidFill>
-              </p:spPr>
-              <p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>${i+1}</a:t></a:r></a:p></p:txBody>
-            </p:sp>
-          </p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>`
-      );
+      // 2. Archivos fijos de la estructura PPTX (tema, master, etc.)
+      
+      // 2a. Tema (tema básico con colores Office)
+      pptx.file('ppt/theme/theme1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <a:theme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Office Theme">
+          <a:themeElements>
+            <a:clrScheme name="Office">
+              <a:dk1><a:sysClr val="windowText" lastClr="000000"/></a:dk1>
+              <a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1>
+              <a:dk2><a:srgbClr val="1F497D"/></a:dk2>
+              <a:lt2><a:srgbClr val="EEECE1"/></a:lt2>
+              <a:accent1><a:srgbClr val="4F81BD"/></a:accent1>
+              <a:accent2><a:srgbClr val="C0504D"/></a:accent2>
+              <a:accent3><a:srgbClr val="9BBB59"/></a:accent3>
+              <a:accent4><a:srgbClr val="8064A2"/></a:accent4>
+              <a:accent5><a:srgbClr val="4BACC6"/></a:accent5>
+              <a:accent6><a:srgbClr val="F79646"/></a:accent6>
+              <a:hlink><a:srgbClr val="0000FF"/></a:hlink>
+              <a:folHlink><a:srgbClr val="800080"/></a:folHlink>
+            </a:clrScheme>
+            <a:fontScheme name="Office">
+              <a:majorFont><a:latin typeface="Calibri"/><a:ea typeface=""/><a:cs typeface=""/></a:majorFont>
+              <a:minorFont><a:latin typeface="Calibri"/><a:ea typeface=""/><a:cs typeface=""/></a:minorFont>
+            </a:fontScheme>
+            <a:fmtScheme name="Office">
+              <a:fillStyleLst><a:solidFill><a:schemeClr val="phClr"/></a:solidFill></a:fillStyleLst>
+              <a:lnStyleLst><a:ln><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:prstDash val="solid"/></a:ln></a:lnStyleLst>
+              <a:effectStyleLst><a:effectStyle/></a:effectStyleLst>
+              <a:bgFillStyleLst><a:solidFill><a:schemeClr val="phClr"/></a:solidFill></a:bgFillStyleLst>
+            </a:fmtScheme>
+          </a:themeElements>
+        </a:theme>`);
 
-      // Archivos de relación para cada diapositiva (CORREGIDO: ruta a la imagen)
-      for (let i = 0; i < slideUrls.length; i++) {
-        pptx.file(`ppt/slides/slide${i+1}.xml`, slideXmls[i]);
+      // 2b. Slide Master (con diseño para imagen a pantalla completa)
+      pptx.file('ppt/slideMasters/slideMaster1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <p:sldMaster xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+                     xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+                     xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+          <p:cSld>
+            <p:spTree>
+              <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
+              <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:grpSpPr>
+              <p:sp>
+                <p:nvSpPr><p:cNvPr id="2" name="Title"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr>
+                <p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:spPr>
+                <p:txBody><a:bodyPr/><a:p/></p:txBody>
+              </p:sp>
+            </p:spTree>
+          </p:cSld>
+          <p:clrMap bg1="lt1" tx1="dk1" bg2="lt2" tx2="dk2" accent1="accent1" accent2="accent2" accent3="accent3" accent4="accent4" accent5="accent5" accent6="accent6" hlink="hlink" folHlink="folHlink"/>
+          <p:sldLayoutIdLst>
+            <p:sldLayoutId id="2147483649" r:id="rId1"/>
+          </p:sldLayoutIdLst>
+          <p:txStyles>
+            <p:titleStyle><a:lvl1pPr><a:defRPr sz="4400"/></a:lvl1pPr></p:titleStyle>
+            <p:bodyStyle><a:lvl1pPr><a:defRPr sz="2800"/></a:lvl1pPr></p:bodyStyle>
+            <p:otherStyle><a:lvl1pPr><a:defRPr sz="1800"/></a:lvl1pPr></p:otherStyle>
+          </p:txStyles>
+        </p:sldMaster>`);
+
+      pptx.file('ppt/slideMasters/_rels/slideMaster1.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+          <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="../slideLayouts/slideLayout1.xml"/>
+          <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="../theme/theme1.xml"/>
+        </Relationships>`);
+
+      // 2c. Slide Layout (para imagen a pantalla completa)
+      pptx.file('ppt/slideLayouts/slideLayout1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <p:sldLayout xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+                     xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+                     xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+          <p:cSld>
+            <p:spTree>
+              <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
+              <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:grpSpPr>
+              <p:sp>
+                <p:nvSpPr><p:cNvPr id="2" name="Content Placeholder"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr>
+                <p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:spPr>
+                <p:txBody><a:bodyPr/><a:p/></p:txBody>
+              </p:sp>
+            </p:spTree>
+          </p:cSld>
+          <p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr>
+        </p:sldLayout>`);
+
+      pptx.file('ppt/slideLayouts/_rels/slideLayout1.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+          <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster" Target="../slideMasters/slideMaster1.xml"/>
+        </Relationships>`);
+
+      // 3. Diapositivas (cada una con la imagen)
+      for (let i = 0; i < slideData.length; i++) {
+        const s = slideData[i];
+        const slideXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+                 xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+                 xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+            <p:cSld>
+              <p:spTree>
+                <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
+                <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:grpSpPr>
+                <p:pic>
+                  <p:nvPicPr>
+                    <p:cNvPr id="2" name="Imagen" descr="Slide ${i+1}"/>
+                    <p:cNvPicPr><a:picLocks noGrp="1"/></p:cNvPicPr>
+                    <p:nvPr/>
+                  </p:nvPicPr>
+                  <p:blipFill>
+                    <a:blip r:embed="rId1"/>
+                    <a:stretch><a:fillRect/></a:stretch>
+                  </p:blipFill>
+                  <p:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="${Math.round(s.width * 9525)}" cy="${Math.round(s.height * 9525)}"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
+                  </p:spPr>
+                </p:pic>
+                <p:sp>
+                  <p:nvSpPr>
+                    <p:cNvPr id="3" name="Número"/>
+                    <p:cNvSpPr txBox="1"/>
+                    <p:nvPr/>
+                  </p:nvSpPr>
+                  <p:spPr>
+                    <a:xfrm>
+                      <a:off x="${Math.round(s.width * 9525 - 200000)}" y="${Math.round(s.height * 9525 - 100000)}"/>
+                      <a:ext cx="200000" cy="100000"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
+                    <a:solidFill><a:srgbClr val="FF0000"/></a:solidFill>
+                  </p:spPr>
+                  <p:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:r>
+                        <a:rPr sz="2400" b="1" solidFill="000000"/>
+                        <a:t>${i+1}</a:t>
+                      </a:r>
+                    </a:p>
+                  </p:txBody>
+                </p:sp>
+              </p:spTree>
+            </p:cSld>
+            <p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr>
+          </p:sld>`;
+        pptx.file(`ppt/slides/slide${i+1}.xml`, slideXml);
         pptx.file(`ppt/slides/_rels/slide${i+1}.xml.rels`, `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
           <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
             <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../../media/slide${i+1}.jpg"/>
           </Relationships>`);
       }
 
-      // Archivos esenciales (sin cambios)
-      pptx.file('[Content_Types].xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-        <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
-          <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
-          <Default Extension="xml" ContentType="application/xml"/>
-          <Default Extension="jpg" ContentType="image/jpeg"/>
-          <Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>
-          ${slideUrls.map((_, i) => `<Override PartName="/ppt/slides/slide${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>`).join('\n')}
-        </Types>`);
-
+      // 4. Archivos de presentación
       pptx.file('ppt/presentation.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
                         xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
                         xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
-          <p:sldIdLst>${slideUrls.map((_, i) => `<p:sldId id="${i+256}" r:id="rId${i+1}"/>`).join('\n')}</p:sldIdLst>
+          <p:sldMasterIdLst>
+            <p:sldMasterId id="2147483648" r:id="rId1"/>
+          </p:sldMasterIdLst>
+          <p:sldIdLst>
+            ${slideData.map((_, i) => `<p:sldId id="${i+256}" r:id="rId${i+2}"/>`).join('\n')}
+          </p:sldIdLst>
           <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
           <p:notesSz cx="9144000" cy="6858000"/>
         </p:presentation>`);
 
+      // 5. Relaciones de presentación
+      const slideRels = slideData.map((_, i) =>
+        `<Relationship Id="rId${i+2}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slides/slide${i+1}.xml"/>`
+      ).join('\n');
+
+      pptx.file('ppt/_rels/presentation.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+          <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster" Target="slideMasters/slideMaster1.xml"/>
+          ${slideRels}
+        </Relationships>`);
+
+      // 6. Relaciones del paquete
       pptx.file('_rels/.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
           <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="ppt/presentation.xml"/>
         </Relationships>`);
 
-      pptx.file('ppt/_rels/presentation.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-          ${slideUrls.map((_, i) => `<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slides/slide${i+1}.xml"/>`).join('\n')}
-        </Relationships>`);
+      // 7. Tipos de contenido (content types)
+      pptx.file('[Content_Types].xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+          <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+          <Default Extension="xml" ContentType="application/xml"/>
+          <Default Extension="jpg" ContentType="image/jpeg"/>
+          <Default Extension="png" ContentType="image/png"/>
+          <Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>
+          <Override PartName="/ppt/slideMasters/slideMaster1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideMaster+xml"/>
+          <Override PartName="/ppt/slideLayouts/slideLayout1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml"/>
+          <Override PartName="/ppt/theme/theme1.xml" ContentType="application/vnd.openxmlformats-officedocument.theme+xml"/>
+          ${slideData.map((_, i) => `<Override PartName="/ppt/slides/slide${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>`).join('\n')}
+        </Types>`);
 
       log('📦 Generando archivo ZIP final...');
       const blob = await pptx.generateAsync({ type: 'blob' });
       return blob;
     }
 
-    log('✅ ServiPDF Pro cargado correctamente (con corrección de rutas)');
+    log('✅ ServiPDF Pro cargado correctamente (estructura PPTX completa)');
   </script>
 </body>
 </html>
