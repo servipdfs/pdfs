@@ -11,10 +11,10 @@
     body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
     .dropZone.dragover { background-color: #eef6ff; }
     .feature-card { transition: all 0.3s ease; }
-    .feature-card:hover { transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+    .feature-card:hover { transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); }
     .progress-bar { overflow: hidden; border-radius: 9999px; }
     .progress-fill { transition: width 0.3s ease; }
-    .log-container { 
+    .log-container {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       scrollbar-width: thin;
       scrollbar-color: #cbd5e1 #f1f5f9;
@@ -23,7 +23,7 @@
     .log-container::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 9999px; }
     .log-container::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
     .log-container::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-    .pulse-animation { display: inline-block; animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    .pulse-animation { display: inline-block; animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite; }
     .file-input { opacity: 0; width: 0; height: 0; position: absolute; }
   </style>
 </head>
@@ -42,11 +42,11 @@
     </header>
 
     <div class="grid md:grid-cols-2 gap-6 mb-12">
+      <!-- 1. PDF → POWERPOINT -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
           <h2 class="text-white text-xl font-bold flex items-center">
-             <i class="fas fa-file-powerpoint mr-3"></i>
-            PDF a PowerPoint con hojas numeradas
+            <i class="fas fa-file-powerpoint mr-3"></i> PDF a PowerPoint con hojas numeradas
           </h2>
         </div>
         <div class="p-5">
@@ -58,7 +58,6 @@
             <p class="text-gray-500 mt-2 text-sm">Una diapositiva por página + numeración automática</p>
             <input type="file" id="pdfPpt" accept="application/pdf" multiple class="file-input">
           </div>
-
           <div class="mb-4">
             <div class="flex justify-between text-sm mb-1">
               <span class="font-medium">Progreso</span>
@@ -68,20 +67,18 @@
               <div id="progPpt" class="progress-fill h-full bg-blue-500 rounded-full" style="width: 0%"></div>
             </div>
           </div>
-
           <button id="btnPpt" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
             <i class="fas fa-download mr-2"></i>Descargar PowerPoint
           </button>
-
           <div id="logPpt" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
         </div>
       </div>
 
+      <!-- 2. IMÁGENES → PDF -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         <div class="bg-gradient-to-r from-emerald-500 to-cyan-600 p-4">
           <h2 class="text-white text-xl font-bold flex items-center">
-            <i class="fas fa-images mr-3"></i>
-            Fotos a PDF en un solo fichero
+            <i class="fas fa-images mr-3"></i> Fotos a PDF en un solo fichero
           </h2>
         </div>
         <div class="p-5">
@@ -93,7 +90,6 @@
             <p class="text-gray-500 mt-2 text-sm">JPG, PNG, GIF - Se crearán en un solo PDF</p>
             <input type="file" id="imagesFiles" accept="image/*" multiple class="file-input">
           </div>
-
           <div class="mb-4">
             <div class="flex justify-between text-sm mb-1">
               <span class="font-medium">Progreso</span>
@@ -103,20 +99,18 @@
               <div id="progImages" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
             </div>
           </div>
-
           <button id="btnImages" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
             <i class="fas fa-download mr-2"></i>Descargar PDF único
           </button>
-
           <div id="logImages" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
         </div>
       </div>
 
+      <!-- 3. CONVERTIR Y UNIR -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         <div class="bg-gradient-to-r from-purple-500 to-pink-600 p-4">
           <h2 class="text-white text-xl font-bold flex items-center">
-            <i class="fas fa-sync-alt mr-3"></i>
-            Convertir y unir múltiples formatos
+            <i class="fas fa-sync-alt mr-3"></i> Convertir y unir múltiples formatos
           </h2>
         </div>
         <div class="p-5">
@@ -125,10 +119,9 @@
             <label for="allFiles" class="bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
               <i class="fas fa-file-import mr-2"></i>Seleccionar archivos
             </label>
-            <p class="text-gray-500 mt-2 text-sm">PDF, Word, Imágenes, Texto y más</p>
+            <p class="text-gray-500 mt-2 text-sm">PDF, Imágenes, Texto</p>
             <input type="file" id="allFiles" multiple class="file-input">
           </div>
-
           <div class="mb-4">
             <div class="flex justify-between text-sm mb-1">
               <span class="font-medium">Progreso</span>
@@ -138,20 +131,18 @@
               <div id="progAll" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
             </div>
           </div>
-
           <button id="btnAll" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-             <i class="fas fa-download mr-2"></i>Descargar Todo en PDF
+            <i class="fas fa-download mr-2"></i>Descargar Todo en PDF
           </button>
-
           <div id="logAll" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
         </div>
       </div>
 
+      <!-- 4. CARPETA NUMERADA -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         <div class="bg-gradient-to-r from-orange-500 to-amber-600 p-4">
-           <h2 class="text-white text-xl font-bold flex items-center">
-            <i class="fas fa-folder-open mr-3"></i>
-            Carpeta numerada a PDFs
+          <h2 class="text-white text-xl font-bold flex items-center">
+            <i class="fas fa-folder-open mr-3"></i> Carpeta numerada a PDFs
           </h2>
         </div>
         <div class="p-5">
@@ -162,81 +153,74 @@
             </label>
             <p class="text-gray-500 mt-2 text-sm">Archivos serán convertidos y numerados</p>
             <input type="file" id="numFolder" webkitdirectory multiple class="file-input">
-           </div>
-
+          </div>
           <div class="mb-4">
             <div class="flex justify-between text-sm mb-1">
               <span class="font-medium">Progreso</span>
               <span id="pctNum" class="text-gray-600 font-medium">0%</span>
             </div>
             <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
-               <div id="progNum" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
+              <div id="progNum" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
             </div>
           </div>
-
           <button id="btnNum" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
             <i class="fas fa-download mr-2"></i>Descargar como ZIP
           </button>
-
           <div id="logNum" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
         </div>
       </div>
 
+      <!-- 5. RENOMBRAR -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         <div class="bg-gradient-to-r from-rose-500 to-fuchsia-600 p-4">
           <h2 class="text-white text-xl font-bold flex items-center">
-            <i class="fas fa-magic mr-3"></i>
-             Renombrar archivos con regex
+            <i class="fas fa-magic mr-3"></i> Renombrar archivos con regex
           </h2>
         </div>
         <div class="p-5">
           <div class="dropZone border-2 border-dashed border-rose-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneRename">
             <i class="fas fa-magic text-rose-500 text-4xl mb-3 pulse-animation"></i>
             <label for="renameFolder" class="bg-rose-600 hover:bg-rose-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
-               <i class="fas fa-folder mr-2"></i>Seleccionar carpeta
+              <i class="fas fa-folder mr-2"></i>Seleccionar carpeta
             </label>
             <p class="text-gray-500 mt-2 text-sm">Renombra archivos masivamente</p>
             <input type="file" id="renameFolder" webkitdirectory multiple class="file-input">
           </div>
-
           <div class="mb-4">
             <div class="flex justify-between text-sm mb-1">
-               <span class="font-medium">Progreso</span>
+              <span class="font-medium">Progreso</span>
               <span id="pctRename" class="text-gray-600 font-medium">0%</span>
             </div>
             <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
               <div id="progRename" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
             </div>
           </div>
-
-           <div class="space-y-3 mb-4">
+          <div class="space-y-3 mb-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Patrón regex:</label>
               <input type="text" id="regexIn" value="^(.+?)\s*-\s*(\d{4}-\d{2}-\d{2}\s+\d{4}(?:-\d+)?)(\.eml)$" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent">
             </div>
-             <div>
+            <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Nuevo formato (usa $1, $2…):</label>
               <input type="text" id="replaceFmt" value="$2.$1$3" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent">
             </div>
           </div>
-
-           <button id="btnRename" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+          <button id="btnRename" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
             <i class="fas fa-download mr-2"></i>Descargar carpeta renombrada
           </button>
-
           <div id="logRename" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
         </div>
       </div>
 
+      <!-- 6. EXTRAER .eml -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         <div class="bg-gradient-to-r from-cyan-500 to-teal-600 p-4">
           <h2 class="text-white text-xl font-bold flex items-center">
-            <i class="fas fa-envelope mr-3"></i>
-            Extraer correos .eml a Excel
+            <i class="fas fa-envelope mr-3"></i> Extraer correos .eml a Excel
           </h2>
         </div>
         <div class="p-5">
-           <div class="dropZone border-2 border-dashed border-cyan-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneEml">
+          <div class="dropZone border-2 border-dashed border-cyan-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneEml">
             <i class="fas fa-envelope-open-text text-cyan-500 text-4xl mb-3 pulse-animation"></i>
             <label for="emlFolder" class="bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
               <i class="fas fa-folder mr-2"></i>Seleccionar carpeta .eml
@@ -244,30 +228,27 @@
             <p class="text-gray-500 mt-2 text-sm">Convierte correos a formato Excel</p>
             <input type="file" id="emlFolder" webkitdirectory multiple class="file-input">
           </div>
-
           <div class="mb-4">
             <div class="flex justify-between text-sm mb-1">
               <span class="font-medium">Progreso</span>
               <span id="pctEml" class="text-gray-600 font-medium">0%</span>
-             </div>
+            </div>
             <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
               <div id="progEml" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
             </div>
           </div>
-
           <button id="btnEml" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-             <i class="fas fa-download mr-2"></i>Descargar Excel
+            <i class="fas fa-download mr-2"></i>Descargar Excel
           </button>
-
           <div id="logEml" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
         </div>
       </div>
-      
+
+      <!-- 7. UNIR CSVs -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         <div class="bg-gradient-to-r from-indigo-500 to-blue-600 p-4">
           <h2 class="text-white text-xl font-bold flex items-center">
-            <i class="fas fa-table mr-3"></i>
-            Unir CSVs y convertir a PDF
+            <i class="fas fa-table mr-3"></i> Unir CSVs y convertir a PDF
           </h2>
         </div>
         <div class="p-5">
@@ -279,7 +260,6 @@
             <p class="text-gray-500 mt-2 text-sm">Combina varios archivos CSV en una tabla PDF</p>
             <input type="file" id="csvFiles" accept=".csv" multiple class="file-input">
           </div>
-
           <div class="mb-4">
             <div class="flex justify-between text-sm mb-1">
               <span class="font-medium">Progreso</span>
@@ -289,15 +269,12 @@
               <div id="progCsv" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
             </div>
           </div>
-
           <button id="btnCsv" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-             <i class="fas fa-download mr-2"></i>Descargar PDF Unido
+            <i class="fas fa-download mr-2"></i>Descargar PDF Unido
           </button>
-
           <div id="logCsv" class="log-container bg-gray-50 border border-gray-200 rounded-lg p-3 h-32 overflow-y-auto text-left text-sm font-mono"></div>
         </div>
       </div>
-      
     </div>
 
     <footer class="text-center mt-8 pt-8 border-t border-gray-200 text-gray-500">
@@ -306,6 +283,7 @@
     </footer>
   </div>
 
+  <!-- Librerías -->
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -314,543 +292,613 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 
   <script>
-  // Configuración crucial para que funcione pdf.js (renderizado de diapositivas)
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    // Configuración de pdf.js
+    if (typeof pdfjsLib !== 'undefined') {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
 
-  /* ---------- helpers ---------- */
-  const $ = id => document.getElementById(id);
-  function log(boxId, txt){
-    const el = $(boxId);
-    el.insertAdjacentHTML('beforeend', `<div>${txt}</div>`);
-    el.scrollTop = el.scrollHeight;
-  }
-  function downloadBlob(blob, name){
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = name;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => {
-      document.body.removeChild(a);
-      URL.revokeObjectURL(a.href);
-    }, 0);
-  }
-  function setProg(barId, pctId, pct){
-    $(barId).style.width = pct + '%';
-    $(pctId).textContent = pct + ' %';
-  }
-
-  /* ---------- zona común (click + drag) ---------- */
-  function setupZone(zoneId, inputId, onFiles){
-    const zone = $(zoneId);
-    const inp  = $(inputId);
-
-    // click normal
-    inp.addEventListener('change', () => onFiles(inp.files));
-    // drag
-    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
-    zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
-    zone.addEventListener('drop', e => {
-      e.preventDefault(); zone.classList.remove('dragover');
-      const files = e.dataTransfer.files;
-      inp.files = files;
-      onFiles(files);
-    });
-  }
-
-  /* ---------- 1. PDF → POWERPOINT con numeración (CORREGIDO) ---------- */
-  let pptFiles = [];
-  setupZone('zonePpt', 'pdfPpt', async files => {
-    pptFiles = []; log('logPpt', ''); setProg('progPpt', 'pctPpt', 0);
-    const total = files.length;
-    for (let i = 0; i < total; i++){
-      const f = files[i];
-      if (!f.name.toLowerCase().endsWith('.pdf')) {
-        log('logPpt', `<span class="text-yellow-600">⚠ Saltado: ${f.name} (no es PDF)</span>`);
-        continue;
+    /* ---------- helpers ---------- */
+    const $ = id => document.getElementById(id);
+    function log(boxId, txt) {
+      const el = $(boxId);
+      if (el) {
+        el.insertAdjacentHTML('beforeend', `<div>${txt}</div>`);
+        el.scrollTop = el.scrollHeight;
+      } else {
+        console.warn('Log element not found:', boxId);
       }
-      pptFiles.push(f);
-      log('logPpt', `✔ ${f.name}`);
-      setProg('progPpt', 'pctPpt', Math.round((i + 1) / total * 100));
     }
-    if (pptFiles.length) {
-      log('logPpt', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR PPTX.</span>');
-    }
-  });
-
-  $('#btnPpt').addEventListener('click', async () => {
-    if (pptFiles.length === 0) { alert('Selecciona al menos un PDF'); return; }
-    try {
-      log('logPpt', '<span class="text-blue-600">Generando PowerPoint... Esto puede tardar.</span>');
-      const pptx = await pdfToPowerPoint(pptFiles);
-      downloadBlob(pptx, 'PDF_a_PowerPoint.pptx');
-      log('logPpt', '<span class="text-green-700 font-bold">✅ Presentación descargada</span>');
-    } catch (err) {
-      log('logPpt', `<span class="text-red-600">❌ Error: ${err.message}</span>`);
-    }
-  });
-
-  /* ---------- 2. IMÁGENES → PDF ÚNICO ---------- */
-  let imageFiles = [];
-  setupZone('zoneImages', 'imagesFiles', async files => {
-    imageFiles = []; log('logImages', ''); setProg('progImages', 'pctImages', 0);
-    const total = files.length;
-    for (let i = 0; i < total; i++){
-      const f = files[i];
-      const ext = f.name.split('.').pop().toLowerCase();
-      if (!['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
-        log('logImages', `<span class="text-yellow-600">⚠ Saltado: ${f.name} (formato no soportado)</span>`);
-        continue;
+    function downloadBlob(blob, name) {
+      if (!blob) {
+        console.error('El blob es nulo o indefinido');
+        return false;
       }
-      imageFiles.push(f);
-      log('logImages', `✔ ${f.name}`);
-      setProg('progImages', 'pctImages', Math.round((i + 1) / total * 100));
-    }
-    if (imageFiles.length > 0) {
-      log('logImages', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR para crear el PDF.</span>');
-    } else {
-      log('logImages', '<span class="text-red-600 font-medium">⚠ No se seleccionaron imágenes válidas</span>');
-    }
-  });
-  $('#btnImages').addEventListener('click', async () => {
-    if (imageFiles.length === 0) { alert('Primero selecciona imágenes válidas'); return; }
-    try {
-      log('logImages', '<span class="text-blue-600">Creando PDF con ' + imageFiles.length + ' imágenes...</span>');
-      const pdfBytes = await imagesToSinglePdf(imageFiles);
-      downloadBlob(new Blob([pdfBytes], {type: 'application/pdf'}), 'IMAGENES_UNIDAS.pdf');
-      log('logImages', '<span class="text-green-700 font-bold">✅ PDF creado y descargado</span>');
-    } catch (err) {
-      log('logImages', `<span class="text-red-600">❌ Error: ${err.message}</span>`);
-    }
-  });
-
-  /* ---------- 3. ALL TO PDF ---------- */
-  let bufAll = [];
-  setupZone('zoneAll', 'allFiles', async files => {
-    bufAll = []; log('logAll', ''); setProg('progAll', 'pctAll', 0);
-    const total = files.length;
-    for (let i = 0; i < total; i++){
-      const f = files[i];
-      const ext = f.name.split('.').pop().toLowerCase();
-      let pdfBytes;
       try {
-        if (ext === 'pdf') {
-          pdfBytes = await f.arrayBuffer();
-        } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
-          pdfBytes = await img2pdf(f);
-        } else if (ext === 'txt') {
-          pdfBytes = await txt2pdf(f);
-        } else {
-          log('logAll', `<span class="text-yellow-600">⚠ Saltado: ${f.name} (formato no soportado)</span>`);
-          continue;
-        }
-        const stamped = await stampPdf(pdfBytes, f.name.replace(/\.[^.]+$/i, ''), 'center');
-        bufAll.push(stamped);
-      } catch (err) {
-        log('logAll', `<span class="text-red-600">⚠ Error en ${f.name}: ${err.message}</span>`);
-      }
-      setProg('progAll', 'pctAll', Math.round((i + 1) / total * 100));
-      log('logAll', `✔ ${f.name}`);
-    }
-    if (bufAll.length > 0) {
-      log('logAll', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR.</span>');
-    }
-  });
-  $('#btnAll').addEventListener('click', async () => {
-    if (!bufAll.length) { alert('Primero elige o arrastra archivos'); return; }
-    const merged = await mergePdfs(bufAll);
-    downloadBlob(new Blob([merged], {type: 'application/pdf'}), 'TODO_UNIDO_ROJO.pdf');
-    log('logAll', '<span class="text-green-700 font-bold">✅ Descarga iniciada</span>');
-  });
-
-  /* ---------- 4. CARPETA NUMERADA ---------- */
-  let bufNum = [];
-  setupZone('zoneNum', 'numFolder', async files => {
-    bufNum = []; log('logNum', ''); setProg('progNum', 'pctNum', 0);
-    const sorted = Array.from(files).sort((a, b) => a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'}));
-    const total = sorted.length;
-    for (let i = 0; i < total; i++){
-      const f = sorted[i];
-      const ext = f.name.split('.').pop().toLowerCase();
-      let pdfBytes;
-      try {
-        if (ext === 'pdf') {
-          pdfBytes = await f.arrayBuffer();
-        } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
-          pdfBytes = await img2pdf(f);
-        } else if (ext === 'txt') {
-          pdfBytes = await txt2pdf(f);
-        } else {
-          log('logNum', `<span class="text-yellow-600">⚠ Saltado: ${f.name}</span>`);
-          continue;
-        }
-        const newName = f.name.replace(/\.[^.]+$/, '.pdf');
-        bufNum.push({name: newName, blob: new Blob([pdfBytes], {type: 'application/pdf'})});
-      } catch (err) {
-        log('logNum', `<span class="text-red-600">⚠ Error en ${f.name}: ${err.message}</span>`);
-      }
-      setProg('progNum', 'pctNum', Math.round((i + 1) / total * 100));
-      log('logNum', `✔ ${f.name}`);
-    }
-    const zip = new JSZip();
-    bufNum.forEach(f => zip.file(f.name, f.blob));
-    const content = await zip.generateAsync({type: 'blob'});
-    downloadBlob(content, 'CARPETA_NUMERADA_PDFs.zip');
-    log('logNum', '<span class="text-green-700 font-bold">✅ ZIP descargado</span>');
-  });
-
-  /* ---------- 5. RENOMBRAR POR PATRÓN ---------- */
-  let renameFiles = [];
-  setupZone('zoneRename', 'renameFolder', async files => {
-    renameFiles = Array.from(files);
-    log('logRename', '<span class="text-blue-600">Archivos cargados. Configura el patrón y pulsa DESCARGAR.</span>'); 
-    setProg('progRename', 'pctRename', 0);
-  });
-  $('#btnRename').addEventListener('click', async () => {
-    if (renameFiles.length === 0) { alert('Primero elige o arrastra archivos'); return; }
-    const pattern = $('#regexIn').value.trim();
-    const repl = $('#replaceFmt').value.trim();
-    let regex;
-    try { regex = new RegExp(pattern, 'i'); } catch (e) { log('logRename', `<span class="text-red-600">❌ Regex inválido: ${e.message}</span>`); return; }
-    
-    const zip = new JSZip();
-    const total = renameFiles.length;
-    let processed = 0;
-    
-    for (let i = 0; i < total; i++){
-      const f = renameFiles[i];
-      const name = f.name;
-      const m = name.match(regex);
-      if (!m) { 
-        log('logRename', `<span class="text-yellow-600">⚠ Sin coincidencia: ${name}</span>`); 
-        processed++;
-        setProg('progRename', 'pctRename', Math.round(processed / total * 100));
-        continue; 
-      }
-      
-      let nuevo = repl;
-      m.forEach((g, idx) => { if (idx > 0) { nuevo = nuevo.replaceAll(`$${idx}`, g || ''); } });
-      
-      try {
-        const content = await f.arrayBuffer();
-        zip.file(nuevo, content);
-        log('logRename', `✔ ${name} → ${nuevo}`);
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          document.body.removeChild(a);
+          URL.revokeObjectURL(a.href);
+        }, 100);
+        return true;
       } catch (e) {
-        log('logRename', `<span class="text-red-600">⚠ Error procesando ${name}: ${e.message}</span>`);
+        console.error('Error al descargar:', e);
+        return false;
       }
-      processed++;
-      setProg('progRename', 'pctRename', Math.round(processed / total * 100));
     }
-    const blob = await zip.generateAsync({type: 'blob'});
-    downloadBlob(blob, 'CARPETA_RENOMBRADA.zip');
-    log('logRename', '<span class="text-green-700 font-bold">✅ ZIP descargado</span>');
-  });
+    function setProg(barId, pctId, pct) {
+      const bar = $(barId);
+      const pctEl = $(pctId);
+      if (bar) bar.style.width = Math.min(pct, 100) + '%';
+      if (pctEl) pctEl.textContent = Math.round(pct) + ' %';
+    }
 
-  /* ---------- 6. EXTRAIR .eml → EXCEL ---------- */
-  setupZone('zoneEml', 'emlFolder', async files => {
-    log('logEml', ''); setProg('progEml', 'pctEml', 0);
-    const validFiles = Array.from(files).filter(f => f.name.toLowerCase().endsWith('.eml'));
-    if (validFiles.length === 0) {
-      log('logEml', '<span class="text-yellow-600">⚠ No se encontraron .eml</span>'); return;
+    /* ---------- zona común (click + drag) ---------- */
+    function setupZone(zoneId, inputId, onFiles) {
+      const zone = $(zoneId);
+      const inp = $(inputId);
+      if (!zone || !inp) return;
+
+      inp.addEventListener('change', () => onFiles(inp.files));
+
+      zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+      zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+      zone.addEventListener('drop', e => {
+        e.preventDefault();
+        zone.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        inp.files = files;
+        onFiles(files);
+      });
     }
-    try {
-      const [mailparser, xlsx] = await Promise.all([
-        import('https://cdn.skypack.dev/mailparser@3.4.6'),
-        import('https://cdn.skypack.dev/xlsx@0.18.5')
-      ]);
-      const rows = [];
-      const total = validFiles.length;
-      
-      for (let i = 0; i < total; i++){
-        const f = validFiles[i];
+
+    /* ---------- 1. PDF → POWERPOINT ---------- */
+    let pptFiles = [];
+    setupZone('zonePpt', 'pdfPpt', async files => {
+      pptFiles = [];
+      log('logPpt', '');
+      setProg('progPpt', 'pctPpt', 0);
+      const total = files.length;
+      for (let i = 0; i < total; i++) {
+        const f = files[i];
+        if (!f.name.toLowerCase().endsWith('.pdf')) {
+          log('logPpt', `<span class="text-yellow-600">⚠ Saltado: ${f.name} (no es PDF)</span>`);
+          continue;
+        }
+        pptFiles.push(f);
+        log('logPpt', `✔ ${f.name}`);
+        setProg('progPpt', 'pctPpt', ((i + 1) / total) * 100);
+      }
+      if (pptFiles.length) {
+        log('logPpt', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR PPTX.</span>');
+      }
+    });
+
+    $('#btnPpt').addEventListener('click', async () => {
+      if (pptFiles.length === 0) { alert('Selecciona al menos un PDF'); return; }
+      try {
+        log('logPpt', '<span class="text-blue-600">Generando PowerPoint... (puede tardar)</span>');
+        const pptx = await pdfToPowerPoint(pptFiles);
+        if (!pptx) throw new Error('No se pudo generar el archivo PowerPoint');
+        const ok = downloadBlob(pptx, 'PDF_a_PowerPoint.pptx');
+        if (ok) log('logPpt', '<span class="text-green-700 font-bold">✅ Presentación descargada</span>');
+        else throw new Error('Error al descargar el archivo');
+      } catch (err) {
+        log('logPpt', `<span class="text-red-600">❌ Error: ${err.message}</span>`);
+      }
+    });
+
+    /* ---------- 2. IMÁGENES → PDF ---------- */
+    let imageFiles = [];
+    setupZone('zoneImages', 'imagesFiles', async files => {
+      imageFiles = [];
+      log('logImages', '');
+      setProg('progImages', 'pctImages', 0);
+      const total = files.length;
+      for (let i = 0; i < total; i++) {
+        const f = files[i];
+        const ext = f.name.split('.').pop().toLowerCase();
+        if (!['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
+          log('logImages', `<span class="text-yellow-600">⚠ Saltado: ${f.name} (formato no soportado)</span>`);
+          continue;
+        }
+        imageFiles.push(f);
+        log('logImages', `✔ ${f.name}`);
+        setProg('progImages', 'pctImages', ((i + 1) / total) * 100);
+      }
+      if (imageFiles.length > 0) {
+        log('logImages', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR.</span>');
+      } else {
+        log('logImages', '<span class="text-red-600 font-medium">⚠ No se seleccionaron imágenes válidas</span>');
+      }
+    });
+
+    $('#btnImages').addEventListener('click', async () => {
+      if (imageFiles.length === 0) { alert('Primero selecciona imágenes válidas'); return; }
+      try {
+        log('logImages', '<span class="text-blue-600">Creando PDF con ' + imageFiles.length + ' imágenes...</span>');
+        const pdfBytes = await imagesToSinglePdf(imageFiles);
+        if (!pdfBytes) throw new Error('No se pudo generar el PDF');
+        const ok = downloadBlob(new Blob([pdfBytes], { type: 'application/pdf' }), 'IMAGENES_UNIDAS.pdf');
+        if (ok) log('logImages', '<span class="text-green-700 font-bold">✅ PDF creado y descargado</span>');
+        else throw new Error('Error al descargar');
+      } catch (err) {
+        log('logImages', `<span class="text-red-600">❌ Error: ${err.message}</span>`);
+      }
+    });
+
+    /* ---------- 3. ALL TO PDF ---------- */
+    let bufAll = [];
+    setupZone('zoneAll', 'allFiles', async files => {
+      bufAll = [];
+      log('logAll', '');
+      setProg('progAll', 'pctAll', 0);
+      const total = files.length;
+      for (let i = 0; i < total; i++) {
+        const f = files[i];
+        const ext = f.name.split('.').pop().toLowerCase();
+        let pdfBytes;
         try {
-          const raw = await f.text();
-          const msg = await mailparser.simpleParser(raw);
-          rows.push({
-            'Fecha': msg.date ? new Date(msg.date).toLocaleString('es-ES') : '',
-            'Remitente': msg.from?.text || '',
-            'Asunto': msg.subject || '',
-            'Destinatario': Array.isArray(msg.to) ? msg.to.map(t => t.text).join('; ') : (msg.to?.text || ''),
-            'Cuerpo de mail': (msg.text || '').replace(/\s+/g, ' ').substring(0, 32767),
-            'Nombre de ficheros adjuntos': msg.attachments?.map(a => a.filename).join('; ') || ''
-          });
-          log('logEml', `✔ ${f.name}`);
-        } catch (e) { log('logEml', `<span class="text-red-600">⚠ Error en ${f.name}: ${e.message}</span>`); }
-        setProg('progEml', 'pctEml', Math.round((i + 1) / total * 100));
+          if (ext === 'pdf') {
+            pdfBytes = await f.arrayBuffer();
+          } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
+            pdfBytes = await img2pdf(f);
+          } else if (ext === 'txt') {
+            pdfBytes = await txt2pdf(f);
+          } else {
+            log('logAll', `<span class="text-yellow-600">⚠ Saltado: ${f.name} (formato no soportado)</span>`);
+            continue;
+          }
+          const stamped = await stampPdf(pdfBytes, f.name.replace(/\.[^.]+$/i, ''), 'center');
+          bufAll.push(stamped);
+        } catch (err) {
+          log('logAll', `<span class="text-red-600">⚠ Error en ${f.name}: ${err.message}</span>`);
+        }
+        setProg('progAll', 'pctAll', ((i + 1) / total) * 100);
+        log('logAll', `✔ ${f.name}`);
       }
-      
-      if (!rows.length) { log('logEml', '<span class="text-red-600">❌ No se pudo procesar ningún correo</span>'); return; }
-      
-      const ws = xlsx.utils.json_to_sheet(rows);
-      const wb = xlsx.utils.book_new();
-      xlsx.utils.book_append_sheet(wb, ws, 'Mails');
-      const blob = xlsx.write(wb, {bookType: 'xlsx', type: 'blob'});
-      downloadBlob(blob, 'Mails_desde_EML.xlsx');
-      log('logEml', '<span class="text-green-700 font-bold">✅ Excel descargado</span>');
-    } catch (e) {
-      log('logEml', `<span class="text-red-600">❌ Error cargando librerías: ${e.message}</span>`);
-    }
-  });
-
-  /* ---------- 7. COMBINAR CSV A PDF (XLSAPDF) ---------- */
-  let csvFilesList = [];
-  setupZone('zoneCsv', 'csvFiles', async files => {
-    csvFilesList = []; log('logCsv', ''); setProg('progCsv', 'pctCsv', 0);
-    const total = files.length;
-    for (let i = 0; i < total; i++){
-      const f = files[i];
-      if (!f.name.toLowerCase().endsWith('.csv')) {
-        log('logCsv', `<span class="text-yellow-600">⚠ Saltado: ${f.name} (no es CSV)</span>`);
-        continue;
+      if (bufAll.length > 0) {
+        log('logAll', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR.</span>');
       }
-      csvFilesList.push(f);
-      log('logCsv', `✔ ${f.name}`);
-      setProg('progCsv', 'pctCsv', Math.round((i + 1) / total * 100));
-    }
-    if (csvFilesList.length) {
-      log('logCsv', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR PDF Unido.</span>');
-    }
-  });
+    });
 
-  $('#btnCsv').addEventListener('click', async () => {
-    if (csvFilesList.length === 0) { alert('Selecciona al menos un archivo CSV'); return; }
-    try {
-      log('logCsv', '<span class="text-blue-600">Procesando y combinando CSVs...</span>');
-      let headers = [];
-      let allRows = [];
-      
-      for (let i = 0; i < csvFilesList.length; i++) {
-        const file = csvFilesList[i];
-        const text = await file.text();
-        const parsed = Papa.parse(text, { skipEmptyLines: true });
-        
-        if (parsed.data && parsed.data.length > 0) {
-           if (i === 0) {
+    $('#btnAll').addEventListener('click', async () => {
+      if (!bufAll.length) { alert('Primero elige o arrastra archivos'); return; }
+      try {
+        const merged = await mergePdfs(bufAll);
+        if (!merged) throw new Error('No se pudo generar el PDF unificado');
+        const ok = downloadBlob(new Blob([merged], { type: 'application/pdf' }), 'TODO_UNIDO_ROJO.pdf');
+        if (ok) log('logAll', '<span class="text-green-700 font-bold">✅ Descarga iniciada</span>');
+        else throw new Error('Error al descargar');
+      } catch (err) {
+        log('logAll', `<span class="text-red-600">❌ Error: ${err.message}</span>`);
+      }
+    });
+
+    /* ---------- 4. CARPETA NUMERADA ---------- */
+    setupZone('zoneNum', 'numFolder', async files => {
+      log('logNum', '');
+      setProg('progNum', 'pctNum', 0);
+      const sorted = Array.from(files).sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }));
+      const total = sorted.length;
+      const zip = new JSZip();
+      let processed = 0;
+      for (let i = 0; i < total; i++) {
+        const f = sorted[i];
+        const ext = f.name.split('.').pop().toLowerCase();
+        let pdfBytes;
+        try {
+          if (ext === 'pdf') {
+            pdfBytes = await f.arrayBuffer();
+          } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
+            pdfBytes = await img2pdf(f);
+          } else if (ext === 'txt') {
+            pdfBytes = await txt2pdf(f);
+          } else {
+            log('logNum', `<span class="text-yellow-600">⚠ Saltado: ${f.name}</span>`);
+            processed++;
+            setProg('progNum', 'pctNum', (processed / total) * 100);
+            continue;
+          }
+          const newName = f.name.replace(/\.[^.]+$/, '.pdf');
+          zip.file(newName, pdfBytes);
+          log('logNum', `✔ ${f.name}`);
+        } catch (err) {
+          log('logNum', `<span class="text-red-600">⚠ Error en ${f.name}: ${err.message}</span>`);
+        }
+        processed++;
+        setProg('progNum', 'pctNum', (processed / total) * 100);
+      }
+      try {
+        const content = await zip.generateAsync({ type: 'blob' });
+        if (!content) throw new Error('No se pudo generar el ZIP');
+        const ok = downloadBlob(content, 'CARPETA_NUMERADA_PDFs.zip');
+        if (ok) log('logNum', '<span class="text-green-700 font-bold">✅ ZIP descargado</span>');
+        else throw new Error('Error al descargar');
+      } catch (err) {
+        log('logNum', `<span class="text-red-600">❌ Error: ${err.message}</span>`);
+      }
+    });
+
+    /* ---------- 5. RENOMBRAR ---------- */
+    let renameFiles = [];
+    setupZone('zoneRename', 'renameFolder', async files => {
+      renameFiles = Array.from(files);
+      log('logRename', '<span class="text-blue-600">Archivos cargados. Configura el patrón y pulsa DESCARGAR.</span>');
+      setProg('progRename', 'pctRename', 0);
+    });
+
+    $('#btnRename').addEventListener('click', async () => {
+      if (renameFiles.length === 0) { alert('Primero elige o arrastra archivos'); return; }
+      const pattern = $('#regexIn').value.trim();
+      const repl = $('#replaceFmt').value.trim();
+      let regex;
+      try { regex = new RegExp(pattern, 'i'); } catch (e) {
+        log('logRename', `<span class="text-red-600">❌ Regex inválido: ${e.message}</span>`);
+        return;
+      }
+      const zip = new JSZip();
+      const total = renameFiles.length;
+      let processed = 0;
+      for (let i = 0; i < total; i++) {
+        const f = renameFiles[i];
+        const name = f.name;
+        const m = name.match(regex);
+        if (!m) {
+          log('logRename', `<span class="text-yellow-600">⚠ Sin coincidencia: ${name}</span>`);
+          processed++;
+          setProg('progRename', 'pctRename', (processed / total) * 100);
+          continue;
+        }
+        let nuevo = repl;
+        m.forEach((g, idx) => { if (idx > 0) { nuevo = nuevo.replaceAll(`$${idx}`, g || ''); } });
+        try {
+          const content = await f.arrayBuffer();
+          zip.file(nuevo, content);
+          log('logRename', `✔ ${name} → ${nuevo}`);
+        } catch (e) {
+          log('logRename', `<span class="text-red-600">⚠ Error procesando ${name}: ${e.message}</span>`);
+        }
+        processed++;
+        setProg('progRename', 'pctRename', (processed / total) * 100);
+      }
+      try {
+        const blob = await zip.generateAsync({ type: 'blob' });
+        if (!blob) throw new Error('No se pudo generar el ZIP');
+        const ok = downloadBlob(blob, 'CARPETA_RENOMBRADA.zip');
+        if (ok) log('logRename', '<span class="text-green-700 font-bold">✅ ZIP descargado</span>');
+        else throw new Error('Error al descargar');
+      } catch (err) {
+        log('logRename', `<span class="text-red-600">❌ Error: ${err.message}</span>`);
+      }
+    });
+
+    /* ---------- 6. EXTRAER .eml → EXCEL ---------- */
+    setupZone('zoneEml', 'emlFolder', async files => {
+      log('logEml', '');
+      setProg('progEml', 'pctEml', 0);
+      const validFiles = Array.from(files).filter(f => f.name.toLowerCase().endsWith('.eml'));
+      if (validFiles.length === 0) {
+        log('logEml', '<span class="text-yellow-600">⚠ No se encontraron .eml</span>');
+        return;
+      }
+      try {
+        const [mailparser, xlsx] = await Promise.all([
+          import('https://cdn.skypack.dev/mailparser@3.4.6'),
+          import('https://cdn.skypack.dev/xlsx@0.18.5')
+        ]);
+        const rows = [];
+        const total = validFiles.length;
+        for (let i = 0; i < total; i++) {
+          const f = validFiles[i];
+          try {
+            const raw = await f.text();
+            const msg = await mailparser.simpleParser(raw);
+            rows.push({
+              'Fecha': msg.date ? new Date(msg.date).toLocaleString('es-ES') : '',
+              'Remitente': msg.from?.text || '',
+              'Asunto': msg.subject || '',
+              'Destinatario': Array.isArray(msg.to) ? msg.to.map(t => t.text).join('; ') : (msg.to?.text || ''),
+              'Cuerpo de mail': (msg.text || '').replace(/\s+/g, ' ').substring(0, 32767),
+              'Nombre de ficheros adjuntos': msg.attachments?.map(a => a.filename).join('; ') || ''
+            });
+            log('logEml', `✔ ${f.name}`);
+          } catch (e) {
+            log('logEml', `<span class="text-red-600">⚠ Error en ${f.name}: ${e.message}</span>`);
+          }
+          setProg('progEml', 'pctEml', ((i + 1) / total) * 100);
+        }
+        if (!rows.length) { log('logEml', '<span class="text-red-600">❌ No se pudo procesar ningún correo</span>'); return; }
+        const ws = xlsx.utils.json_to_sheet(rows);
+        const wb = xlsx.utils.book_new();
+        xlsx.utils.book_append_sheet(wb, ws, 'Mails');
+        const blob = xlsx.write(wb, { bookType: 'xlsx', type: 'blob' });
+        if (!blob) throw new Error('No se pudo generar el Excel');
+        const ok = downloadBlob(blob, 'Mails_desde_EML.xlsx');
+        if (ok) log('logEml', '<span class="text-green-700 font-bold">✅ Excel descargado</span>');
+        else throw new Error('Error al descargar');
+      } catch (e) {
+        log('logEml', `<span class="text-red-600">❌ Error: ${e.message}</span>`);
+      }
+    });
+
+    /* ---------- 7. UNIR CSVs ---------- */
+    let csvFilesList = [];
+    setupZone('zoneCsv', 'csvFiles', async files => {
+      csvFilesList = [];
+      log('logCsv', '');
+      setProg('progCsv', 'pctCsv', 0);
+      const total = files.length;
+      for (let i = 0; i < total; i++) {
+        const f = files[i];
+        if (!f.name.toLowerCase().endsWith('.csv')) {
+          log('logCsv', `<span class="text-yellow-600">⚠ Saltado: ${f.name} (no es CSV)</span>`);
+          continue;
+        }
+        csvFilesList.push(f);
+        log('logCsv', `✔ ${f.name}`);
+        setProg('progCsv', 'pctCsv', ((i + 1) / total) * 100);
+      }
+      if (csvFilesList.length) {
+        log('logCsv', '<span class="text-green-600 font-medium">Listo. Pulsa DESCARGAR PDF Unido.</span>');
+      }
+    });
+
+    $('#btnCsv').addEventListener('click', async () => {
+      if (csvFilesList.length === 0) { alert('Selecciona al menos un archivo CSV'); return; }
+      try {
+        log('logCsv', '<span class="text-blue-600">Procesando CSVs...</span>');
+        let headers = [];
+        let allRows = [];
+        for (let i = 0; i < csvFilesList.length; i++) {
+          const file = csvFilesList[i];
+          const text = await file.text();
+          const parsed = Papa.parse(text, { skipEmptyLines: true });
+          if (parsed.data && parsed.data.length > 0) {
+            if (i === 0) {
               headers = parsed.data[0];
               allRows.push(...parsed.data.slice(1));
-           } else {
+            } else {
               const currentHeaders = parsed.data[0];
               if (JSON.stringify(currentHeaders) === JSON.stringify(headers)) {
-                  allRows.push(...parsed.data.slice(1));
+                allRows.push(...parsed.data.slice(1));
               } else {
-                  allRows.push(...parsed.data);
+                allRows.push(...parsed.data);
               }
-           }
+            }
+          }
+          setProg('progCsv', 'pctCsv', ((i + 1) / csvFilesList.length) * 50);
         }
-        setProg('progCsv', 'pctCsv', Math.round((i + 1) / csvFilesList.length * 50));
+        if (allRows.length === 0 && headers.length === 0) {
+          throw new Error("Los archivos CSV están vacíos o no se pudieron leer.");
+        }
+        log('logCsv', '<span class="text-blue-600">Generando PDF con tabla...</span>');
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: 'landscape' });
+        doc.setFontSize(16);
+        doc.text("Documento Combinado desde CSVs", 14, 15);
+        doc.autoTable({
+          startY: 20,
+          head: [headers],
+          body: allRows,
+          theme: 'striped',
+          styles: { fontSize: 8, cellPadding: 2 },
+          headStyles: { fillColor: [79, 70, 229] }
+        });
+        const pdfBlob = doc.output('blob');
+        if (!pdfBlob) throw new Error('No se pudo generar el PDF');
+        const ok = downloadBlob(pdfBlob, 'DOCUMENTO_UNIDO.pdf');
+        if (ok) {
+          setProg('progCsv', 'pctCsv', 100);
+          log('logCsv', '<span class="text-green-700 font-bold">✅ PDF combinado descargado</span>');
+        } else {
+          throw new Error('Error al descargar');
+        }
+      } catch (err) {
+        log('logCsv', `<span class="text-red-600">❌ Error: ${err.message}</span>`);
       }
-      
-      if (allRows.length === 0 && headers.length === 0) {
-         throw new Error("Los archivos CSV están vacíos o no se pudieron leer.");
-      }
-
-      log('logCsv', '<span class="text-blue-600">Generando documento PDF...</span>');
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF({ orientation: 'landscape' });
-      
-      doc.setFontSize(16);
-      doc.text("Documento Combinado desde CSVs", 14, 15);
-      
-      doc.autoTable({
-        startY: 20,
-        head: [headers],
-        body: allRows,
-        theme: 'striped',
-        styles: { fontSize: 8, cellPadding: 2 },
-        headStyles: { fillColor: [79, 70, 229] }
-      });
-      
-      const pdfBlob = doc.output('blob');
-      downloadBlob(pdfBlob, 'DOCUMENTO_UNIDO.pdf');
-      
-      setProg('progCsv', 'pctCsv', 100);
-      log('logCsv', '<span class="text-green-700 font-bold">✅ PDF combinado y descargado con éxito</span>');
-      
-    } catch (err) {
-      log('logCsv', `<span class="text-red-600">❌ Error: ${err.message}</span>`);
-    }
-  });
-
-  /* ---------- core utils ---------- */
-  async function stampPdf(pdfBytes, texto, align) {
-    const pdf = await PDFLib.PDFDocument.load(pdfBytes);
-    const font = await pdf.embedFont(PDFLib.StandardFonts.HelveticaBold);
-    const txt = texto.toUpperCase().substring(0, 40);
-    const fontSize = 10;
-    const pages = pdf.getPages();
-    pages.forEach(page => {
-      const {width} = page.getSize();
-      const textWidth = font.widthOfTextAtSize(txt, fontSize);
-      const x = (align === 'left') ? 30 : (width - textWidth) / 2;
-      page.drawText(txt, {x, y: page.getHeight() - 30, size: fontSize, font, color: PDFLib.rgb(1, 0, 0)});
     });
-    return await pdf.save();
-  }
-  
-  async function mergePdfs(arrBytes) {
-    const merged = await PDFLib.PDFDocument.create();
-    for (const bytes of arrBytes) {
-      const doc = await PDFLib.PDFDocument.load(bytes);
-      const copiedPages = await merged.copyPages(doc, doc.getPageIndices());
-      copiedPages.forEach((page) => merged.addPage(page));
+
+    /* ---------- CORE FUNCTIONS ---------- */
+    async function stampPdf(pdfBytes, texto, align) {
+      const pdf = await PDFLib.PDFDocument.load(pdfBytes);
+      const font = await pdf.embedFont(PDFLib.StandardFonts.HelveticaBold);
+      const txt = texto.toUpperCase().substring(0, 40);
+      const fontSize = 10;
+      const pages = pdf.getPages();
+      pages.forEach(page => {
+        const { width } = page.getSize();
+        const textWidth = font.widthOfTextAtSize(txt, fontSize);
+        const x = (align === 'left') ? 30 : (width - textWidth) / 2;
+        page.drawText(txt, { x, y: page.getHeight() - 30, size: fontSize, font, color: PDFLib.rgb(1, 0, 0) });
+      });
+      return await pdf.save();
     }
-    return await merged.save();
-  }
-  
-  async function imagesToSinglePdf(files) {
-    const pdfDoc = await PDFLib.PDFDocument.create();
-    for (const file of files) {
-      try {
-        const imgBytes = await file.arrayBuffer();
-        let image;
-        const ext = file.name.split('.').pop().toLowerCase();
-        if (ext === 'png') { image = await pdfDoc.embedPng(imgBytes); } 
-        else if (['jpg', 'jpeg'].includes(ext)) { image = await pdfDoc.embedJpg(imgBytes); } 
-        else { continue; }
-        const page = pdfDoc.addPage([image.width, image.height]);
-        page.drawImage(image, {x: 0, y: 0, width: image.width, height: image.height});
-      } catch (error) { log('logImages', `<span class="text-red-600">⚠ Error: ${error.message}</span>`); }
-    }
-    return await pdfDoc.save();
-  }
-  
-  async function img2pdf(f) {
-    const img = await f.arrayBuffer();
-    const pdf = await PDFLib.PDFDocument.create();
-    let imgObj;
-    const ext = f.name.split('.').pop().toLowerCase();
-    if (ext === 'png') { imgObj = await pdf.embedPng(img); } 
-    else if (['jpg', 'jpeg'].includes(ext)) { imgObj = await pdf.embedJpg(img); } 
-    const page = pdf.addPage([imgObj.width, imgObj.height]);
-    page.drawImage(imgObj, {x: 0, y: 0, width: imgObj.width, height: imgObj.height});
-    return await pdf.save();
-  }
-  
-  async function txt2pdf(f) {
-    const text = await f.text();
-    const pdf = await PDFLib.PDFDocument.create();
-    const font = await pdf.embedFont(PDFLib.StandardFonts.Helvetica);
-    const fontSize = 12;
-    const lineHeight = fontSize * 1.5;
-    const margin = 50;
-    let page = pdf.addPage();
-    let y = page.getHeight() - margin;
-    const lines = text.split('\n');
-    for (const line of lines) {
-      if (y < margin + fontSize) { page = pdf.addPage(); y = page.getHeight() - margin; }
-      page.drawText(line, {x: margin, y: y, size: fontSize, font: font, color: PDFLib.rgb(0, 0, 0)});
-      y -= lineHeight;
-    }
-    return await pdf.save();
-  }
 
-  /* ---------- conversor PDF → PPTX (Totalmente reescrito y arreglado) ---------- */
-  async function pdfToPowerPoint(pdfFiles) {
-    const JSZip = window.JSZip || (await import('https://cdn.skypack.dev/jszip@3.10.1')).default;
-    const pptx = new JSZip();
-    const slideUrls = [];
-
-    // ---- crear diapositivas convirtiéndolas a JPG con pdf.js ----
-    for (let idx = 0; idx < pdfFiles.length; idx++){
-      const pdfBytes = await pdfFiles[idx].arrayBuffer();
-      
-      const loadingTask = pdfjsLib.getDocument({data: pdfBytes});
-      const pdf = await loadingTask.promise;
-      const totalPages = pdf.numPages;
-
-      for (let p = 1; p <= totalPages; p++){
-        const page = await pdf.getPage(p);
-        const scale = 2;
-        const viewport = page.getViewport({ scale: scale });
-        
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-        
-        await page.render({ canvasContext: ctx, viewport: viewport }).promise;
-        
-        const jpgBlob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.9));
-        const jpgBytes = await jpgBlob.arrayBuffer();
-
-        const relName = `ppt/media/slide${slideUrls.length + 1}.jpg`;
-        pptx.file(relName, jpgBytes);
-        slideUrls.push({ width: viewport.width / scale, height: viewport.height / scale, rel: relName });
+    async function mergePdfs(arrBytes) {
+      const merged = await PDFLib.PDFDocument.create();
+      for (const bytes of arrBytes) {
+        const doc = await PDFLib.PDFDocument.load(bytes);
+        const copiedPages = await merged.copyPages(doc, doc.getPageIndices());
+        copiedPages.forEach(page => merged.addPage(page));
       }
+      return await merged.save();
     }
 
-    // ---- contenido mínimo PPTX ----
-    const slideXmls = slideUrls.map((u, i) =>
-      `<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
-              xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
-              xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
-        <p:cSld><p:spTree>
-          <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
-          <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:grpSpPr>
-          <p:pic>
-            <p:nvPicPr><p:cNvPr id="2" name="Imagen" descr="Slide ${i + 1}"/>
-              <p:cNvPicPr><a:picLocks noGrp="1"/></p:cNvPicPr><p:nvPr/></p:nvPicPr>
-            <p:blipFill><a:blip r:embed="rId1"/><a:stretch><a:fillRect/></a:stretch></p:blipFill>
-            <p:spPr>
-              <a:xfrm><a:off x="0" y="0"/><a:ext cx="${Math.round(u.width * 9525)}" cy="${Math.round(u.height * 9525)}"/></a:xfrm>
-              <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
-            </p:spPr>
-          </p:pic>
-          <p:sp>
-            <p:nvSpPr><p:cNvPr id="3" name="Número"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr>
-            <p:spPr>
-              <a:xfrm><a:off x="${Math.round(u.width * 9525 - 200000)}" y="${Math.round(u.height * 9525 - 100000)}"/>
-              <a:ext cx="200000" cy="100000"/></a:xfrm>
-              <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
-              <a:solidFill><a:srgbClr val="FF0000"/></a:solidFill>
-            </p:spPr>
-            <p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>${i + 1}</a:t></a:r></a:p></p:txBody>
-          </p:sp>
-        </p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>`
-    );
-    const rels = slideUrls.map((u, i) =>
-      `<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="${u.rel}"/>`
-    );
-
-    // ---- ensamblar ZIP ----
-    for (let i = 0; i < slideUrls.length; i++){
-      pptx.file(`ppt/slides/slide${i + 1}.xml`, slideXmls[i]);
-      pptx.file(`ppt/slides/_rels/slide${i + 1}.xml.rels`, `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${rels[i]}</Relationships>`);
+    async function imagesToSinglePdf(files) {
+      const pdfDoc = await PDFLib.PDFDocument.create();
+      for (const file of files) {
+        try {
+          const imgBytes = await file.arrayBuffer();
+          let image;
+          const ext = file.name.split('.').pop().toLowerCase();
+          if (ext === 'png') image = await pdfDoc.embedPng(imgBytes);
+          else if (['jpg', 'jpeg'].includes(ext)) image = await pdfDoc.embedJpg(imgBytes);
+          else continue;
+          const page = pdfDoc.addPage([image.width, image.height]);
+          page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
+        } catch (error) {
+          log('logImages', `<span class="text-red-600">⚠ Error en ${file.name}: ${error.message}</span>`);
+        }
+      }
+      return await pdfDoc.save();
     }
 
-    pptx.file('[Content_Types].xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-      <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
-        <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
-        <Default Extension="xml" ContentType="application/xml"/>
-        <Default Extension="jpg" ContentType="image/jpeg"/>
-        <Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>
-        ${slideUrls.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>`).join('\n')}
-      </Types>`);
+    async function img2pdf(f) {
+      const img = await f.arrayBuffer();
+      const pdf = await PDFLib.PDFDocument.create();
+      let imgObj;
+      const ext = f.name.split('.').pop().toLowerCase();
+      if (ext === 'png') imgObj = await pdf.embedPng(img);
+      else if (['jpg', 'jpeg'].includes(ext)) imgObj = await pdf.embedJpg(img);
+      else throw new Error('Formato no soportado');
+      const page = pdf.addPage([imgObj.width, imgObj.height]);
+      page.drawImage(imgObj, { x: 0, y: 0, width: imgObj.width, height: imgObj.height });
+      return await pdf.save();
+    }
 
-    pptx.file('ppt/presentation.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-      <p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
-                      xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
-                      xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
-        <p:sldIdLst>${slideUrls.map((_, i) => `<p:sldId id="${i + 256}" r:id="rId${i + 1}"/>`).join('\n')}</p:sldIdLst>
-        <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
-        <p:notesSz cx="9144000" cy="6858000"/>
-      </p:presentation>`);
+    async function txt2pdf(f) {
+      const text = await f.text();
+      const pdf = await PDFLib.PDFDocument.create();
+      const font = await pdf.embedFont(PDFLib.StandardFonts.Helvetica);
+      const fontSize = 12;
+      const lineHeight = fontSize * 1.5;
+      const margin = 50;
+      let page = pdf.addPage();
+      let y = page.getHeight() - margin;
+      const lines = text.split('\n');
+      for (const line of lines) {
+        if (y < margin + fontSize) {
+          page = pdf.addPage();
+          y = page.getHeight() - margin;
+        }
+        page.drawText(line, { x: margin, y: y, size: fontSize, font, color: PDFLib.rgb(0, 0, 0) });
+        y -= lineHeight;
+      }
+      return await pdf.save();
+    }
 
-    pptx.file('_rels/.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-      <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-        <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="ppt/presentation.xml"/>
-      </Relationships>`);
+    /* ---------- CONVERSOR PDF → PPTX (con pdf.js) ---------- */
+    async function pdfToPowerPoint(pdfFiles) {
+      if (typeof pdfjsLib === 'undefined') {
+        throw new Error('La librería pdf.js no está cargada. Verifica tu conexión a Internet.');
+      }
+      const JSZip = window.JSZip;
+      if (!JSZip) {
+        throw new Error('La librería JSZip no está cargada.');
+      }
+      const pptx = new JSZip();
+      const slideUrls = [];
 
-    pptx.file('ppt/_rels/presentation.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-      <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-        ${slideUrls.map((_, i) => `<Relationship Id="rId${i + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slides/slide${i + 1}.xml"/>`).join('\n')}
-      </Relationships>`);
+      for (let idx = 0; idx < pdfFiles.length; idx++) {
+        const pdfBytes = await pdfFiles[idx].arrayBuffer();
+        const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
+        const pdf = await loadingTask.promise;
+        const totalPages = pdf.numPages;
 
-    return await pptx.generateAsync({type: 'blob'});
-  }
+        for (let p = 1; p <= totalPages; p++) {
+          const page = await pdf.getPage(p);
+          const scale = 2;
+          const viewport = page.getViewport({ scale: scale });
+
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+
+          await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+          const jpgBlob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.9));
+          if (!jpgBlob) throw new Error('No se pudo convertir la página a JPG');
+          const jpgBytes = await jpgBlob.arrayBuffer();
+
+          const relName = `ppt/media/slide${slideUrls.length + 1}.jpg`;
+          pptx.file(relName, jpgBytes);
+          slideUrls.push({ width: viewport.width / scale, height: viewport.height / scale, rel: relName });
+        }
+      }
+
+      if (slideUrls.length === 0) {
+        throw new Error('No se generó ninguna diapositiva');
+      }
+
+      // Construcción de archivos XML (igual que antes)
+      const slideXmls = slideUrls.map((u, i) =>
+        `<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+                xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+                xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+          <p:cSld><p:spTree>
+            <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
+            <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:grpSpPr>
+            <p:pic>
+              <p:nvPicPr><p:cNvPr id="2" name="Imagen" descr="Slide ${i + 1}"/>
+                <p:cNvPicPr><a:picLocks noGrp="1"/></p:cNvPicPr><p:nvPr/></p:nvPicPr>
+              <p:blipFill><a:blip r:embed="rId1"/><a:stretch><a:fillRect/></a:stretch></p:blipFill>
+              <p:spPr>
+                <a:xfrm><a:off x="0" y="0"/><a:ext cx="${Math.round(u.width * 9525)}" cy="${Math.round(u.height * 9525)}"/></a:xfrm>
+                <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
+              </p:spPr>
+            </p:pic>
+            <p:sp>
+              <p:nvSpPr><p:cNvPr id="3" name="Número"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr>
+              <p:spPr>
+                <a:xfrm><a:off x="${Math.round(u.width * 9525 - 200000)}" y="${Math.round(u.height * 9525 - 100000)}"/>
+                       <a:ext cx="200000" cy="100000"/></a:xfrm>
+                <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
+                <a:solidFill><a:srgbClr val="FF0000"/></a:solidFill>
+              </p:spPr>
+              <p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>${i + 1}</a:t></a:r></a:p></p:txBody>
+            </p:sp>
+          </p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>`
+      );
+
+      const rels = slideUrls.map(() =>
+        `<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/slide${slideUrls.indexOf(this) + 1}.jpg"/>`
+      );
+
+      for (let i = 0; i < slideUrls.length; i++) {
+        pptx.file(`ppt/slides/slide${i + 1}.xml`, slideXmls[i]);
+        pptx.file(`ppt/slides/_rels/slide${i + 1}.xml.rels`, `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+            <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/slide${i + 1}.jpg"/>
+          </Relationships>`);
+      }
+
+      pptx.file('[Content_Types].xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+          <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+          <Default Extension="xml" ContentType="application/xml"/>
+          <Default Extension="jpg" ContentType="image/jpeg"/>
+          <Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>
+          ${slideUrls.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>`).join('\n')}
+        </Types>`);
+
+      pptx.file('ppt/presentation.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+                        xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+                        xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+          <p:sldIdLst>${slideUrls.map((_, i) => `<p:sldId id="${i + 256}" r:id="rId${i + 1}"/>`).join('\n')}</p:sldIdLst>
+          <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
+          <p:notesSz cx="9144000" cy="6858000"/>
+        </p:presentation>`);
+
+      pptx.file('_rels/.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+          <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="ppt/presentation.xml"/>
+        </Relationships>`);
+
+      pptx.file('ppt/_rels/presentation.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+          ${slideUrls.map((_, i) => `<Relationship Id="rId${i + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slides/slide${i + 1}.xml"/>`).join('\n')}
+        </Relationships>`);
+
+      return await pptx.generateAsync({ type: 'blob' });
+    }
+
+    console.log('✅ ServiPDF Pro cargado correctamente');
   </script>
 </body>
 </html>
-
-```
