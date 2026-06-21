@@ -3,60 +3,226 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ServiPDF Pro - Prueba de descarga</title>
+  <title>ServiPDF Pro - PDF a PowerPoint</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body { background: #f3f4f6; padding: 2rem; font-family: sans-serif; }
-    .card { background: white; border-radius: 1rem; padding: 2rem; max-width: 700px; margin: 0 auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    .btn { padding: 0.5rem 1rem; border-radius: 0.5rem; border: none; cursor: pointer; font-weight: 600; margin-right: 0.5rem; }
-    .btn-blue { background: #3b82f6; color: white; }
-    .btn-green { background: #22c55e; color: white; }
-    .btn-yellow { background: #eab308; color: white; }
-    .btn-red { background: #ef4444; color: white; }
-    .log { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 0.5rem; font-family: monospace; font-size: 0.8rem; height: 200px; overflow-y: auto; margin-top: 1rem; white-space: pre-wrap; word-break: break-all; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; background: #f8fafc; }
+    .dropZone.dragover { background-color: #eef6ff; }
+    .feature-card { transition: all 0.3s ease; cursor: pointer; }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+    .progress-bar { overflow: hidden; border-radius: 9999px; }
+    .progress-fill { transition: width 0.3s ease; }
+    .log-container {
+      font-family: monospace;
+      font-size: 0.75rem;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.75rem;
+      padding: 0.75rem;
+      height: 150px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .log-container::-webkit-scrollbar { width: 6px; }
+    .log-container::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 9999px; }
+    .log-container::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    .pulse-animation { animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite; }
+    .file-input { opacity: 0; width: 0; height: 0; position: absolute; }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center; justify-content: center;
+      z-index: 1000;
+      padding: 1rem;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-content {
+      background: white;
+      border-radius: 1.5rem;
+      max-width: 700px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      animation: modalFade 0.25s ease;
+    }
+    @keyframes modalFade {
+      from { opacity: 0; transform: scale(0.95) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 1.8rem;
+      color: #6b7280;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .modal-close:hover { color: #1f2937; }
+    .modal-header {
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .modal-header i { font-size: 2rem; color: #2563eb; }
+    .modal-header h2 { font-size: 1.5rem; font-weight: 700; color: #1f2937; }
+    .btn-test {
+      background: #f59e0b;
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+    }
+    .btn-test:hover { background: #d97706; }
+    .btn-download-alt {
+      background: #8b5cf6;
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+    }
+    .btn-download-alt:hover { background: #7c3aed; }
   </style>
 </head>
-<body>
-  <div class="card">
-    <h1 class="text-2xl font-bold mb-4">🧪 Prueba de descarga</h1>
-    <p class="text-gray-600 mb-4">Haz clic en los botones para probar diferentes métodos de descarga.</p>
+<body class="bg-gray-50 text-gray-800 min-h-screen pt-6 pb-12">
+  <div class="max-w-6xl mx-auto px-4">
+    <header class="text-center mb-12">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-100 mb-4">
+        <i class="fas fa-file-pdf text-3xl text-blue-600"></i>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+        ServiPDF Pro
+      </h1>
+      <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+        Soluciones avanzadas para documentos PDF en tu navegador - Sin subidas a servidores, 100% privado
+      </p>
+      <p class="text-sm text-gray-500 mt-2">Haz clic en la tarjeta para abrir la herramienta</p>
+    </header>
 
-    <div class="flex flex-wrap gap-2 mb-4">
-      <button id="btnBlob" class="btn btn-blue">📥 Método 1: Blob + anchor</button>
-      <button id="btnWindow" class="btn btn-green">🪟 Método 2: window.open</button>
-      <button id="btnData" class="btn btn-yellow">📄 Método 3: data: URI</button>
-      <button id="btnIframe" class="btn btn-red">🖼️ Método 4: iframe</button>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <!-- Tarjeta 1: PDF → PowerPoint -->
+      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalPpt">
+        <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
+          <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-file-powerpoint mr-2"></i> PDF a PowerPoint</h2>
+        </div>
+        <div class="p-4 text-center">
+          <i class="fas fa-chevron-right text-blue-500 text-2xl mb-2"></i>
+          <p class="text-gray-600 text-sm">Convierte PDFs a PPTX con numeración</p>
+          <span class="inline-block mt-2 text-blue-600 font-medium text-sm">Abrir herramienta →</span>
+        </div>
+      </div>
     </div>
 
-    <div class="mt-4">
-      <button id="btnPpt" class="btn btn-blue w-full" style="background:#2563eb;">📥 Descargar PowerPoint (desde PDF)</button>
-    </div>
-
-    <div id="logArea" class="log">⏳ Esperando acción...</div>
+    <footer class="text-center mt-8 pt-8 border-t border-gray-200 text-gray-500">
+      <p class="mb-2">ServiPDF Pro &copy; 2025 - Procesamiento 100% en tu navegador</p>
+      <p class="text-sm">Ningún archivo se envía a servidores externos. Tu privacidad es nuestra prioridad.</p>
+    </footer>
   </div>
+
+  <!-- ====== MODAL ====== -->
+  <div class="modal-overlay" id="modalPpt">
+    <div class="modal-content">
+      <button class="modal-close" data-close="modalPpt">&times;</button>
+      <div class="modal-header">
+        <i class="fas fa-file-powerpoint text-blue-600"></i>
+        <h2>PDF a PowerPoint con hojas numeradas</h2>
+      </div>
+      
+      <!-- Botones de prueba (los que funcionaron) -->
+      <div class="mb-4 flex flex-wrap gap-2">
+        <button id="btnTestAnchor" class="btn-test"><i class="fas fa-link"></i> Anchor</button>
+        <button id="btnTestWindow" class="btn-download-alt"><i class="fas fa-window-maximize"></i> window.open</button>
+        <span class="text-xs text-gray-500 self-center">(prueba de descarga)</span>
+      </div>
+
+      <div class="dropZone border-2 border-dashed border-blue-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zonePpt">
+        <i class="fas fa-cloud-upload-alt text-blue-500 text-4xl mb-3 pulse-animation"></i>
+        <label for="pdfPpt" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
+          <i class="fas fa-file-pdf mr-2"></i>Seleccionar PDFs
+        </label>
+        <p class="text-gray-500 mt-2 text-sm">Una diapositiva por página + numeración automática</p>
+        <input type="file" id="pdfPpt" accept="application/pdf" multiple class="file-input">
+      </div>
+
+      <div class="mb-4">
+        <div class="flex justify-between text-sm mb-1">
+          <span class="font-medium">Progreso</span>
+          <span id="pctPpt" class="text-gray-600 font-medium">0 %</span>
+        </div>
+        <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
+          <div id="progPpt" class="progress-fill h-full bg-blue-500 rounded-full" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <button id="btnPpt" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+        <i class="fas fa-download mr-2"></i>Descargar PowerPoint
+      </button>
+
+      <div id="logPpt" class="log-container"></div>
+    </div>
+  </div>
+
+  <!-- ====== LIBRERÍAS ====== -->
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
   <script>
     // ============================================================
-    // 1. Helper para mostrar logs en el área y consola
+    // CONFIGURACIÓN Y HELPERS
     // ============================================================
-    const logArea = document.getElementById('logArea');
+    if (typeof pdfjsLib !== 'undefined') {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+
+    const $ = id => document.getElementById(id);
     function log(msg) {
-      const timestamp = new Date().toLocaleTimeString();
-      const line = `[${timestamp}] ${msg}`;
-      logArea.textContent += line + '\n';
-      logArea.scrollTop = logArea.scrollHeight;
-      console.log(line);
+      const el = $('logPpt');
+      if (el) {
+        el.textContent += msg + '\n';
+        el.scrollTop = el.scrollHeight;
+      }
+      console.log(msg);
+    }
+    function setProg(pct) {
+      const bar = $('progPpt');
+      const pctEl = $('pctPpt');
+      if (bar) bar.style.width = Math.min(pct, 100) + '%';
+      if (pctEl) pctEl.textContent = Math.round(pct) + ' %';
     }
 
     // ============================================================
-    // 2. Funciones de descarga (métodos nativos)
+    // FUNCIÓN DE DESCARGA (USANDO EL MÉTODO ANCHOR QUE FUNCIONÓ)
     // ============================================================
-
-    // Método 1: Blob + anchor (el más común)
-    function downloadWithAnchor(blob, filename) {
+    function downloadBlob(blob, filename) {
       if (!blob || blob.size === 0) {
-        log('❌ Blob inválido o vacío');
+        log('❌ Error: blob vacío o nulo');
         return false;
       }
       try {
@@ -70,155 +236,275 @@
           document.body.removeChild(a);
           URL.revokeObjectURL(url);
         }, 200);
-        log(`✅ Método anchor: descarga iniciada (${blob.size} bytes)`);
+        log(`✅ Descarga iniciada: ${filename} (${blob.size} bytes)`);
         return true;
       } catch (e) {
-        log(`❌ Error en anchor: ${e.message}`);
+        log(`❌ Error en descarga: ${e.message}`);
         return false;
       }
     }
 
-    // Método 2: window.open
-    function downloadWithWindowOpen(blob, filename) {
-      if (!blob || blob.size === 0) {
-        log('❌ Blob inválido o vacío');
-        return false;
-      }
-      try {
-        const url = URL.createObjectURL(blob);
-        const win = window.open(url, '_blank');
-        if (!win) {
-          log('⚠️ window.open bloqueado por el navegador. Probando anchor...');
-          return downloadWithAnchor(blob, filename);
+    // ============================================================
+    // GESTIÓN DE MODALES
+    // ============================================================
+    document.querySelectorAll('.feature-card[data-modal]').forEach(card => {
+      card.addEventListener('click', function() {
+        const modalId = this.dataset.modal;
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
         }
-        // Forzar descarga en algunos navegadores
+      });
+    });
+
+    document.querySelectorAll('.modal-close').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const modalId = this.dataset.close;
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
+    // ============================================================
+    // BOTONES DE PRUEBA (los que funcionaron)
+    // ============================================================
+    document.getElementById('btnTestAnchor').addEventListener('click', function() {
+      log('🔹 Probando anchor...');
+      const blob = new Blob(['Prueba de descarga con anchor\nFecha: ' + new Date().toISOString()], { type: 'text/plain' });
+      downloadBlob(blob, 'prueba_anchor.txt');
+    });
+
+    document.getElementById('btnTestWindow').addEventListener('click', function() {
+      log('🔹 Probando window.open...');
+      const blob = new Blob(['Prueba de descarga con window.open\nFecha: ' + new Date().toISOString()], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const win = window.open(url, '_blank');
+      if (!win) {
+        log('⚠️ window.open bloqueado, usando anchor');
+        downloadBlob(blob, 'prueba_window.txt');
+      } else {
         setTimeout(() => {
           try {
             const a = win.document.createElement('a');
             a.href = url;
-            a.download = filename;
+            a.download = 'prueba_window.txt';
             win.document.body.appendChild(a);
             a.click();
           } catch (e) {
-            log(`⚠️ No se pudo forzar descarga en window.open: ${e.message}`);
+            log('⚠️ No se pudo forzar descarga en window.open');
           }
         }, 100);
-        log(`✅ window.open: ventana abierta (${blob.size} bytes)`);
-        return true;
-      } catch (e) {
-        log(`❌ Error en window.open: ${e.message}`);
-        return false;
+        log('✅ window.open iniciado');
       }
+    });
+
+    // ============================================================
+    // ZONA DE ARRASTRE PARA PDF → POWERPOINT
+    // ============================================================
+    let pptFiles = [];
+    function setupZone(zoneId, inputId, onFiles) {
+      const zone = $(zoneId);
+      const inp = $(inputId);
+      if (!zone || !inp) return;
+
+      inp.addEventListener('change', () => onFiles(inp.files));
+
+      zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+      zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+      zone.addEventListener('drop', e => {
+        e.preventDefault();
+        zone.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        inp.files = files;
+        onFiles(files);
+      });
     }
 
-    // Método 3: data: URI (para texto pequeño)
-    function downloadWithDataURI(text, filename) {
+    setupZone('zonePpt', 'pdfPpt', async files => {
+      pptFiles = [];
+      log('📂 Archivos cargados:');
+      setProg(0);
+      let valid = 0;
+      for (let i = 0; i < files.length; i++) {
+        const f = files[i];
+        if (!f.name.toLowerCase().endsWith('.pdf')) {
+          log(`⚠️ Saltado: ${f.name} (no es PDF)`);
+          continue;
+        }
+        pptFiles.push(f);
+        valid++;
+        log(`✔️ ${f.name}`);
+        setProg((valid / files.length) * 100);
+      }
+      if (pptFiles.length) {
+        log(`✅ ${pptFiles.length} PDF(s) cargados. Pulsa "Descargar PowerPoint".`);
+      } else {
+        log('⚠️ No se seleccionó ningún PDF válido.');
+      }
+    });
+
+    // ============================================================
+    // BOTÓN PRINCIPAL DE DESCARGA
+    // ============================================================
+    document.getElementById('btnPpt').addEventListener('click', async function() {
+      if (pptFiles.length === 0) {
+        alert('Selecciona al menos un PDF');
+        return;
+      }
+      log('⏳ Iniciando generación del PowerPoint...');
       try {
-        const dataUri = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text);
-        const a = document.createElement('a');
-        a.href = dataUri;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(() => document.body.removeChild(a), 200);
-        log(`✅ data: URI descargado (${text.length} caracteres)`);
-        return true;
-      } catch (e) {
-        log(`❌ Error en data: URI: ${e.message}`);
-        return false;
+        if (typeof pdfjsLib === 'undefined') throw new Error('pdf.js no está cargado.');
+        if (typeof JSZip === 'undefined') throw new Error('JSZip no está cargado.');
+
+        const pptxBlob = await pdfToPowerPoint(pptFiles);
+        if (!pptxBlob || pptxBlob.size === 0) {
+          throw new Error('El archivo PowerPoint generado está vacío.');
+        }
+        log(`📦 Tamaño del PPTX: ${(pptxBlob.size / 1024).toFixed(1)} KB (${pptxBlob.size} bytes)`);
+        const ok = downloadBlob(pptxBlob, 'PDF_a_PowerPoint.pptx');
+        if (!ok) throw new Error('Falló la descarga.');
+      } catch (err) {
+        log(`❌ Error: ${err.message}`);
+        console.error(err);
       }
+    });
+
+    // ============================================================
+    // FUNCIÓN DE CONVERSIÓN PDF → PPTX
+    // ============================================================
+    async function pdfToPowerPoint(pdfFiles) {
+      const JSZip = window.JSZip;
+      if (!JSZip) throw new Error('JSZip no disponible');
+      const pptx = new JSZip();
+      const slideUrls = [];
+
+      for (let idx = 0; idx < pdfFiles.length; idx++) {
+        const file = pdfFiles[idx];
+        log(`📄 Procesando ${file.name}...`);
+        const pdfBytes = await file.arrayBuffer();
+        const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
+        const pdf = await loadingTask.promise;
+        const totalPages = pdf.numPages;
+        log(`   ↳ ${totalPages} página(s)`);
+
+        for (let p = 1; p <= totalPages; p++) {
+          log(`   ↳ Renderizando página ${p}...`);
+          const page = await pdf.getPage(p);
+          const scale = 1.5;
+          const viewport = page.getViewport({ scale });
+
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+
+          await page.render({ canvasContext: ctx, viewport }).promise;
+
+          const jpgBlob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.85));
+          if (!jpgBlob) throw new Error(`No se pudo convertir la página ${p} a JPG`);
+          const jpgBytes = await jpgBlob.arrayBuffer();
+
+          const relName = `ppt/media/slide${slideUrls.length + 1}.jpg`;
+          pptx.file(relName, jpgBytes);
+          slideUrls.push({
+            width: viewport.width / scale,
+            height: viewport.height / scale,
+            rel: relName
+          });
+          log(`   ✅ Página ${p} → JPG (${(jpgBytes.byteLength / 1024).toFixed(1)} KB)`);
+        }
+      }
+
+      if (slideUrls.length === 0) throw new Error('No se generó ninguna diapositiva.');
+
+      log(`📦 Construyendo estructura PPTX (${slideUrls.length} diapositivas)...`);
+
+      // Generar XMLs (mínimo necesario)
+      const slideXmls = slideUrls.map((u, i) =>
+        `<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+                xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+                xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+          <p:cSld><p:spTree>
+            <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
+            <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:grpSpPr>
+            <p:pic>
+              <p:nvPicPr><p:cNvPr id="2" name="Imagen" descr="Slide ${i+1}"/>
+                <p:cNvPicPr><a:picLocks noGrp="1"/></p:cNvPicPr><p:nvPr/></p:nvPicPr>
+              <p:blipFill><a:blip r:embed="rId1"/><a:stretch><a:fillRect/></a:stretch></p:blipFill>
+              <p:spPr>
+                <a:xfrm><a:off x="0" y="0"/><a:ext cx="${Math.round(u.width*9525)}" cy="${Math.round(u.height*9525)}"/></a:xfrm>
+                <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
+              </p:spPr>
+            </p:pic>
+            <p:sp>
+              <p:nvSpPr><p:cNvPr id="3" name="Número"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr>
+              <p:spPr>
+                <a:xfrm><a:off x="${Math.round(u.width*9525-200000)}" y="${Math.round(u.height*9525-100000)}"/>
+                       <a:ext cx="200000" cy="100000"/></a:xfrm>
+                <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
+                <a:solidFill><a:srgbClr val="FF0000"/></a:solidFill>
+              </p:spPr>
+              <p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>${i+1}</a:t></a:r></a:p></p:txBody>
+            </p:sp>
+          </p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>`
+      );
+
+      for (let i = 0; i < slideUrls.length; i++) {
+        pptx.file(`ppt/slides/slide${i+1}.xml`, slideXmls[i]);
+        pptx.file(`ppt/slides/_rels/slide${i+1}.xml.rels`, `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+            <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/slide${i+1}.jpg"/>
+          </Relationships>`);
+      }
+
+      pptx.file('[Content_Types].xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+          <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+          <Default Extension="xml" ContentType="application/xml"/>
+          <Default Extension="jpg" ContentType="image/jpeg"/>
+          <Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>
+          ${slideUrls.map((_, i) => `<Override PartName="/ppt/slides/slide${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>`).join('\n')}
+        </Types>`);
+
+      pptx.file('ppt/presentation.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+                        xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+                        xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+          <p:sldIdLst>${slideUrls.map((_, i) => `<p:sldId id="${i+256}" r:id="rId${i+1}"/>`).join('\n')}</p:sldIdLst>
+          <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
+          <p:notesSz cx="9144000" cy="6858000"/>
+        </p:presentation>`);
+
+      pptx.file('_rels/.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+          <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="ppt/presentation.xml"/>
+        </Relationships>`);
+
+      pptx.file('ppt/_rels/presentation.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+          ${slideUrls.map((_, i) => `<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slides/slide${i+1}.xml"/>`).join('\n')}
+        </Relationships>`);
+
+      log('📦 Generando archivo ZIP final...');
+      const blob = await pptx.generateAsync({ type: 'blob' });
+      return blob;
     }
 
-    // Método 4: iframe
-    function downloadWithIframe(blob, filename) {
-      if (!blob || blob.size === 0) {
-        log('❌ Blob inválido o vacío');
-        return false;
-      }
-      try {
-        const url = URL.createObjectURL(blob);
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = url;
-        document.body.appendChild(iframe);
-        // Forzar descarga después de cargar
-        iframe.onload = function() {
-          try {
-            iframe.contentWindow.location.href = url;
-          } catch (e) {
-            log(`⚠️ No se pudo forzar descarga en iframe: ${e.message}`);
-          }
-          setTimeout(() => {
-            document.body.removeChild(iframe);
-            URL.revokeObjectURL(url);
-          }, 1000);
-        };
-        log(`✅ iframe: descarga intentada (${blob.size} bytes)`);
-        return true;
-      } catch (e) {
-        log(`❌ Error en iframe: ${e.message}`);
-        return false;
-      }
-    }
-
-    // ============================================================
-    // 3. Botones de prueba
-    // ============================================================
-
-    // Botón 1: Blob + anchor
-    document.getElementById('btnBlob').addEventListener('click', function() {
-      log('🔹 Probando método 1: Blob + anchor');
-      const blob = new Blob(['Contenido de prueba (anchor)\nFecha: ' + new Date().toISOString()], { type: 'text/plain' });
-      const ok = downloadWithAnchor(blob, 'prueba_anchor.txt');
-      if (!ok) log('❌ Falló el método 1');
-    });
-
-    // Botón 2: window.open
-    document.getElementById('btnWindow').addEventListener('click', function() {
-      log('🔹 Probando método 2: window.open');
-      const blob = new Blob(['Contenido de prueba (window.open)\nFecha: ' + new Date().toISOString()], { type: 'text/plain' });
-      const ok = downloadWithWindowOpen(blob, 'prueba_window.txt');
-      if (!ok) log('❌ Falló el método 2');
-    });
-
-    // Botón 3: data: URI
-    document.getElementById('btnData').addEventListener('click', function() {
-      log('🔹 Probando método 3: data: URI');
-      const text = 'Contenido de prueba (data URI)\nFecha: ' + new Date().toISOString();
-      const ok = downloadWithDataURI(text, 'prueba_data.txt');
-      if (!ok) log('❌ Falló el método 3');
-    });
-
-    // Botón 4: iframe
-    document.getElementById('btnIframe').addEventListener('click', function() {
-      log('🔹 Probando método 4: iframe');
-      const blob = new Blob(['Contenido de prueba (iframe)\nFecha: ' + new Date().toISOString()], { type: 'text/plain' });
-      const ok = downloadWithIframe(blob, 'prueba_iframe.txt');
-      if (!ok) log('❌ Falló el método 4');
-    });
-
-    // ============================================================
-    // 4. Botón de descarga de PowerPoint (con PDF)
-    // ============================================================
-    // (Aquí solo incluiremos una versión mínima que genere un blob de prueba,
-    //  porque la conversión real requiere pdf.js y JSZip, y queremos probar
-    //  primero la descarga. Si los botones de prueba funcionan, entonces
-    //  el problema está en la conversión, no en la descarga.)
-
-    document.getElementById('btnPpt').addEventListener('click', function() {
-      log('🔹 Intentando descargar PowerPoint de prueba (blob con texto)');
-      // Crear un blob que simule un PPTX (en realidad es un archivo de texto)
-      const blob = new Blob(['Este es un PowerPoint de prueba (falso)'], { type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation' });
-      const ok = downloadWithAnchor(blob, 'prueba_powerpoint.pptx');
-      if (!ok) log('❌ Falló la descarga del PowerPoint de prueba');
-    });
-
-    // ============================================================
-    // 5. Mensaje inicial
-    // ============================================================
-    log('✅ Página cargada. Prueba los botones.');
-    log('ℹ️ Si algún botón funciona, la descarga es posible.');
-    log('ℹ️ Si ninguno funciona, revisa la consola (F12) para más detalles.');
+    log('✅ ServiPDF Pro cargado correctamente');
+    log('💡 Prueba los botones de descarga para verificar que funciona.');
   </script>
 </body>
 </html>
