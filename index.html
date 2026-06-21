@@ -304,8 +304,6 @@
       if (el) {
         el.insertAdjacentHTML('beforeend', `<div>${txt}</div>`);
         el.scrollTop = el.scrollHeight;
-      } else {
-        console.warn('Log element not found:', boxId);
       }
     }
     function downloadBlob(blob, name) {
@@ -825,7 +823,7 @@
         throw new Error('No se generó ninguna diapositiva');
       }
 
-      // Construcción de archivos XML (igual que antes)
+      // Construcción de archivos XML
       const slideXmls = slideUrls.map((u, i) =>
         `<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
                 xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
@@ -853,10 +851,6 @@
               <p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>${i + 1}</a:t></a:r></a:p></p:txBody>
             </p:sp>
           </p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>`
-      );
-
-      const rels = slideUrls.map(() =>
-        `<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/slide${slideUrls.indexOf(this) + 1}.jpg"/>`
       );
 
       for (let i = 0; i < slideUrls.length; i++) {
