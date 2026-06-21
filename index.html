@@ -7,7 +7,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* ... estilos igual que antes ... */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     body { font-family: 'Inter', sans-serif; background: #f8fafc; }
     .dropZone.dragover { background-color: #eef6ff; }
@@ -109,21 +108,6 @@
       font-size: 0.85rem;
     }
     .btn-download-alt:hover { background: #7c3aed; }
-    .btn-danger {
-      background: #ef4444;
-      color: white;
-      font-weight: 600;
-      padding: 0.5rem 1rem;
-      border-radius: 0.75rem;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.85rem;
-    }
-    .btn-danger:hover { background: #dc2626; }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen pt-6 pb-12">
@@ -160,7 +144,6 @@
     </footer>
   </div>
 
-  <!-- MODAL -->
   <div class="modal-overlay" id="modalPpt">
     <div class="modal-content">
       <button class="modal-close" data-close="modalPpt">&times;</button>
@@ -202,15 +185,11 @@
     </div>
   </div>
 
-  <!-- LIBRERÍAS -->
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
   <script>
-    // ============================================================
-    // CONFIGURACIÓN
-    // ============================================================
     if (typeof pdfjsLib !== 'undefined') {
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     }
@@ -255,9 +234,6 @@
       }
     }
 
-    // ============================================================
-    // MODALES
-    // ============================================================
     document.querySelectorAll('.feature-card[data-modal]').forEach(card => {
       card.addEventListener('click', function() {
         const modalId = this.dataset.modal;
@@ -289,16 +265,12 @@
       });
     });
 
-    // ============================================================
-    // BOTONES DE PRUEBA
-    // ============================================================
     document.getElementById('btnTestAnchor').addEventListener('click', function() {
       log('🔹 Probando anchor...');
       const blob = new Blob(['Prueba de descarga con anchor\nFecha: ' + new Date().toISOString()], { type: 'text/plain' });
       downloadBlob(blob, 'prueba_anchor.txt');
     });
 
-    // BOTÓN: GENERAR PPTX SIMPLE (solo texto) para probar la estructura
     document.getElementById('btnTestPptxSimple').addEventListener('click', async function() {
       log('🔹 Generando PPTX de prueba (simple, sin imágenes)');
       try {
@@ -312,15 +284,11 @@
       }
     });
 
-    // ============================================================
-    // FUNCIÓN PARA GENERAR PPTX SIMPLE (sin imágenes)
-    // ============================================================
     async function generarPPTXSimple() {
       const JSZip = window.JSZip;
       if (!JSZip) throw new Error('JSZip no disponible');
       const pptx = new JSZip();
 
-      // 1. Theme
       pptx.file('ppt/theme/theme1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <a:theme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Office Theme">
           <a:themeElements>
@@ -351,7 +319,6 @@
           </a:themeElements>
         </a:theme>`);
 
-      // 2. Slide Master
       pptx.file('ppt/slideMasters/slideMaster1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <p:sldMaster xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
                      xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
@@ -384,7 +351,6 @@
           <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="../theme/theme1.xml"/>
         </Relationships>`);
 
-      // 3. Slide Layout
       pptx.file('ppt/slideLayouts/slideLayout1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <p:sldLayout xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
                      xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
@@ -408,7 +374,6 @@
           <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster" Target="../slideMasters/slideMaster1.xml"/>
         </Relationships>`);
 
-      // 4. Diapositiva (con texto)
       pptx.file('ppt/slides/slide1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
                xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
@@ -452,7 +417,11 @@
           <p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr>
         </p:sld>`);
 
-      // 5. Presentación
+      pptx.file('ppt/slides/_rels/slide1.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+          <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="../slideLayouts/slideLayout1.xml"/>
+        </Relationships>`);
+
       pptx.file('ppt/presentation.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
                         xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
@@ -470,6 +439,7 @@
       pptx.file('ppt/_rels/presentation.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
           <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster" Target="slideMasters/slideMaster1.xml"/>
+          <Relationship Id="rIdTheme" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="theme/theme1.xml"/>
           <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slides/slide1.xml"/>
         </Relationships>`);
 
@@ -492,9 +462,6 @@
       return await pptx.generateAsync({ type: 'blob' });
     }
 
-    // ============================================================
-    // ZONA DE ARRASTRE PARA PDF → POWERPOINT
-    // ============================================================
     let pptFiles = [];
     function setupZone(zoneId, inputId, onFiles) {
       const zone = $(zoneId);
@@ -537,9 +504,6 @@
       }
     });
 
-    // ============================================================
-    // BOTÓN PRINCIPAL
-    // ============================================================
     document.getElementById('btnPpt').addEventListener('click', async function() {
       if (pptFiles.length === 0) {
         alert('Selecciona al menos un PDF');
@@ -563,16 +527,12 @@
       }
     });
 
-    // ============================================================
-    // FUNCIÓN PDF → PPTX (CON ESTRUCTURA COMPLETA)
-    // ============================================================
     async function pdfToPowerPoint(pdfFiles) {
       const JSZip = window.JSZip;
       if (!JSZip) throw new Error('JSZip no disponible');
       const pptx = new JSZip();
       const slideData = [];
 
-      // 1. Procesar PDFs y convertir cada página a JPG
       for (let idx = 0; idx < pdfFiles.length; idx++) {
         const file = pdfFiles[idx];
         log(`📄 Procesando ${file.name}...`);
@@ -616,14 +576,6 @@
 
       log(`📦 Construyendo estructura PPTX (${slideData.length} diapositivas)...`);
 
-      // 2. Archivos fijos: theme, slideMaster, slideLayout (igual que en el PPTX simple)
-      // ... (copiar los mismos archivos que en generarPPTXSimple, pero con las diapositivas generadas)
-
-      // Pero para no duplicar tanto código, vamos a usar la misma función interna:
-      // (En realidad, podríamos reutilizar la función generarPPTXSimple y luego añadir las diapositivas,
-      // pero como la lógica es larga, mejor la mantenemos separada para claridad)
-
-      // Escribimos los archivos fijos (igual que en el PPTX simple)
       pptx.file('ppt/theme/theme1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <a:theme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Office Theme">
           <a:themeElements>
@@ -709,7 +661,6 @@
           <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster" Target="../slideMasters/slideMaster1.xml"/>
         </Relationships>`);
 
-      // 3. Diapositivas (cada una con la imagen)
       for (let i = 0; i < slideData.length; i++) {
         const s = slideData[i];
         const slideXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -750,14 +701,15 @@
                       <a:ext cx="200000" cy="100000"/>
                     </a:xfrm>
                     <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
-                    <a:solidFill><a:srgbClr val="FF0000"/></a:solidFill>
                   </p:spPr>
                   <p:txBody>
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
                       <a:r>
-                        <a:rPr sz="2400" b="1" solidFill="000000"/>
+                        <a:rPr sz="2400" b="1">
+                          <a:solidFill><a:srgbClr val="FF0000"/></a:solidFill>
+                        </a:rPr>
                         <a:t>${i+1}</a:t>
                       </a:r>
                     </a:p>
@@ -767,14 +719,16 @@
             </p:cSld>
             <p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr>
           </p:sld>`;
+        
         pptx.file(`ppt/slides/slide${i+1}.xml`, slideXml);
+        
         pptx.file(`ppt/slides/_rels/slide${i+1}.xml.rels`, `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
           <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-            <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../../media/slide${i+1}.jpg"/>
+            <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/slide${i+1}.jpg"/>
+            <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="../slideLayouts/slideLayout1.xml"/>
           </Relationships>`);
       }
 
-      // 4. Presentación
       const slideIds = slideData.map((_, i) => `<p:sldId id="${i+256}" r:id="rId${i+2}"/>`).join('\n');
       pptx.file('ppt/presentation.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
@@ -797,6 +751,7 @@
       pptx.file('ppt/_rels/presentation.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
           <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster" Target="slideMasters/slideMaster1.xml"/>
+          <Relationship Id="rIdTheme" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="theme/theme1.xml"/>
           ${slideRels}
         </Relationships>`);
 
