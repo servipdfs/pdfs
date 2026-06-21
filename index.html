@@ -1,10 +1,3 @@
-He revisado el código que me has compartido. **El problema principal de por qué "te deja cargar los ficheros pero luego no los descarga" en la opción de PDF a PowerPoint está en que el código estaba mezclando librerías incorrectas.** Intentaba usar una función para convertir el PDF en imagen (`page.render()`) usando `pdf-lib`, pero esta librería no sirve para renderizar (dibujar) PDFs a imagen, solo para modificar su estructura. Para renderizarlo hacía falta importar y usar la librería oficial de Mozilla (`pdf.js`).
-
-Además de arreglar eso, **he añadido un apartado nuevo (la 7ª tarjeta)** con la funcionalidad de tu script Python `XLSAPDF.PY`. Ahora podrás seleccionar múltiples archivos CSV, la herramienta los combinará automáticamente (eliminando encabezados duplicados) y generará un PDF con la tabla resultante, todo desde el propio navegador sin usar Excel.
-
-Aquí tienes el código `HTML` corregido y completo. Cópialo y pégalo en tu archivo `.html`:
-
-```html
 <!doctype html>
 <html lang="es">
 <head>
