@@ -7,6 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    /* ... estilos igual que antes ... */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     body { font-family: 'Inter', sans-serif; background: #f8fafc; }
     .dropZone.dragover { background-color: #eef6ff; }
@@ -17,18 +18,18 @@
     .log-container {
       font-family: monospace;
       font-size: 0.75rem;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      background: #1e293b;
+      color: #e2e8f0;
       border-radius: 0.75rem;
       padding: 0.75rem;
-      height: 150px;
+      height: 200px;
       overflow-y: auto;
       white-space: pre-wrap;
       word-break: break-all;
     }
     .log-container::-webkit-scrollbar { width: 6px; }
-    .log-container::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 9999px; }
-    .log-container::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    .log-container::-webkit-scrollbar-track { background: #0f172a; border-radius: 9999px; }
+    .log-container::-webkit-scrollbar-thumb { background: #475569; border-radius: 9999px; }
     .pulse-animation { animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite; }
     .file-input { opacity: 0; width: 0; height: 0; position: absolute; }
 
@@ -46,7 +47,7 @@
     .modal-content {
       background: white;
       border-radius: 1.5rem;
-      max-width: 700px;
+      max-width: 750px;
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
@@ -108,6 +109,21 @@
       font-size: 0.85rem;
     }
     .btn-download-alt:hover { background: #7c3aed; }
+    .btn-danger {
+      background: #ef4444;
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+    }
+    .btn-danger:hover { background: #dc2626; }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen pt-6 pb-12">
@@ -126,7 +142,6 @@
     </header>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-      <!-- Tarjeta 1: PDF → PowerPoint -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalPpt">
         <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-file-powerpoint mr-2"></i> PDF a PowerPoint</h2>
@@ -145,7 +160,7 @@
     </footer>
   </div>
 
-  <!-- ====== MODAL ====== -->
+  <!-- MODAL -->
   <div class="modal-overlay" id="modalPpt">
     <div class="modal-content">
       <button class="modal-close" data-close="modalPpt">&times;</button>
@@ -156,6 +171,7 @@
       
       <div class="mb-4 flex flex-wrap gap-2">
         <button id="btnTestAnchor" class="btn-test"><i class="fas fa-link"></i> Anchor</button>
+        <button id="btnTestPptxSimple" class="btn-download-alt"><i class="fas fa-file-powerpoint"></i> PPTX Simple (prueba)</button>
         <span class="text-xs text-gray-500 self-center">(prueba de descarga)</span>
       </div>
 
@@ -179,21 +195,21 @@
       </div>
 
       <button id="btnPpt" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-        <i class="fas fa-download mr-2"></i>Descargar PowerPoint
+        <i class="fas fa-download mr-2"></i>Descargar PowerPoint (desde PDF)
       </button>
 
       <div id="logPpt" class="log-container"></div>
     </div>
   </div>
 
-  <!-- ====== LIBRERÍAS ====== -->
+  <!-- LIBRERÍAS -->
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
   <script>
     // ============================================================
-    // CONFIGURACIÓN Y HELPERS
+    // CONFIGURACIÓN
     // ============================================================
     if (typeof pdfjsLib !== 'undefined') {
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -217,7 +233,7 @@
 
     function downloadBlob(blob, filename) {
       if (!blob || blob.size === 0) {
-        log('❌ Error: blob vacío o nulo');
+        log('❌ Blob vacío o nulo');
         return false;
       }
       try {
@@ -240,7 +256,7 @@
     }
 
     // ============================================================
-    // GESTIÓN DE MODALES
+    // MODALES
     // ============================================================
     document.querySelectorAll('.feature-card[data-modal]').forEach(card => {
       card.addEventListener('click', function() {
@@ -274,7 +290,7 @@
     });
 
     // ============================================================
-    // BOTÓN DE PRUEBA
+    // BOTONES DE PRUEBA
     // ============================================================
     document.getElementById('btnTestAnchor').addEventListener('click', function() {
       log('🔹 Probando anchor...');
@@ -282,8 +298,202 @@
       downloadBlob(blob, 'prueba_anchor.txt');
     });
 
+    // BOTÓN: GENERAR PPTX SIMPLE (solo texto) para probar la estructura
+    document.getElementById('btnTestPptxSimple').addEventListener('click', async function() {
+      log('🔹 Generando PPTX de prueba (simple, sin imágenes)');
+      try {
+        const pptxBlob = await generarPPTXSimple();
+        if (!pptxBlob || pptxBlob.size === 0) throw new Error('PPTX de prueba vacío');
+        log(`📦 Tamaño PPTX simple: ${(pptxBlob.size / 1024).toFixed(1)} KB`);
+        downloadBlob(pptxBlob, 'prueba_pptx_simple.pptx');
+      } catch (err) {
+        log(`❌ Error en PPTX simple: ${err.message}`);
+        console.error(err);
+      }
+    });
+
     // ============================================================
-    // ZONA DE ARRASTRE
+    // FUNCIÓN PARA GENERAR PPTX SIMPLE (sin imágenes)
+    // ============================================================
+    async function generarPPTXSimple() {
+      const JSZip = window.JSZip;
+      if (!JSZip) throw new Error('JSZip no disponible');
+      const pptx = new JSZip();
+
+      // 1. Theme
+      pptx.file('ppt/theme/theme1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <a:theme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Office Theme">
+          <a:themeElements>
+            <a:clrScheme name="Office">
+              <a:dk1><a:sysClr val="windowText" lastClr="000000"/></a:dk1>
+              <a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1>
+              <a:dk2><a:srgbClr val="1F497D"/></a:dk2>
+              <a:lt2><a:srgbClr val="EEECE1"/></a:lt2>
+              <a:accent1><a:srgbClr val="4F81BD"/></a:accent1>
+              <a:accent2><a:srgbClr val="C0504D"/></a:accent2>
+              <a:accent3><a:srgbClr val="9BBB59"/></a:accent3>
+              <a:accent4><a:srgbClr val="8064A2"/></a:accent4>
+              <a:accent5><a:srgbClr val="4BACC6"/></a:accent5>
+              <a:accent6><a:srgbClr val="F79646"/></a:accent6>
+              <a:hlink><a:srgbClr val="0000FF"/></a:hlink>
+              <a:folHlink><a:srgbClr val="800080"/></a:folHlink>
+            </a:clrScheme>
+            <a:fontScheme name="Office">
+              <a:majorFont><a:latin typeface="Calibri"/><a:ea typeface=""/><a:cs typeface=""/></a:majorFont>
+              <a:minorFont><a:latin typeface="Calibri"/><a:ea typeface=""/><a:cs typeface=""/></a:minorFont>
+            </a:fontScheme>
+            <a:fmtScheme name="Office">
+              <a:fillStyleLst><a:solidFill><a:schemeClr val="phClr"/></a:solidFill></a:fillStyleLst>
+              <a:lnStyleLst><a:ln><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:prstDash val="solid"/></a:ln></a:lnStyleLst>
+              <a:effectStyleLst><a:effectStyle/></a:effectStyleLst>
+              <a:bgFillStyleLst><a:solidFill><a:schemeClr val="phClr"/></a:solidFill></a:bgFillStyleLst>
+            </a:fmtScheme>
+          </a:themeElements>
+        </a:theme>`);
+
+      // 2. Slide Master
+      pptx.file('ppt/slideMasters/slideMaster1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <p:sldMaster xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+                     xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+                     xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+          <p:cSld>
+            <p:spTree>
+              <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
+              <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:grpSpPr>
+              <p:sp>
+                <p:nvSpPr><p:cNvPr id="2" name="Title"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr>
+                <p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:spPr>
+                <p:txBody><a:bodyPr/><a:p/></p:txBody>
+              </p:sp>
+            </p:spTree>
+          </p:cSld>
+          <p:clrMap bg1="lt1" tx1="dk1" bg2="lt2" tx2="dk2" accent1="accent1" accent2="accent2" accent3="accent3" accent4="accent4" accent5="accent5" accent6="accent6" hlink="hlink" folHlink="folHlink"/>
+          <p:sldLayoutIdLst>
+            <p:sldLayoutId id="2147483649" r:id="rId1"/>
+          </p:sldLayoutIdLst>
+          <p:txStyles>
+            <p:titleStyle><a:lvl1pPr><a:defRPr sz="4400"/></a:lvl1pPr></p:titleStyle>
+            <p:bodyStyle><a:lvl1pPr><a:defRPr sz="2800"/></a:lvl1pPr></p:bodyStyle>
+            <p:otherStyle><a:lvl1pPr><a:defRPr sz="1800"/></a:lvl1pPr></p:otherStyle>
+          </p:txStyles>
+        </p:sldMaster>`);
+
+      pptx.file('ppt/slideMasters/_rels/slideMaster1.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+          <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="../slideLayouts/slideLayout1.xml"/>
+          <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="../theme/theme1.xml"/>
+        </Relationships>`);
+
+      // 3. Slide Layout
+      pptx.file('ppt/slideLayouts/slideLayout1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <p:sldLayout xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+                     xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+                     xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+          <p:cSld>
+            <p:spTree>
+              <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
+              <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:grpSpPr>
+              <p:sp>
+                <p:nvSpPr><p:cNvPr id="2" name="Content Placeholder"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr>
+                <p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:spPr>
+                <p:txBody><a:bodyPr/><a:p/></p:txBody>
+              </p:sp>
+            </p:spTree>
+          </p:cSld>
+          <p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr>
+        </p:sldLayout>`);
+
+      pptx.file('ppt/slideLayouts/_rels/slideLayout1.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+          <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster" Target="../slideMasters/slideMaster1.xml"/>
+        </Relationships>`);
+
+      // 4. Diapositiva (con texto)
+      pptx.file('ppt/slides/slide1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+               xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+               xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+          <p:cSld>
+            <p:spTree>
+              <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
+              <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></a:xfrm></p:grpSpPr>
+              <p:sp>
+                <p:nvSpPr><p:cNvPr id="2" name="Título"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr>
+                <p:spPr>
+                  <a:xfrm><a:off x="100000" y="100000"/><a:ext cx="5000000" cy="500000"/></a:xfrm>
+                </p:spPr>
+                <p:txBody>
+                  <a:bodyPr/>
+                  <a:p>
+                    <a:r>
+                      <a:rPr sz="4400" b="1"/>
+                      <a:t>PPTX de prueba - ServiPDF Pro</a:t>
+                    </a:r>
+                  </a:p>
+                </p:txBody>
+              </p:sp>
+              <p:sp>
+                <p:nvSpPr><p:cNvPr id="3" name="Texto"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr>
+                <p:spPr>
+                  <a:xfrm><a:off x="100000" y="500000"/><a:ext cx="5000000" cy="500000"/></a:xfrm>
+                </p:spPr>
+                <p:txBody>
+                  <a:bodyPr/>
+                  <a:p>
+                    <a:r>
+                      <a:rPr sz="2400"/>
+                      <a:t>Esta es una diapositiva de prueba generada automáticamente.</a:t>
+                    </a:r>
+                  </a:p>
+                </p:txBody>
+              </p:sp>
+            </p:spTree>
+          </p:cSld>
+          <p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr>
+        </p:sld>`);
+
+      // 5. Presentación
+      pptx.file('ppt/presentation.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+                        xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+                        xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+          <p:sldMasterIdLst>
+            <p:sldMasterId id="2147483648" r:id="rId1"/>
+          </p:sldMasterIdLst>
+          <p:sldIdLst>
+            <p:sldId id="256" r:id="rId2"/>
+          </p:sldIdLst>
+          <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
+          <p:notesSz cx="9144000" cy="6858000"/>
+        </p:presentation>`);
+
+      pptx.file('ppt/_rels/presentation.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+          <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster" Target="slideMasters/slideMaster1.xml"/>
+          <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slides/slide1.xml"/>
+        </Relationships>`);
+
+      pptx.file('_rels/.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+          <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="ppt/presentation.xml"/>
+        </Relationships>`);
+
+      pptx.file('[Content_Types].xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+          <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+          <Default Extension="xml" ContentType="application/xml"/>
+          <Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>
+          <Override PartName="/ppt/slideMasters/slideMaster1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideMaster+xml"/>
+          <Override PartName="/ppt/slideLayouts/slideLayout1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml"/>
+          <Override PartName="/ppt/theme/theme1.xml" ContentType="application/vnd.openxmlformats-officedocument.theme+xml"/>
+          <Override PartName="/ppt/slides/slide1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>
+        </Types>`);
+
+      return await pptx.generateAsync({ type: 'blob' });
+    }
+
+    // ============================================================
+    // ZONA DE ARRASTRE PARA PDF → POWERPOINT
     // ============================================================
     let pptFiles = [];
     function setupZone(zoneId, inputId, onFiles) {
@@ -354,7 +564,7 @@
     });
 
     // ============================================================
-    // FUNCIÓN DE CONVERSIÓN PDF → PPTX (ESTRUCTURA COMPLETA)
+    // FUNCIÓN PDF → PPTX (CON ESTRUCTURA COMPLETA)
     // ============================================================
     async function pdfToPowerPoint(pdfFiles) {
       const JSZip = window.JSZip;
@@ -406,9 +616,14 @@
 
       log(`📦 Construyendo estructura PPTX (${slideData.length} diapositivas)...`);
 
-      // 2. Archivos fijos de la estructura PPTX (tema, master, etc.)
-      
-      // 2a. Tema (tema básico con colores Office)
+      // 2. Archivos fijos: theme, slideMaster, slideLayout (igual que en el PPTX simple)
+      // ... (copiar los mismos archivos que en generarPPTXSimple, pero con las diapositivas generadas)
+
+      // Pero para no duplicar tanto código, vamos a usar la misma función interna:
+      // (En realidad, podríamos reutilizar la función generarPPTXSimple y luego añadir las diapositivas,
+      // pero como la lógica es larga, mejor la mantenemos separada para claridad)
+
+      // Escribimos los archivos fijos (igual que en el PPTX simple)
       pptx.file('ppt/theme/theme1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <a:theme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Office Theme">
           <a:themeElements>
@@ -439,7 +654,6 @@
           </a:themeElements>
         </a:theme>`);
 
-      // 2b. Slide Master (con diseño para imagen a pantalla completa)
       pptx.file('ppt/slideMasters/slideMaster1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <p:sldMaster xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
                      xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
@@ -472,7 +686,6 @@
           <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="../theme/theme1.xml"/>
         </Relationships>`);
 
-      // 2c. Slide Layout (para imagen a pantalla completa)
       pptx.file('ppt/slideLayouts/slideLayout1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <p:sldLayout xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
                      xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
@@ -561,7 +774,8 @@
           </Relationships>`);
       }
 
-      // 4. Archivos de presentación
+      // 4. Presentación
+      const slideIds = slideData.map((_, i) => `<p:sldId id="${i+256}" r:id="rId${i+2}"/>`).join('\n');
       pptx.file('ppt/presentation.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
                         xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
@@ -570,13 +784,12 @@
             <p:sldMasterId id="2147483648" r:id="rId1"/>
           </p:sldMasterIdLst>
           <p:sldIdLst>
-            ${slideData.map((_, i) => `<p:sldId id="${i+256}" r:id="rId${i+2}"/>`).join('\n')}
+            ${slideIds}
           </p:sldIdLst>
           <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
           <p:notesSz cx="9144000" cy="6858000"/>
         </p:presentation>`);
 
-      // 5. Relaciones de presentación
       const slideRels = slideData.map((_, i) =>
         `<Relationship Id="rId${i+2}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slides/slide${i+1}.xml"/>`
       ).join('\n');
@@ -587,19 +800,16 @@
           ${slideRels}
         </Relationships>`);
 
-      // 6. Relaciones del paquete
       pptx.file('_rels/.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
           <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="ppt/presentation.xml"/>
         </Relationships>`);
 
-      // 7. Tipos de contenido (content types)
       pptx.file('[Content_Types].xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
           <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
           <Default Extension="xml" ContentType="application/xml"/>
           <Default Extension="jpg" ContentType="image/jpeg"/>
-          <Default Extension="png" ContentType="image/png"/>
           <Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>
           <Override PartName="/ppt/slideMasters/slideMaster1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideMaster+xml"/>
           <Override PartName="/ppt/slideLayouts/slideLayout1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml"/>
@@ -612,7 +822,7 @@
       return blob;
     }
 
-    log('✅ ServiPDF Pro cargado correctamente (estructura PPTX completa)');
+    log('✅ ServiPDF Pro cargado correctamente. Prueba primero el botón "PPTX Simple".');
   </script>
 </body>
 </html>
