@@ -683,49 +683,100 @@
       return await pdfDoc.save();
     }
 
-    // ============================================================
-    // 3. UNIR FORMATOS (pdf-lib + utilidades)
-    // ============================================================
-    let bufAll = [];
-    setupZone('zoneAll', 'allFiles', async files => {
-      bufAll = [];
-      const logId = 'logAll';
-      log(logId, '📂 Archivos seleccionados:');
-      setProg('progAll', 'pctAll', 0);
-      const total = files.length;
-      for (let i = 0; i < total; i++) {
-        const f = files[i];
-        const ext = f.name.split('.').pop().toLowerCase();
-        try {
-          let pdfBytes;
-          if (ext === 'pdf') pdfBytes = await f.arrayBuffer();
-          else if (['jpg','jpeg','png','gif'].includes(ext)) pdfBytes = await img2pdf(f);
-          else if (ext === 'txt') pdfBytes = await txt2pdf(f);
-          else { log(logId, `⚠️ Ignorado: ${f.name}`); continue; }
-          const stamped = await stampPdf(pdfBytes, f.name.replace(/\.[^.]+$/i,''), 'center');
-          bufAll.push(stamped);
-          log(logId, `✔️ ${f.name}`);
-        } catch (err) {
-          log(logId, `⚠️ Error en ${f.name}: ${err.message}`);
-        }
-        setProg('progAll', 'pctAll', ((i+1)/total)*100);
-      }
-      if (bufAll.length) log(logId, `✅ ${bufAll.length} archivos procesados.`);
-    });
+// ============================================================
+// 3. UNIR FORMATOS (corregido y mejorado)
+// ============================================================
+let bufAll = [];
+let useWatermark = true; // Cambia a false si no quieres la marca de agua
 
-    document.getElementById('btnAll').addEventListener('click', async function() {
-      if (!bufAll.length) { alert('Selecciona archivos primero'); return; }
-      const logId = 'logAll';
-      try {
-        const merged = await mergePdfs(bufAll);
-        const blob = new Blob([merged], { type: 'application/pdf' });
-        const ok = downloadBlob(blob, 'TODO_UNIDO.pdf');
-        if (ok) log(logId, '✅ PDF descargado');
-        else log(logId, '❌ Falló descarga');
-      } catch (err) {
-        log(logId, `❌ Error: ${err.message}`);
+setupZone('zoneAll', 'allFiles', async files => {
+  bufAll = [];
+  const logId = 'logAll';
+  log(logId, '📂 Archivos seleccionados:');
+  setProg('progAll', 'pctAll', 0);
+  const total = files.length;
+
+  for (let i = 0; i < total; i++) {
+    const f = files[i];
+    const ext = f.name.split('.').pop().toLowerCase();
+    try {
+      let pdfBytes = null;
+
+      // 1. Intentar convertir según extensión
+      if (ext === 'pdf') {
+        pdfBytes = await f.arrayBuffer();
+      } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
+        pdfBytes = await img2pdf(f);
+      } else if (ext === 'txt') {
+        pdfBytes = await txt2pdf(f);
+      } else {
+        log(logId, `⚠️ Formato no soportado: ${f.name} (${ext})`);
+        continue;
       }
-    });
+
+      if (!pdfBytes || pdfBytes.byteLength === 0) {
+        log(logId, `⚠️ Error: ${f.name} generó un PDF vacío.`);
+        continue;
+      }
+
+      // 2. Aplicar marca de agua (si está activada)
+      let finalBytes;
+      if (useWatermark) {
+        try {
+          finalBytes = await stampPdf(pdfBytes, f.name.replace(/\.[^.]+$/, ''), 'center');
+        } catch (stampErr) {
+          log(logId, `⚠️ Error al estampar ${f.name}, se usa sin marca: ${stampErr.message}`);
+          finalBytes = pdfBytes; // Si falla el estampado, usamos el PDF sin marca
+        }
+      } else {
+        finalBytes = pdfBytes;
+      }
+
+      bufAll.push(finalBytes);
+      log(logId, `✔️ ${f.name} (${(finalBytes.byteLength / 1024).toFixed(1)} KB)`);
+
+    } catch (err) {
+      log(logId, `❌ Error procesando ${f.name}: ${err.message}`);
+      console.error(err);
+    }
+
+    // Actualizar progreso (cada archivo procesado, aunque falle)
+    setProg('progAll', 'pctAll', ((i + 1) / total) * 100);
+  }
+
+  if (bufAll.length > 0) {
+    log(logId, `✅ ${bufAll.length} archivos listos para unir.`);
+  } else {
+    log(logId, '⚠️ No se pudo procesar ningún archivo.');
+  }
+});
+
+// Botón de descarga mejorado
+document.getElementById('btnAll').addEventListener('click', async function() {
+  if (!bufAll.length) {
+    alert('Primero selecciona archivos válidos (PDF, imagen o TXT)');
+    return;
+  }
+  const logId = 'logAll';
+  log(logId, '⏳ Uniendo archivos en un solo PDF...');
+  try {
+    const mergedBytes = await mergePdfs(bufAll);
+    if (!mergedBytes || mergedBytes.byteLength === 0) {
+      throw new Error('El PDF unificado está vacío.');
+    }
+    const blob = new Blob([mergedBytes], { type: 'application/pdf' });
+    const ok = downloadBlob(blob, 'TODO_UNIDO.pdf');
+    if (ok) {
+      log(logId, '✅ PDF unificado descargado correctamente.');
+      setProg('progAll', 'pctAll', 100);
+    } else {
+      throw new Error('Falló la descarga.');
+    }
+  } catch (err) {
+    log(logId, `❌ Error al unir: ${err.message}`);
+    console.error(err);
+  }
+});
 
     // ============================================================
     // 4. CARPETA NUMERADA (pdf-lib + JSZip)
