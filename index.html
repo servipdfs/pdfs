@@ -121,23 +121,48 @@
         </div>
       </div>
 
-      <!-- Unir formatos -->
-      
-      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalAll">
-        <div class="bg-gradient-to-r from-purple-500 to-pink-600 p-4">
-          <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-sync-alt mr-2"></i> Unir formatos</h2>
-        </div>
-        <div class="p-4 text-center">
-          <i class="fas fa-chevron-right text-purple-500 text-2xl mb-2"></i>
-          <p class="text-gray-600 text-sm">PDF, imágenes, texto → PDF unificado</p>
-          <span class="inline-block mt-2 text-purple-600 font-medium text-sm">Abrir herramienta →</span>
-        </div>
-        
-      </div><div class="flex justify-between items-center mb-4">
-  <span id="fileCounterAll" class="text-sm font-medium text-gray-700">0 archivos acumulados</span>
-  <button id="clearAllBtn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-lg text-sm">
-    <i class="fas fa-trash mr-1"></i>Limpiar lista
-  </button>
+<!-- Modal 3: Unir formatos -->
+<div class="modal-overlay" id="modalAll">
+  <div class="modal-content">
+    <button class="modal-close" data-close="modalAll">&times;</button>
+    <div class="modal-header">
+      <i class="fas fa-sync-alt text-purple-600"></i>
+      <h2>Convertir y unir múltiples formatos</h2>
+    </div>
+    
+    <!-- Contador y botón limpiar (dentro del modal) -->
+    <div class="flex justify-between items-center mb-4">
+      <span id="fileCounterAll" class="text-sm font-medium text-gray-700">0 archivos acumulados</span>
+      <button id="clearAllBtn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-lg text-sm">
+        <i class="fas fa-trash mr-1"></i>Limpiar lista
+      </button>
+    </div>
+
+    <div class="dropZone border-2 border-dashed border-purple-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneAll">
+      <i class="fas fa-cloud-upload-alt text-purple-500 text-4xl mb-3 pulse-animation"></i>
+      <label for="allFiles" class="bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
+        <i class="fas fa-file-import mr-2"></i>Seleccionar archivos
+      </label>
+      <p class="text-gray-500 mt-2 text-sm">PDF, Imágenes, Texto (puedes añadir en varias tandas)</p>
+      <input type="file" id="allFiles" multiple class="file-input">
+    </div>
+
+    <div class="mb-4">
+      <div class="flex justify-between text-sm mb-1">
+        <span class="font-medium">Progreso</span>
+        <span id="pctAll" class="text-gray-600 font-medium">0%</span>
+      </div>
+      <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
+        <div id="progAll" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <button id="btnAll" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+      <i class="fas fa-download mr-2"></i>Descargar Todo en PDF
+    </button>
+
+    <div id="logAll" class="log-container"></div>
+  </div>
 </div>
       
 
