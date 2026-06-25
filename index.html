@@ -122,6 +122,7 @@
       </div>
 
       <!-- Unir formatos -->
+      
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalAll">
         <div class="bg-gradient-to-r from-purple-500 to-pink-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-sync-alt mr-2"></i> Unir formatos</h2>
@@ -131,7 +132,14 @@
           <p class="text-gray-600 text-sm">PDF, imágenes, texto → PDF unificado</p>
           <span class="inline-block mt-2 text-purple-600 font-medium text-sm">Abrir herramienta →</span>
         </div>
-      </div>
+        
+      </div><div class="flex justify-between items-center mb-4">
+  <span id="fileCounterAll" class="text-sm font-medium text-gray-700">0 archivos acumulados</span>
+  <button id="clearAllBtn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-lg text-sm">
+    <i class="fas fa-trash mr-1"></i>Limpiar lista
+  </button>
+</div>
+      
 
       <!-- Carpeta numerada -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalNum">
@@ -684,25 +692,53 @@
     }
 
 // ============================================================
-// 3. UNIR FORMATOS (corregido y mejorado)
+// 3. UNIR FORMATOS (VERSIÓN ACUMULATIVA)
 // ============================================================
-let bufAll = [];
-let useWatermark = true; // Cambia a false si no quieres la marca de agua
+let bufAll = [];                      // Aquí se acumulan los PDFs
+let allFilesList = [];                // Para mostrar nombres
+let useWatermark = true;              // Cambia a false si no quieres marca
 
+// Elementos del DOM para el contador y limpiar
+const fileCounterAll = document.getElementById('fileCounterAll');
+const clearAllBtn = document.getElementById('clearAllBtn');
+
+// Función para actualizar el contador
+function updateCounterAll() {
+  if (fileCounterAll) {
+    fileCounterAll.textContent = `${bufAll.length} archivos acumulados`;
+  }
+}
+
+// Limpiar lista
+if (clearAllBtn) {
+  clearAllBtn.addEventListener('click', function() {
+    bufAll = [];
+    allFilesList = [];
+    updateCounterAll();
+    log('logAll', '🗑️ Lista limpiada. Puedes empezar de nuevo.');
+  });
+}
+
+// Configurar zona de drop/input (ahora AÑADE, no reinicia)
 setupZone('zoneAll', 'allFiles', async files => {
-  bufAll = [];
   const logId = 'logAll';
-  log(logId, '📂 Archivos seleccionados:');
-  setProg('progAll', 'pctAll', 0);
   const total = files.length;
 
+  if (total === 0) {
+    log(logId, '⚠️ No se seleccionó ningún archivo.');
+    return;
+  }
+
+  log(logId, `📥 Añadiendo ${total} archivo(s) a la lista...`);
+
+  let processedCount = 0;
   for (let i = 0; i < total; i++) {
     const f = files[i];
     const ext = f.name.split('.').pop().toLowerCase();
     try {
       let pdfBytes = null;
 
-      // 1. Intentar convertir según extensión
+      // Convertir según extensión
       if (ext === 'pdf') {
         pdfBytes = await f.arrayBuffer();
       } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
@@ -719,46 +755,52 @@ setupZone('zoneAll', 'allFiles', async files => {
         continue;
       }
 
-      // 2. Aplicar marca de agua (si está activada)
+      // Aplicar marca de agua (si está activada)
       let finalBytes;
       if (useWatermark) {
         try {
           finalBytes = await stampPdf(pdfBytes, f.name.replace(/\.[^.]+$/, ''), 'center');
         } catch (stampErr) {
           log(logId, `⚠️ Error al estampar ${f.name}, se usa sin marca: ${stampErr.message}`);
-          finalBytes = pdfBytes; // Si falla el estampado, usamos el PDF sin marca
+          finalBytes = pdfBytes;
         }
       } else {
         finalBytes = pdfBytes;
       }
 
+      // Añadir a la lista acumulativa
       bufAll.push(finalBytes);
-      log(logId, `✔️ ${f.name} (${(finalBytes.byteLength / 1024).toFixed(1)} KB)`);
+      allFilesList.push(f.name);
+      log(logId, `➕ ${f.name} (${(finalBytes.byteLength / 1024).toFixed(1)} KB)`);
 
     } catch (err) {
       log(logId, `❌ Error procesando ${f.name}: ${err.message}`);
       console.error(err);
     }
 
-    // Actualizar progreso (cada archivo procesado, aunque falle)
-    setProg('progAll', 'pctAll', ((i + 1) / total) * 100);
+    processedCount++;
+    // Actualizar progreso (porcentaje de esta tanda)
+    setProg('progAll', 'pctAll', (processedCount / total) * 100);
   }
 
+  // Actualizar contador de archivos acumulados
+  updateCounterAll();
+  log(logId, `✅ Total acumulado: ${bufAll.length} archivos.`);
   if (bufAll.length > 0) {
-    log(logId, `✅ ${bufAll.length} archivos listos para unir.`);
+    log(logId, '💡 Pulsa "Descargar Todo en PDF" para unirlos.');
   } else {
-    log(logId, '⚠️ No se pudo procesar ningún archivo.');
+    log(logId, '⚠️ No se pudo procesar ningún archivo de esta tanda.');
   }
 });
 
-// Botón de descarga mejorado
+// Botón de descarga (acumula todos los que haya en bufAll)
 document.getElementById('btnAll').addEventListener('click', async function() {
   if (!bufAll.length) {
-    alert('Primero selecciona archivos válidos (PDF, imagen o TXT)');
+    alert('No hay archivos acumulados. Selecciona algunos primero.');
     return;
   }
   const logId = 'logAll';
-  log(logId, '⏳ Uniendo archivos en un solo PDF...');
+  log(logId, `⏳ Uniendo ${bufAll.length} archivos en un solo PDF...`);
   try {
     const mergedBytes = await mergePdfs(bufAll);
     if (!mergedBytes || mergedBytes.byteLength === 0) {
@@ -768,7 +810,7 @@ document.getElementById('btnAll').addEventListener('click', async function() {
     const ok = downloadBlob(blob, 'TODO_UNIDO.pdf');
     if (ok) {
       log(logId, '✅ PDF unificado descargado correctamente.');
-      setProg('progAll', 'pctAll', 100);
+      // No limpiamos la lista automáticamente, para que puedas seguir añadiendo
     } else {
       throw new Error('Falló la descarga.');
     }
