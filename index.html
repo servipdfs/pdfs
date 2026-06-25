@@ -95,9 +95,9 @@
       <p class="text-sm text-gray-500 mt-2">Haz clic en cualquier tarjeta para abrir la herramienta</p>
     </header>
 
-    <!-- ====== GRID DE TARJETAS (todas) ====== -->
+    <!-- ====== GRID DE TARJETAS (7 herramientas) ====== -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-      <!-- PDF a PowerPoint -->
+      <!-- 1. PDF a PowerPoint -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalPpt">
         <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-file-powerpoint mr-2"></i> PDF a PowerPoint</h2>
@@ -109,7 +109,7 @@
         </div>
       </div>
 
-      <!-- Imágenes a PDF -->
+      <!-- 2. Fotos a PDF -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalImages">
         <div class="bg-gradient-to-r from-emerald-500 to-cyan-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-images mr-2"></i> Fotos a PDF</h2>
@@ -121,52 +121,19 @@
         </div>
       </div>
 
-<!-- Modal 3: Unir formatos -->
-<div class="modal-overlay" id="modalAll">
-  <div class="modal-content">
-    <button class="modal-close" data-close="modalAll">&times;</button>
-    <div class="modal-header">
-      <i class="fas fa-sync-alt text-purple-600"></i>
-      <h2>Convertir y unir múltiples formatos</h2>
-    </div>
-    
-    <!-- Contador y botón limpiar (dentro del modal) -->
-    <div class="flex justify-between items-center mb-4">
-      <span id="fileCounterAll" class="text-sm font-medium text-gray-700">0 archivos acumulados</span>
-      <button id="clearAllBtn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-lg text-sm">
-        <i class="fas fa-trash mr-1"></i>Limpiar lista
-      </button>
-    </div>
-
-    <div class="dropZone border-2 border-dashed border-purple-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneAll">
-      <i class="fas fa-cloud-upload-alt text-purple-500 text-4xl mb-3 pulse-animation"></i>
-      <label for="allFiles" class="bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
-        <i class="fas fa-file-import mr-2"></i>Seleccionar archivos
-      </label>
-      <p class="text-gray-500 mt-2 text-sm">PDF, Imágenes, Texto (puedes añadir en varias tandas)</p>
-      <input type="file" id="allFiles" multiple class="file-input">
-    </div>
-
-    <div class="mb-4">
-      <div class="flex justify-between text-sm mb-1">
-        <span class="font-medium">Progreso</span>
-        <span id="pctAll" class="text-gray-600 font-medium">0%</span>
+      <!-- 3. Unir formatos (TARJETA CORRECTAMENTE UBICADA) -->
+      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalAll">
+        <div class="bg-gradient-to-r from-purple-500 to-pink-600 p-4">
+          <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-sync-alt mr-2"></i> Unir formatos</h2>
+        </div>
+        <div class="p-4 text-center">
+          <i class="fas fa-chevron-right text-purple-500 text-2xl mb-2"></i>
+          <p class="text-gray-600 text-sm">PDF, imágenes, texto → PDF unificado</p>
+          <span class="inline-block mt-2 text-purple-600 font-medium text-sm">Abrir herramienta →</span>
+        </div>
       </div>
-      <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
-        <div id="progAll" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
-      </div>
-    </div>
 
-    <button id="btnAll" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-      <i class="fas fa-download mr-2"></i>Descargar Todo en PDF
-    </button>
-
-    <div id="logAll" class="log-container"></div>
-  </div>
-</div>
-      
-
-      <!-- Carpeta numerada -->
+      <!-- 4. Carpeta numerada -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalNum">
         <div class="bg-gradient-to-r from-orange-500 to-amber-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-folder-open mr-2"></i> Carpeta a PDFs</h2>
@@ -178,7 +145,7 @@
         </div>
       </div>
 
-      <!-- Renombrar -->
+      <!-- 5. Renombrar -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalRename">
         <div class="bg-gradient-to-r from-rose-500 to-fuchsia-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-magic mr-2"></i> Renombrar</h2>
@@ -190,7 +157,7 @@
         </div>
       </div>
 
-      <!-- .eml a Excel -->
+      <!-- 6. .eml a Excel -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalEml">
         <div class="bg-gradient-to-r from-cyan-500 to-teal-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-envelope mr-2"></i> .eml a Excel</h2>
@@ -202,7 +169,7 @@
         </div>
       </div>
 
-      <!-- CSVs a PDF -->
+      <!-- 7. CSVs a PDF -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalCsv">
         <div class="bg-gradient-to-r from-indigo-500 to-blue-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-table mr-2"></i> CSVs a PDF</h2>
@@ -221,8 +188,8 @@
     </footer>
   </div>
 
-  <!-- ====== MODALES ====== -->
-  
+  <!-- ====== MODALES (cada herramienta) ====== -->
+
   <!-- Modal 1: PDF a PowerPoint -->
   <div class="modal-overlay" id="modalPpt">
     <div class="modal-content">
@@ -287,7 +254,7 @@
     </div>
   </div>
 
-  <!-- Modal 3: Unir formatos -->
+  <!-- Modal 3: Unir formatos (con contador y limpiar) -->
   <div class="modal-overlay" id="modalAll">
     <div class="modal-content">
       <button class="modal-close" data-close="modalAll">&times;</button>
@@ -295,12 +262,19 @@
         <i class="fas fa-sync-alt text-purple-600"></i>
         <h2>Convertir y unir múltiples formatos</h2>
       </div>
+      <!-- Contador y botón limpiar -->
+      <div class="flex justify-between items-center mb-4">
+        <span id="fileCounterAll" class="text-sm font-medium text-gray-700">0 archivos acumulados</span>
+        <button id="clearAllBtn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-lg text-sm">
+          <i class="fas fa-trash mr-1"></i>Limpiar lista
+        </button>
+      </div>
       <div class="dropZone border-2 border-dashed border-purple-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneAll">
         <i class="fas fa-cloud-upload-alt text-purple-500 text-4xl mb-3 pulse-animation"></i>
         <label for="allFiles" class="bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
           <i class="fas fa-file-import mr-2"></i>Seleccionar archivos
         </label>
-        <p class="text-gray-500 mt-2 text-sm">PDF, Imágenes, Texto</p>
+        <p class="text-gray-500 mt-2 text-sm">PDF, Imágenes, Texto (puedes añadir en varias tandas)</p>
         <input type="file" id="allFiles" multiple class="file-input">
       </div>
       <div class="mb-4">
@@ -460,7 +434,6 @@
   <!-- ====== LIBRERÍAS ====== -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
-  <!-- Librerías para el resto de herramientas -->
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
@@ -475,7 +448,6 @@
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     }
 
-    // Helper común
     const $ = id => document.getElementById(id);
     function log(elId, msg) {
       const el = $(elId);
@@ -515,7 +487,7 @@
     }
 
     // ============================================================
-    // GESTIÓN DE MODALES (común a todas)
+    // GESTIÓN DE MODALES
     // ============================================================
     document.querySelectorAll('.feature-card[data-modal]').forEach(card => {
       card.addEventListener('click', function() {
@@ -559,7 +531,7 @@
     }
 
     // ============================================================
-    // 1. PDF → POWERPOINT (usa PptxGenJS)
+    // 1. PDF → POWERPOINT (PptxGenJS)
     // ============================================================
     let pptFiles = [];
     setupZone('zonePpt', 'pdfPpt', async files => {
@@ -619,7 +591,6 @@
       let totalPgs = 0;
       let processedPgs = 0;
 
-      // Calcular total de páginas para progreso
       for (let f of pdfFiles) {
         const bytes = await f.arrayBuffer();
         const pdfInfo = await pdfjsLib.getDocument({ data: new Uint8Array(bytes) }).promise;
@@ -716,134 +687,113 @@
       return await pdfDoc.save();
     }
 
-// ============================================================
-// 3. UNIR FORMATOS (VERSIÓN ACUMULATIVA)
-// ============================================================
-let bufAll = [];                      // Aquí se acumulan los PDFs
-let allFilesList = [];                // Para mostrar nombres
-let useWatermark = true;              // Cambia a false si no quieres marca
+    // ============================================================
+    // 3. UNIR FORMATOS (ACUMULATIVO)
+    // ============================================================
+    let bufAll = [];
+    let allFilesList = [];
+    let useWatermark = true;
 
-// Elementos del DOM para el contador y limpiar
-const fileCounterAll = document.getElementById('fileCounterAll');
-const clearAllBtn = document.getElementById('clearAllBtn');
+    const fileCounterAll = document.getElementById('fileCounterAll');
+    const clearAllBtn = document.getElementById('clearAllBtn');
 
-// Función para actualizar el contador
-function updateCounterAll() {
-  if (fileCounterAll) {
-    fileCounterAll.textContent = `${bufAll.length} archivos acumulados`;
-  }
-}
-
-// Limpiar lista
-if (clearAllBtn) {
-  clearAllBtn.addEventListener('click', function() {
-    bufAll = [];
-    allFilesList = [];
-    updateCounterAll();
-    log('logAll', '🗑️ Lista limpiada. Puedes empezar de nuevo.');
-  });
-}
-
-// Configurar zona de drop/input (ahora AÑADE, no reinicia)
-setupZone('zoneAll', 'allFiles', async files => {
-  const logId = 'logAll';
-  const total = files.length;
-
-  if (total === 0) {
-    log(logId, '⚠️ No se seleccionó ningún archivo.');
-    return;
-  }
-
-  log(logId, `📥 Añadiendo ${total} archivo(s) a la lista...`);
-
-  let processedCount = 0;
-  for (let i = 0; i < total; i++) {
-    const f = files[i];
-    const ext = f.name.split('.').pop().toLowerCase();
-    try {
-      let pdfBytes = null;
-
-      // Convertir según extensión
-      if (ext === 'pdf') {
-        pdfBytes = await f.arrayBuffer();
-      } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
-        pdfBytes = await img2pdf(f);
-      } else if (ext === 'txt') {
-        pdfBytes = await txt2pdf(f);
-      } else {
-        log(logId, `⚠️ Formato no soportado: ${f.name} (${ext})`);
-        continue;
+    function updateCounterAll() {
+      if (fileCounterAll) {
+        fileCounterAll.textContent = `${bufAll.length} archivos acumulados`;
       }
+    }
 
-      if (!pdfBytes || pdfBytes.byteLength === 0) {
-        log(logId, `⚠️ Error: ${f.name} generó un PDF vacío.`);
-        continue;
+    if (clearAllBtn) {
+      clearAllBtn.addEventListener('click', function() {
+        bufAll = [];
+        allFilesList = [];
+        updateCounterAll();
+        log('logAll', '🗑️ Lista limpiada. Puedes empezar de nuevo.');
+      });
+    }
+
+    setupZone('zoneAll', 'allFiles', async files => {
+      const logId = 'logAll';
+      const total = files.length;
+      if (total === 0) {
+        log(logId, '⚠️ No se seleccionó ningún archivo.');
+        return;
       }
-
-      // Aplicar marca de agua (si está activada)
-      let finalBytes;
-      if (useWatermark) {
+      log(logId, `📥 Añadiendo ${total} archivo(s) a la lista...`);
+      let processedCount = 0;
+      for (let i = 0; i < total; i++) {
+        const f = files[i];
+        const ext = f.name.split('.').pop().toLowerCase();
         try {
-          finalBytes = await stampPdf(pdfBytes, f.name.replace(/\.[^.]+$/, ''), 'center');
-        } catch (stampErr) {
-          log(logId, `⚠️ Error al estampar ${f.name}, se usa sin marca: ${stampErr.message}`);
-          finalBytes = pdfBytes;
+          let pdfBytes = null;
+          if (ext === 'pdf') {
+            pdfBytes = await f.arrayBuffer();
+          } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
+            pdfBytes = await img2pdf(f);
+          } else if (ext === 'txt') {
+            pdfBytes = await txt2pdf(f);
+          } else {
+            log(logId, `⚠️ Formato no soportado: ${f.name} (${ext})`);
+            continue;
+          }
+          if (!pdfBytes || pdfBytes.byteLength === 0) {
+            log(logId, `⚠️ Error: ${f.name} generó un PDF vacío.`);
+            continue;
+          }
+          let finalBytes;
+          if (useWatermark) {
+            try {
+              finalBytes = await stampPdf(pdfBytes, f.name.replace(/\.[^.]+$/, ''), 'center');
+            } catch (stampErr) {
+              log(logId, `⚠️ Error al estampar ${f.name}, se usa sin marca: ${stampErr.message}`);
+              finalBytes = pdfBytes;
+            }
+          } else {
+            finalBytes = pdfBytes;
+          }
+          bufAll.push(finalBytes);
+          allFilesList.push(f.name);
+          log(logId, `➕ ${f.name} (${(finalBytes.byteLength / 1024).toFixed(1)} KB)`);
+        } catch (err) {
+          log(logId, `❌ Error procesando ${f.name}: ${err.message}`);
+          console.error(err);
         }
-      } else {
-        finalBytes = pdfBytes;
+        processedCount++;
+        setProg('progAll', 'pctAll', (processedCount / total) * 100);
       }
+      updateCounterAll();
+      log(logId, `✅ Total acumulado: ${bufAll.length} archivos.`);
+      if (bufAll.length > 0) {
+        log(logId, '💡 Pulsa "Descargar Todo en PDF" para unirlos.');
+      } else {
+        log(logId, '⚠️ No se pudo procesar ningún archivo de esta tanda.');
+      }
+    });
 
-      // Añadir a la lista acumulativa
-      bufAll.push(finalBytes);
-      allFilesList.push(f.name);
-      log(logId, `➕ ${f.name} (${(finalBytes.byteLength / 1024).toFixed(1)} KB)`);
-
-    } catch (err) {
-      log(logId, `❌ Error procesando ${f.name}: ${err.message}`);
-      console.error(err);
-    }
-
-    processedCount++;
-    // Actualizar progreso (porcentaje de esta tanda)
-    setProg('progAll', 'pctAll', (processedCount / total) * 100);
-  }
-
-  // Actualizar contador de archivos acumulados
-  updateCounterAll();
-  log(logId, `✅ Total acumulado: ${bufAll.length} archivos.`);
-  if (bufAll.length > 0) {
-    log(logId, '💡 Pulsa "Descargar Todo en PDF" para unirlos.');
-  } else {
-    log(logId, '⚠️ No se pudo procesar ningún archivo de esta tanda.');
-  }
-});
-
-// Botón de descarga (acumula todos los que haya en bufAll)
-document.getElementById('btnAll').addEventListener('click', async function() {
-  if (!bufAll.length) {
-    alert('No hay archivos acumulados. Selecciona algunos primero.');
-    return;
-  }
-  const logId = 'logAll';
-  log(logId, `⏳ Uniendo ${bufAll.length} archivos en un solo PDF...`);
-  try {
-    const mergedBytes = await mergePdfs(bufAll);
-    if (!mergedBytes || mergedBytes.byteLength === 0) {
-      throw new Error('El PDF unificado está vacío.');
-    }
-    const blob = new Blob([mergedBytes], { type: 'application/pdf' });
-    const ok = downloadBlob(blob, 'TODO_UNIDO.pdf');
-    if (ok) {
-      log(logId, '✅ PDF unificado descargado correctamente.');
-      // No limpiamos la lista automáticamente, para que puedas seguir añadiendo
-    } else {
-      throw new Error('Falló la descarga.');
-    }
-  } catch (err) {
-    log(logId, `❌ Error al unir: ${err.message}`);
-    console.error(err);
-  }
-});
+    document.getElementById('btnAll').addEventListener('click', async function() {
+      if (!bufAll.length) {
+        alert('No hay archivos acumulados. Selecciona algunos primero.');
+        return;
+      }
+      const logId = 'logAll';
+      log(logId, `⏳ Uniendo ${bufAll.length} archivos en un solo PDF...`);
+      try {
+        const mergedBytes = await mergePdfs(bufAll);
+        if (!mergedBytes || mergedBytes.byteLength === 0) {
+          throw new Error('El PDF unificado está vacío.');
+        }
+        const blob = new Blob([mergedBytes], { type: 'application/pdf' });
+        const ok = downloadBlob(blob, 'TODO_UNIDO.pdf');
+        if (ok) {
+          log(logId, '✅ PDF unificado descargado correctamente.');
+        } else {
+          throw new Error('Falló la descarga.');
+        }
+      } catch (err) {
+        log(logId, `❌ Error al unir: ${err.message}`);
+        console.error(err);
+      }
+    });
 
     // ============================================================
     // 4. CARPETA NUMERADA (pdf-lib + JSZip)
