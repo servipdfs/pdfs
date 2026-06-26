@@ -79,7 +79,6 @@
     .modal-header i { font-size: 2rem; color: #2563eb; }
     .modal-header h2 { font-size: 1.5rem; font-weight: 700; color: #1f2937; }
 
-    /* Estilos para el área de firma */
     .signature-wrapper {
       border: 2px dashed #cbd5e1;
       border-radius: 0.75rem;
@@ -148,14 +147,14 @@
         </div>
       </div>
 
-      <!-- 4. Carpeta numerada -->
+      <!-- 4. Carpeta numerada (MODIFICADA) -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalNum">
         <div class="bg-gradient-to-r from-orange-500 to-amber-600 p-4">
-          <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-folder-open mr-2"></i> Carpeta a PDFs</h2>
+          <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-folder-open mr-2"></i> Carpeta a PDF unificado</h2>
         </div>
         <div class="p-4 text-center">
           <i class="fas fa-chevron-right text-orange-500 text-2xl mb-2"></i>
-          <p class="text-gray-600 text-sm">Convierte carpetas a PDFs numerados</p>
+          <p class="text-gray-600 text-sm">Une todos los PDFs de una carpeta en uno solo con cabecera y numeración</p>
           <span class="inline-block mt-2 text-orange-600 font-medium text-sm">Abrir herramienta →</span>
         </div>
       </div>
@@ -196,7 +195,7 @@
         </div>
       </div>
 
-      <!-- 8. Comprimir PDF (NUEVO) -->
+      <!-- 8. Comprimir PDF -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalCompress">
         <div class="bg-gradient-to-r from-teal-500 to-emerald-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-file-archive mr-2"></i> Comprimir PDF</h2>
@@ -208,7 +207,7 @@
         </div>
       </div>
 
-      <!-- 9. Firma visual (NUEVO) -->
+      <!-- 9. Firma visual -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalSign">
         <div class="bg-gradient-to-r from-amber-500 to-orange-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-pen mr-2"></i> Firma visual</h2>
@@ -331,20 +330,22 @@
     </div>
   </div>
 
-  <!-- Modal 4: Carpeta numerada -->
+  <!-- ============================================================ -->
+  <!-- MODAL 4: CARPETA A PDF UNIFICADO (MODIFICADO)                -->
+  <!-- ============================================================ -->
   <div class="modal-overlay" id="modalNum">
     <div class="modal-content">
       <button class="modal-close" data-close="modalNum">&times;</button>
       <div class="modal-header">
         <i class="fas fa-folder-open text-orange-600"></i>
-        <h2>Carpeta numerada a PDFs</h2>
+        <h2>Carpeta → PDF unificado con cabecera y numeración</h2>
       </div>
       <div class="dropZone border-2 border-dashed border-orange-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneNum">
         <i class="fas fa-folder-open text-orange-500 text-4xl mb-3 pulse-animation"></i>
         <label for="numFolder" class="bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
           <i class="fas fa-folder mr-2"></i>Seleccionar carpeta
         </label>
-        <p class="text-gray-500 mt-2 text-sm">Archivos serán convertidos y numerados</p>
+        <p class="text-gray-500 mt-2 text-sm">Todos los PDF, imágenes y TXT se unirán en un solo PDF con el nombre del archivo en cabecera y numeración global</p>
         <input type="file" id="numFolder" webkitdirectory multiple class="file-input">
       </div>
       <div class="mb-4">
@@ -357,7 +358,7 @@
         </div>
       </div>
       <button id="btnNum" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-        <i class="fas fa-download mr-2"></i>Descargar como ZIP
+        <i class="fas fa-download mr-2"></i>Descargar PDF unificado
       </button>
       <div id="logNum" class="log-container"></div>
     </div>
@@ -469,9 +470,7 @@
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- 8. Modal Comprimir PDF (NUEVO) -->
-  <!-- ============================================================ -->
+  <!-- Modal 8: Comprimir PDF -->
   <div class="modal-overlay" id="modalCompress">
     <div class="modal-content">
       <button class="modal-close" data-close="modalCompress">&times;</button>
@@ -487,7 +486,6 @@
         <p class="text-gray-500 mt-2 text-sm">Selecciona un PDF para reducir su tamaño</p>
         <input type="file" id="compressPdf" accept="application/pdf" class="file-input">
       </div>
-      <!-- Selector de calidad -->
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700 mb-1">Calidad de compresión:</label>
         <select id="compressQuality" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent">
@@ -512,9 +510,7 @@
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- 9. Modal Firma visual (NUEVO) -->
-  <!-- ============================================================ -->
+  <!-- Modal 9: Firma visual -->
   <div class="modal-overlay" id="modalSign">
     <div class="modal-content">
       <button class="modal-close" data-close="modalSign">&times;</button>
@@ -524,7 +520,6 @@
       </div>
       <p class="text-sm text-gray-600 mb-3">Selecciona un PDF y luego elige cómo añadir la firma.</p>
 
-      <!-- Zona de subida del PDF -->
       <div class="dropZone border-2 border-dashed border-amber-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneSign">
         <i class="fas fa-cloud-upload-alt text-amber-500 text-4xl mb-3 pulse-animation"></i>
         <label for="signPdf" class="bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
@@ -534,7 +529,6 @@
         <input type="file" id="signPdf" accept="application/pdf" class="file-input">
       </div>
 
-      <!-- Opciones de firma -->
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de firma:</label>
         <div class="flex space-x-4">
@@ -549,7 +543,6 @@
         </div>
       </div>
 
-      <!-- Área de dibujo (visible por defecto) -->
       <div id="signDrawArea" class="mb-4">
         <label class="block text-sm font-medium text-gray-700 mb-1">Dibuja tu firma con el ratón o dedo:</label>
         <div class="signature-wrapper">
@@ -562,7 +555,6 @@
         </div>
       </div>
 
-      <!-- Área de subida de imagen (oculta inicialmente) -->
       <div id="signImageArea" class="mb-4 hidden">
         <label class="block text-sm font-medium text-gray-700 mb-1">Sube una imagen de tu firma (PNG con fondo transparente):</label>
         <div class="dropZone border-2 border-dashed border-amber-400 rounded-xl p-4 text-center cursor-pointer transition-colors" id="zoneSignImage">
@@ -578,7 +570,6 @@
         </div>
       </div>
 
-      <!-- Posición de la firma -->
       <div class="grid grid-cols-2 gap-3 mb-4">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Posición X (%)</label>
@@ -598,7 +589,6 @@
         </div>
       </div>
 
-      <!-- Aplicar firma en todas las páginas -->
       <div class="mb-4">
         <label class="inline-flex items-center">
           <input type="checkbox" id="signAllPages" checked class="form-checkbox text-amber-600">
@@ -606,7 +596,6 @@
         </label>
       </div>
 
-      <!-- Progreso -->
       <div class="mb-4">
         <div class="flex justify-between text-sm mb-1">
           <span class="font-medium">Progreso</span>
@@ -632,7 +621,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-  <!-- Signature Pad para dibujar firmas -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
 
   <script>
@@ -991,40 +979,133 @@
     });
 
     // ============================================================
-    // 4. CARPETA NUMERADA (pdf-lib + JSZip) - (código existente)
+    // 4. CARPETA → PDF UNIFICADO CON CABECERA Y NUMERACIÓN (NUEVO)
     // ============================================================
+    let folderFiles = [];
+
+    // Al seleccionar carpeta, guardamos los archivos y mostramos información
     setupZone('zoneNum', 'numFolder', async files => {
-      const logId = 'logNum';
-      log(logId, '📂 Procesando carpeta...');
-      setProg('progNum', 'pctNum', 0);
-      const sorted = Array.from(files).sort((a,b) => a.name.localeCompare(b.name, undefined, {numeric:true}));
-      const zip = new JSZip();
-      let processed = 0;
-      const total = sorted.length;
-      for (const f of sorted) {
+      folderFiles = Array.from(files).filter(f => {
         const ext = f.name.split('.').pop().toLowerCase();
-        try {
-          let pdfBytes;
-          if (ext === 'pdf') pdfBytes = await f.arrayBuffer();
-          else if (['jpg','jpeg','png','gif'].includes(ext)) pdfBytes = await img2pdf(f);
-          else if (ext === 'txt') pdfBytes = await txt2pdf(f);
-          else { log(logId, `⚠️ Ignorado: ${f.name}`); processed++; continue; }
-          const newName = f.name.replace(/\.[^.]+$/, '.pdf');
-          zip.file(newName, pdfBytes);
-          log(logId, `✔️ ${f.name}`);
-        } catch (err) {
-          log(logId, `⚠️ Error en ${f.name}: ${err.message}`);
-        }
-        processed++;
-        setProg('progNum', 'pctNum', (processed/total)*100);
+        return ext === 'pdf' || ['jpg','jpeg','png','gif'].includes(ext) || ext === 'txt';
+      });
+      const logId = 'logNum';
+      log(logId, `📂 Carpeta cargada: ${folderFiles.length} archivos compatibles (PDF, imagen, TXT).`);
+      setProg('progNum', 'pctNum', 0);
+      if (folderFiles.length === 0) {
+        log(logId, '⚠️ No se encontraron archivos compatibles.');
+      } else {
+        log(logId, `✅ Listos para fusionar. Pulsa "Descargar PDF unificado".`);
       }
+    });
+
+    // Botón de descarga: procesa los archivos, los convierte a PDF, los une y añade cabecera + numeración
+    document.getElementById('btnNum').addEventListener('click', async function() {
+      const logId = 'logNum';
+      if (folderFiles.length === 0) {
+        alert('Selecciona una carpeta con archivos compatibles primero.');
+        return;
+      }
+
+      log(logId, '⏳ Iniciando fusión con cabecera y numeración...');
+      setProg('progNum', 'pctNum', 5);
+
       try {
-        const content = await zip.generateAsync({ type: 'blob' });
-        const ok = downloadBlob(content, 'CARPETA_NUMERADA_PDFs.zip');
-        if (ok) log(logId, '✅ ZIP descargado');
-        else log(logId, '❌ Falló descarga');
+        // 1. Ordenar alfabéticamente (con orden numérico natural)
+        const sorted = folderFiles.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+
+        // 2. Crear el documento PDF de destino
+        const destPdf = await PDFLib.PDFDocument.create();
+        let pageCounter = 1; // numeración global
+
+        // 3. Procesar cada archivo
+        for (let idx = 0; idx < sorted.length; idx++) {
+          const file = sorted[idx];
+          const ext = file.name.split('.').pop().toLowerCase();
+          const baseName = file.name.replace(/\.[^.]+$/, '');
+
+          log(logId, `📄 Procesando: ${file.name} (${idx+1}/${sorted.length})`);
+
+          // Convertir el archivo a PDF (ArrayBuffer)
+          let pdfBytes;
+          if (ext === 'pdf') {
+            pdfBytes = await file.arrayBuffer();
+          } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
+            pdfBytes = await img2pdf(file);
+          } else if (ext === 'txt') {
+            pdfBytes = await txt2pdf(file);
+          } else {
+            continue; // no debería ocurrir, ya filtramos
+          }
+
+          // Cargar el PDF origen
+          const srcPdf = await PDFLib.PDFDocument.load(pdfBytes);
+          const srcPages = srcPdf.getPages();
+
+          // Copiar cada página al documento destino y añadir cabecera + número
+          for (let p = 0; p < srcPages.length; p++) {
+            const [copiedPage] = await destPdf.copyPages(srcPdf, [p]);
+            const page = destPdf.addPage(copiedPage);
+            const { width, height } = page.getSize();
+
+            // Fuente en negrita
+            const font = await destPdf.embedFont(PDFLib.StandardFonts.HelveticaBold);
+            const fontSize = 12;
+
+            // ---- Cabecera: nombre del archivo (rojo, centrado) ----
+            const textWidth = font.widthOfTextAtSize(baseName, fontSize);
+            const xHeader = (width - textWidth) / 2;
+            const yHeader = height - 30;
+            page.drawText(baseName, {
+              x: xHeader,
+              y: yHeader,
+              size: fontSize,
+              font: font,
+              color: PDFLib.rgb(1, 0, 0) // rojo
+            });
+
+            // ---- Número de página (centrado abajo) ----
+            const numText = `Página ${pageCounter}`;
+            const numWidth = font.widthOfTextAtSize(numText, fontSize);
+            const xNum = (width - numWidth) / 2;
+            const yNum = 30;
+            page.drawText(numText, {
+              x: xNum,
+              y: yNum,
+              size: fontSize,
+              font: font,
+              color: PDFLib.rgb(0, 0, 0) // negro
+            });
+
+            pageCounter++;
+          }
+
+          // Actualizar progreso (desde 10% hasta 90%)
+          const progress = 10 + Math.round((idx / sorted.length) * 80);
+          setProg('progNum', 'pctNum', progress);
+        }
+
+        // 4. Guardar el PDF combinado
+        log(logId, '⚙️ Generando PDF final...');
+        const finalBytes = await destPdf.save();
+        if (!finalBytes || finalBytes.byteLength === 0) {
+          throw new Error('El PDF generado está vacío.');
+        }
+
+        const blob = new Blob([finalBytes], { type: 'application/pdf' });
+        setProg('progNum', 'pctNum', 100);
+        log(logId, `📦 PDF unificado con ${pageCounter-1} páginas (${(blob.size / 1024).toFixed(1)} KB)`);
+
+        const ok = downloadBlob(blob, 'CARPETA_UNIFICADA.pdf');
+        if (ok) {
+          log(logId, '✅ Descarga completada.');
+        } else {
+          throw new Error('Falló la descarga.');
+        }
+
       } catch (err) {
         log(logId, `❌ Error: ${err.message}`);
+        console.error(err);
       }
     });
 
@@ -1268,7 +1349,6 @@
     });
 
     async function compressPdf(file, quality, logId) {
-      // Cargar el PDF con pdf.js
       const pdfBytes = await file.arrayBuffer();
       const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(pdfBytes) });
       const pdf = await loadingTask.promise;
@@ -1276,26 +1356,23 @@
 
       log(logId, `📄 Páginas: ${totalPages}`);
 
-      // Crear nuevo PDF con pdf-lib
       const newPdf = await PDFLib.PDFDocument.create();
       let processed = 0;
 
       for (let p = 1; p <= totalPages; p++) {
         log(logId, `   ↳ Procesando página ${p} de ${totalPages}...`);
         const page = await pdf.getPage(p);
-        const viewport = page.getViewport({ scale: 1.2 }); // Escala 1.2 para buena resolución
+        const viewport = page.getViewport({ scale: 1.2 });
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = viewport.width;
         canvas.height = viewport.height;
         await page.render({ canvasContext: ctx, viewport }).promise;
 
-        // Convertir a JPG con la calidad elegida
         const jpgBlob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', quality));
         if (!jpgBlob) throw new Error(`No se pudo convertir la página ${p} a JPG`);
         const jpgBytes = await jpgBlob.arrayBuffer();
 
-        // Embedir la imagen en el nuevo PDF
         const image = await newPdf.embedJpg(jpgBytes);
         const pageWidth = image.width;
         const pageHeight = image.height;
@@ -1319,7 +1396,6 @@
     // ============================================================
     // 9. FIRMA VISUAL (NUEVO)
     // ============================================================
-    // Inicializar Signature Pad
     const canvas = document.getElementById('signatureCanvas');
     let signaturePad = null;
     if (canvas) {
@@ -1329,18 +1405,15 @@
         minWidth: 2,
         maxWidth: 4,
       });
-      // Ajustar tamaño del canvas
       const rect = canvas.getBoundingClientRect();
       canvas.width = rect.width || 600;
       canvas.height = 200;
     }
 
-    // Botón borrar firma
     document.getElementById('clearSignatureBtn')?.addEventListener('click', function() {
       if (signaturePad) signaturePad.clear();
     });
 
-    // Cambio entre dibujar y subir imagen
     document.querySelectorAll('input[name="signType"]').forEach(radio => {
       radio.addEventListener('change', function() {
         if (this.value === 'draw') {
@@ -1353,7 +1426,6 @@
       });
     });
 
-    // Subir imagen de firma
     let signImageData = null;
     setupZone('zoneSignImage', 'signImageInput', async files => {
       if (files.length > 0) {
@@ -1368,7 +1440,6 @@
       }
     });
 
-    // Cargar PDF para firma
     let signPdfFile = null;
     setupZone('zoneSign', 'signPdf', async files => {
       if (files.length > 0) {
@@ -1385,7 +1456,6 @@
         return;
       }
 
-      // Obtener la firma (dibujada o imagen)
       let signatureBlob = null;
       const signType = document.querySelector('input[name="signType"]:checked').value;
 
@@ -1394,7 +1464,6 @@
           alert('Dibuja una firma primero o elige "Subir imagen".');
           return;
         }
-        // Obtener la firma como PNG (con fondo transparente)
         const dataUrl = signaturePad.toDataURL('image/png');
         const response = await fetch(dataUrl);
         signatureBlob = await response.blob();
@@ -1423,18 +1492,15 @@
         const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
         const pages = pdfDoc.getPages();
 
-        // Embedir la imagen de la firma
         const imageBytes = await signatureBlob.arrayBuffer();
         const image = await pdfDoc.embedPng(imageBytes);
 
-        // Aplicar firma en las páginas correspondientes
         const targetPages = applyAll ? pages : [pages[0]];
 
         for (const page of targetPages) {
           const { width, height } = page.getSize();
           const imageWidth = width * widthPct;
           const imageHeight = height * heightPct;
-          // Mantener proporción si la imagen es muy alargada (opcional)
           const x = width * posX - imageWidth / 2;
           const y = height * posY - imageHeight / 2;
 
@@ -1523,5 +1589,4 @@
     console.log('✅ ServiPDF Pro cargado con 9 herramientas.');
   </script>
 </body>
-</html>
 </html>
