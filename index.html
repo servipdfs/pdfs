@@ -106,20 +106,34 @@
       <p class="text-gray-600 max-w-2xl mx-auto text-lg">
         Soluciones avanzadas para documentos PDF en tu navegador - Sin subidas a servidores, 100% privado
       </p>
-      <p class="text-sm text-gray-500 mt-2">Haz clic en cualquier tarjeta para abrir la herramienta</p>
+      
+      <!-- Enlaces de contacto añadidos -->
+      <div class="mt-5 flex flex-wrap justify-center gap-3">
+        <a href="https://wa.me/34644247796" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-medium px-5 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+          <i class="fab fa-whatsapp text-xl"></i>
+          Contactar con el creador
+        </a>
+        <a href="mailto:servipdfs@gmail.com" class="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-medium px-5 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+          <i class="fas fa-envelope text-lg"></i>
+          servipdfs@gmail.com
+        </a>
+      </div>
+
+      <p class="text-sm text-gray-500 mt-4">Haz clic en cualquier tarjeta para abrir la herramienta</p>
     </header>
 
     <!-- ====== GRID DE TARJETAS (9 herramientas) ====== -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-      <!-- 1. PDF a PowerPoint -->
-      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalPpt">
-        <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
-          <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-file-powerpoint mr-2"></i> PDF a PowerPoint</h2>
+      
+      <!-- 1. Comprimir PDF (MOVIDO A PRIMERA POSICIÓN) -->
+      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalCompress">
+        <div class="bg-gradient-to-r from-teal-500 to-emerald-600 p-4">
+          <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-file-archive mr-2"></i> Comprimir PDF</h2>
         </div>
         <div class="p-4 text-center">
-          <i class="fas fa-chevron-right text-blue-500 text-2xl mb-2"></i>
-          <p class="text-gray-600 text-sm">Convierte PDFs a PPTX con numeración</p>
-          <span class="inline-block mt-2 text-blue-600 font-medium text-sm">Abrir herramienta →</span>
+          <i class="fas fa-chevron-right text-teal-500 text-2xl mb-2"></i>
+          <p class="text-gray-600 text-sm">Reduce el tamaño del PDF</p>
+          <span class="inline-block mt-2 text-teal-600 font-medium text-sm">Abrir herramienta →</span>
         </div>
       </div>
 
@@ -147,7 +161,7 @@
         </div>
       </div>
 
-      <!-- 4. Carpeta numerada (MODIFICADA) -->
+      <!-- 4. Carpeta numerada -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalNum">
         <div class="bg-gradient-to-r from-orange-500 to-amber-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-folder-open mr-2"></i> Carpeta a PDF unificado</h2>
@@ -195,15 +209,15 @@
         </div>
       </div>
 
-      <!-- 8. Comprimir PDF -->
-      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalCompress">
-        <div class="bg-gradient-to-r from-teal-500 to-emerald-600 p-4">
-          <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-file-archive mr-2"></i> Comprimir PDF</h2>
+      <!-- 8. PDF a PowerPoint (MOVIDO AQUÍ) -->
+      <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalPpt">
+        <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
+          <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-file-powerpoint mr-2"></i> PDF a PowerPoint</h2>
         </div>
         <div class="p-4 text-center">
-          <i class="fas fa-chevron-right text-teal-500 text-2xl mb-2"></i>
-          <p class="text-gray-600 text-sm">Reduce el tamaño del PDF</p>
-          <span class="inline-block mt-2 text-teal-600 font-medium text-sm">Abrir herramienta →</span>
+          <i class="fas fa-chevron-right text-blue-500 text-2xl mb-2"></i>
+          <p class="text-gray-600 text-sm">Convierte PDFs a PPTX con numeración</p>
+          <span class="inline-block mt-2 text-blue-600 font-medium text-sm">Abrir herramienta →</span>
         </div>
       </div>
 
@@ -228,35 +242,43 @@
 
   <!-- ====== MODALES ====== -->
 
-  <!-- Modal 1: PDF a PowerPoint -->
-  <div class="modal-overlay" id="modalPpt">
+  <!-- Modal 1: Comprimir PDF -->
+  <div class="modal-overlay" id="modalCompress">
     <div class="modal-content">
-      <button class="modal-close" data-close="modalPpt">&times;</button>
+      <button class="modal-close" data-close="modalCompress">&times;</button>
       <div class="modal-header">
-        <i class="fas fa-file-powerpoint text-blue-600"></i>
-        <h2>PDF a PowerPoint con hojas numeradas</h2>
+        <i class="fas fa-file-archive text-teal-600"></i>
+        <h2>Comprimir PDF</h2>
       </div>
-      <div class="dropZone border-2 border-dashed border-blue-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zonePpt">
-        <i class="fas fa-cloud-upload-alt text-blue-500 text-4xl mb-3 pulse-animation"></i>
-        <label for="pdfPpt" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
-          <i class="fas fa-file-pdf mr-2"></i>Seleccionar PDFs
+      <div class="dropZone border-2 border-dashed border-teal-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneCompress">
+        <i class="fas fa-cloud-upload-alt text-teal-500 text-4xl mb-3 pulse-animation"></i>
+        <label for="compressPdf" class="bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
+          <i class="fas fa-file-pdf mr-2"></i>Seleccionar PDF
         </label>
-        <p class="text-gray-500 mt-2 text-sm">Una diapositiva por página + numeración automática</p>
-        <input type="file" id="pdfPpt" accept="application/pdf" multiple class="file-input">
+        <p class="text-gray-500 mt-2 text-sm">Selecciona un PDF para reducir su tamaño</p>
+        <input type="file" id="compressPdf" accept="application/pdf" class="file-input">
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Calidad de compresión:</label>
+        <select id="compressQuality" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent">
+          <option value="0.3">Baja (más compresión, más pérdida)</option>
+          <option value="0.6" selected>Media (equilibrio)</option>
+          <option value="0.85">Alta (menos compresión, mejor calidad)</option>
+        </select>
       </div>
       <div class="mb-4">
         <div class="flex justify-between text-sm mb-1">
           <span class="font-medium">Progreso</span>
-          <span id="pctPpt" class="text-gray-600 font-medium">0 %</span>
+          <span id="pctCompress" class="text-gray-600 font-medium">0%</span>
         </div>
         <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
-          <div id="progPpt" class="progress-fill h-full bg-blue-500 rounded-full" style="width: 0%"></div>
+          <div id="progCompress" class="progress-fill h-full bg-teal-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
-      <button id="btnPpt" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-        <i class="fas fa-download mr-2"></i>Descargar PowerPoint
+      <button id="btnCompress" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+        <i class="fas fa-download mr-2"></i>Descargar PDF comprimido
       </button>
-      <div id="logPpt" class="log-container"></div>
+      <div id="logCompress" class="log-container"></div>
     </div>
   </div>
 
@@ -330,9 +352,7 @@
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- MODAL 4: CARPETA A PDF UNIFICADO (MODIFICADO)                -->
-  <!-- ============================================================ -->
+  <!-- Modal 4: Carpeta a PDF unificado -->
   <div class="modal-overlay" id="modalNum">
     <div class="modal-content">
       <button class="modal-close" data-close="modalNum">&times;</button>
@@ -470,43 +490,35 @@
     </div>
   </div>
 
-  <!-- Modal 8: Comprimir PDF -->
-  <div class="modal-overlay" id="modalCompress">
+  <!-- Modal 8: PDF a PowerPoint -->
+  <div class="modal-overlay" id="modalPpt">
     <div class="modal-content">
-      <button class="modal-close" data-close="modalCompress">&times;</button>
+      <button class="modal-close" data-close="modalPpt">&times;</button>
       <div class="modal-header">
-        <i class="fas fa-file-archive text-teal-600"></i>
-        <h2>Comprimir PDF</h2>
+        <i class="fas fa-file-powerpoint text-blue-600"></i>
+        <h2>PDF a PowerPoint con hojas numeradas</h2>
       </div>
-      <div class="dropZone border-2 border-dashed border-teal-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zoneCompress">
-        <i class="fas fa-cloud-upload-alt text-teal-500 text-4xl mb-3 pulse-animation"></i>
-        <label for="compressPdf" class="bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
-          <i class="fas fa-file-pdf mr-2"></i>Seleccionar PDF
+      <div class="dropZone border-2 border-dashed border-blue-400 rounded-xl p-6 text-center mb-5 cursor-pointer transition-colors" id="zonePpt">
+        <i class="fas fa-cloud-upload-alt text-blue-500 text-4xl mb-3 pulse-animation"></i>
+        <label for="pdfPpt" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
+          <i class="fas fa-file-pdf mr-2"></i>Seleccionar PDFs
         </label>
-        <p class="text-gray-500 mt-2 text-sm">Selecciona un PDF para reducir su tamaño</p>
-        <input type="file" id="compressPdf" accept="application/pdf" class="file-input">
-      </div>
-      <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-700 mb-1">Calidad de compresión:</label>
-        <select id="compressQuality" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent">
-          <option value="0.3">Baja (más compresión, más pérdida)</option>
-          <option value="0.6" selected>Media (equilibrio)</option>
-          <option value="0.85">Alta (menos compresión, mejor calidad)</option>
-        </select>
+        <p class="text-gray-500 mt-2 text-sm">Una diapositiva por página + numeración automática</p>
+        <input type="file" id="pdfPpt" accept="application/pdf" multiple class="file-input">
       </div>
       <div class="mb-4">
         <div class="flex justify-between text-sm mb-1">
           <span class="font-medium">Progreso</span>
-          <span id="pctCompress" class="text-gray-600 font-medium">0%</span>
+          <span id="pctPpt" class="text-gray-600 font-medium">0 %</span>
         </div>
         <div class="progress-bar bg-gray-200 h-2.5 rounded-full overflow-hidden">
-          <div id="progCompress" class="progress-fill h-full bg-teal-500 rounded-full" style="width: 0%"></div>
+          <div id="progPpt" class="progress-fill h-full bg-blue-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
-      <button id="btnCompress" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-        <i class="fas fa-download mr-2"></i>Descargar PDF comprimido
+      <button id="btnPpt" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+        <i class="fas fa-download mr-2"></i>Descargar PowerPoint
       </button>
-      <div id="logCompress" class="log-container"></div>
+      <div id="logPpt" class="log-container"></div>
     </div>
   </div>
 
@@ -714,108 +726,110 @@
     }
 
     // ============================================================
-    // 1. PDF → POWERPOINT (PptxGenJS) - (código existente)
+    // 1. COMPRIMIR PDF
     // ============================================================
-    let pptFiles = [];
-    setupZone('zonePpt', 'pdfPpt', async files => {
-      pptFiles = [];
-      const logId = 'logPpt';
-      log(logId, '📂 Archivos seleccionados:');
-      setProg('progPpt', 'pctPpt', 0);
-      let valid = 0;
-      for (let i = 0; i < files.length; i++) {
-        const f = files[i];
-        if (!f.name.toLowerCase().endsWith('.pdf')) {
-          log(logId, `⚠️ Ignorado: ${f.name} (no es PDF)`);
-          continue;
-        }
-        pptFiles.push(f);
-        valid++;
-        log(logId, `✔️ Listo: ${f.name}`);
-        setProg('progPpt', 'pctPpt', (valid / files.length) * 100);
-      }
-      if (pptFiles.length) {
-        log(logId, `✅ ${pptFiles.length} PDF(s) en memoria. Pulsa "Descargar PowerPoint".`);
-      }
+    setupZone('zoneCompress', 'compressPdf', async files => {
+      const logId = 'logCompress';
+      log(logId, '📂 PDF seleccionado: ' + (files.length > 0 ? files[0].name : 'ninguno'));
+      setProg('progCompress', 'pctCompress', 0);
     });
 
-    document.getElementById('btnPpt').addEventListener('click', async function() {
-      if (pptFiles.length === 0) {
-        alert('Selecciona al menos un PDF');
+    document.getElementById('btnCompress').addEventListener('click', async function() {
+      const logId = 'logCompress';
+      const input = document.getElementById('compressPdf');
+      if (!input.files || input.files.length === 0) {
+        alert('Selecciona un PDF primero.');
         return;
       }
-      const logId = 'logPpt';
-      log(logId, '⏳ Iniciando conversión segura a PowerPoint...');
-      setProg('progPpt', 'pctPpt', 5);
+      const file = input.files[0];
+      if (!file.name.toLowerCase().endsWith('.pdf')) {
+        alert('El archivo debe ser un PDF.');
+        return;
+      }
+
+      log(logId, '⏳ Iniciando compresión...');
+      setProg('progCompress', 'pctCompress', 5);
 
       try {
         if (typeof pdfjsLib === 'undefined') throw new Error('pdf.js no cargó correctamente.');
-        if (typeof PptxGenJS === 'undefined') throw new Error('PptxGenJS no cargó correctamente.');
+        if (typeof PDFLib === 'undefined') throw new Error('pdf-lib no cargó correctamente.');
 
-        const pptxBlob = await generarPowerPointSeguro(pptFiles, logId);
-        if (!pptxBlob || pptxBlob.size === 0) {
-          throw new Error('El archivo generado está vacío.');
+        const quality = parseFloat(document.getElementById('compressQuality').value);
+        log(logId, `🔧 Calidad seleccionada: ${quality}`);
+
+        const originalSize = file.size;
+        log(logId, `📄 Tamaño original: ${(originalSize / 1024).toFixed(1)} KB`);
+
+        const compressedBytes = await compressPdf(file, quality, logId);
+        if (!compressedBytes || compressedBytes.byteLength === 0) {
+          throw new Error('El PDF comprimido está vacío.');
         }
-        setProg('progPpt', 'pctPpt', 100);
-        log(logId, `📦 PowerPoint finalizado (${(pptxBlob.size / 1024).toFixed(1)} KB)`);
-        const ok = downloadBlob(pptxBlob, 'Presentacion_ServiPDF.pptx');
-        if (ok) log(logId, '✅ Descarga completada.');
-        else log(logId, '❌ Falló la descarga.');
+
+        const compressedSize = compressedBytes.byteLength;
+        const reduction = ((1 - compressedSize / originalSize) * 100).toFixed(1);
+        log(logId, `📦 Tamaño comprimido: ${(compressedSize / 1024).toFixed(1)} KB (${reduction}% reducción)`);
+
+        const blob = new Blob([compressedBytes], { type: 'application/pdf' });
+        const ok = downloadBlob(blob, 'PDF_COMPRIMIDO.pdf');
+        if (ok) {
+          setProg('progCompress', 'pctCompress', 100);
+          log(logId, '✅ PDF comprimido descargado correctamente.');
+        } else {
+          throw new Error('Falló la descarga.');
+        }
       } catch (err) {
         log(logId, `❌ Error: ${err.message}`);
         console.error(err);
       }
     });
 
-    async function generarPowerPointSeguro(pdfFiles, logId) {
-      let pres = new PptxGenJS();
-      pres.layout = 'LAYOUT_4x3';
-      let slideNumberCounter = 1;
-      let totalPgs = 0;
-      let processedPgs = 0;
+    async function compressPdf(file, quality, logId) {
+      const pdfBytes = await file.arrayBuffer();
+      const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(pdfBytes) });
+      const pdf = await loadingTask.promise;
+      const totalPages = pdf.numPages;
 
-      for (let f of pdfFiles) {
-        const bytes = await f.arrayBuffer();
-        const pdfInfo = await pdfjsLib.getDocument({ data: new Uint8Array(bytes) }).promise;
-        totalPgs += pdfInfo.numPages;
+      log(logId, `📄 Páginas: ${totalPages}`);
+
+      const newPdf = await PDFLib.PDFDocument.create();
+      let processed = 0;
+
+      for (let p = 1; p <= totalPages; p++) {
+        log(logId, `   ↳ Procesando página ${p} de ${totalPages}...`);
+        const page = await pdf.getPage(p);
+        const viewport = page.getViewport({ scale: 1.2 });
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        await page.render({ canvasContext: ctx, viewport }).promise;
+
+        const jpgBlob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', quality));
+        if (!jpgBlob) throw new Error(`No se pudo convertir la página ${p} a JPG`);
+        const jpgBytes = await jpgBlob.arrayBuffer();
+
+        const image = await newPdf.embedJpg(jpgBytes);
+        const pageWidth = image.width;
+        const pageHeight = image.height;
+        const newPage = newPdf.addPage([pageWidth, pageHeight]);
+        newPage.drawImage(image, {
+          x: 0,
+          y: 0,
+          width: pageWidth,
+          height: pageHeight,
+        });
+
+        processed++;
+        const pct = 5 + Math.round((processed / totalPages) * 85);
+        setProg('progCompress', 'pctCompress', pct);
       }
 
-      for (let idx = 0; idx < pdfFiles.length; idx++) {
-        const file = pdfFiles[idx];
-        log(logId, `📄 Procesando ${file.name}...`);
-        const pdfBytes = await file.arrayBuffer();
-        const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(pdfBytes) });
-        const pdf = await loadingTask.promise;
-
-        for (let p = 1; p <= pdf.numPages; p++) {
-          log(logId, `   ↳ Renderizando página ${p} de ${pdf.numPages}...`);
-          const page = await pdf.getPage(p);
-          const viewport = page.getViewport({ scale: 1.5 });
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          canvas.width = viewport.width;
-          canvas.height = viewport.height;
-          await page.render({ canvasContext: ctx, viewport }).promise;
-          const base64Img = canvas.toDataURL('image/jpeg', 0.85);
-
-          let slide = pres.addSlide();
-          slide.addImage({ data: base64Img, x: 0, y: 0, w: '100%', h: '100%', sizing: { type: 'contain' } });
-          slide.addText(String(slideNumberCounter), {
-            x: '85%', y: '85%', w: '10%', h: '10%',
-            fontSize: 24, bold: true, color: 'FF0000',
-            align: 'center', valign: 'middle'
-          });
-          slideNumberCounter++;
-          processedPgs++;
-          setProg('progPpt', 'pctPpt', 5 + Math.round((processedPgs / totalPgs) * 85));
-        }
-      }
-      log(logId, '⚙️ Generando archivo PPTX...');
-      return await pres.write({ outputType: 'blob' });
+      log(logId, '⚙️ Guardando PDF comprimido...');
+      return await newPdf.save();
     }
 
     // ============================================================
-    // 2. IMÁGENES → PDF (pdf-lib) - (código existente)
+    // 2. IMÁGENES → PDF (pdf-lib)
     // ============================================================
     let imageFiles = [];
     setupZone('zoneImages', 'imagesFiles', async files => {
@@ -871,7 +885,7 @@
     }
 
     // ============================================================
-    // 3. UNIR FORMATOS (ACUMULATIVO) - (código existente)
+    // 3. UNIR FORMATOS (ACUMULATIVO)
     // ============================================================
     let bufAll = [];
     let allFilesList = [];
@@ -978,127 +992,127 @@
       }
     });
 
-   // ============================================================
-// 4. CARPETA → PDF UNIFICADO CON CABECERA Y NUMERACIÓN (ROJO)
-// ============================================================
-let folderFiles = [];
+    // ============================================================
+    // 4. CARPETA → PDF UNIFICADO CON CABECERA Y NUMERACIÓN
+    // ============================================================
+    let folderFiles = [];
 
-setupZone('zoneNum', 'numFolder', async files => {
-  folderFiles = Array.from(files).filter(f => {
-    const ext = f.name.split('.').pop().toLowerCase();
-    return ext === 'pdf' || ['jpg','jpeg','png','gif'].includes(ext) || ext === 'txt';
-  });
-  const logId = 'logNum';
-  log(logId, `📂 Carpeta cargada: ${folderFiles.length} archivos compatibles (PDF, imagen, TXT).`);
-  setProg('progNum', 'pctNum', 0);
-  if (folderFiles.length === 0) {
-    log(logId, '⚠️ No se encontraron archivos compatibles.');
-  } else {
-    log(logId, `✅ Listos para fusionar. Pulsa "Descargar PDF unificado".`);
-  }
-});
-
-document.getElementById('btnNum').addEventListener('click', async function() {
-  const logId = 'logNum';
-  if (folderFiles.length === 0) {
-    alert('Selecciona una carpeta con archivos compatibles primero.');
-    return;
-  }
-
-  log(logId, '⏳ Iniciando fusión con cabecera y numeración...');
-  setProg('progNum', 'pctNum', 5);
-
-  try {
-    const sorted = folderFiles.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
-    const destPdf = await PDFLib.PDFDocument.create();
-    let pageCounter = 1;
-
-    for (let idx = 0; idx < sorted.length; idx++) {
-      const file = sorted[idx];
-      const ext = file.name.split('.').pop().toLowerCase();
-      const baseName = file.name.replace(/\.[^.]+$/, '');
-
-      log(logId, `📄 Procesando: ${file.name} (${idx+1}/${sorted.length})`);
-
-      let pdfBytes;
-      if (ext === 'pdf') {
-        pdfBytes = await file.arrayBuffer();
-      } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
-        pdfBytes = await img2pdf(file);
-      } else if (ext === 'txt') {
-        pdfBytes = await txt2pdf(file);
+    setupZone('zoneNum', 'numFolder', async files => {
+      folderFiles = Array.from(files).filter(f => {
+        const ext = f.name.split('.').pop().toLowerCase();
+        return ext === 'pdf' || ['jpg','jpeg','png','gif'].includes(ext) || ext === 'txt';
+      });
+      const logId = 'logNum';
+      log(logId, `📂 Carpeta cargada: ${folderFiles.length} archivos compatibles (PDF, imagen, TXT).`);
+      setProg('progNum', 'pctNum', 0);
+      if (folderFiles.length === 0) {
+        log(logId, '⚠️ No se encontraron archivos compatibles.');
       } else {
-        continue;
+        log(logId, `✅ Listos para fusionar. Pulsa "Descargar PDF unificado".`);
+      }
+    });
+
+    document.getElementById('btnNum').addEventListener('click', async function() {
+      const logId = 'logNum';
+      if (folderFiles.length === 0) {
+        alert('Selecciona una carpeta con archivos compatibles primero.');
+        return;
       }
 
-      const srcPdf = await PDFLib.PDFDocument.load(pdfBytes);
-      const srcPages = srcPdf.getPages();
+      log(logId, '⏳ Iniciando fusión con cabecera y numeración...');
+      setProg('progNum', 'pctNum', 5);
 
-      for (let p = 0; p < srcPages.length; p++) {
-        const [copiedPage] = await destPdf.copyPages(srcPdf, [p]);
-        const page = destPdf.addPage(copiedPage);
-        const { width, height } = page.getSize();
+      try {
+        const sorted = folderFiles.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+        const destPdf = await PDFLib.PDFDocument.create();
+        let pageCounter = 1;
 
-        const font = await destPdf.embedFont(PDFLib.StandardFonts.HelveticaBold);
-        const fontSize = 12;
+        for (let idx = 0; idx < sorted.length; idx++) {
+          const file = sorted[idx];
+          const ext = file.name.split('.').pop().toLowerCase();
+          const baseName = file.name.replace(/\.[^.]+$/, '');
 
-        // ---- Cabecera: nombre del archivo (rojo, centrado) ----
-        const textWidth = font.widthOfTextAtSize(baseName, fontSize);
-        const xHeader = (width - textWidth) / 2;
-        const yHeader = height - 30;
-        page.drawText(baseName, {
-          x: xHeader,
-          y: yHeader,
-          size: fontSize,
-          font: font,
-          color: PDFLib.rgb(1, 0, 0) // rojo
-        });
+          log(logId, `📄 Procesando: ${file.name} (${idx+1}/${sorted.length})`);
 
-        // ---- Número de página (centrado abajo, en ROJO) ----
-        const numText = `Página ${pageCounter}`;
-        const numWidth = font.widthOfTextAtSize(numText, fontSize);
-        const xNum = (width - numWidth) / 2;
-        const yNum = 30;
-        page.drawText(numText, {
-          x: xNum,
-          y: yNum,
-          size: fontSize,
-          font: font,
-          color: PDFLib.rgb(1, 0, 0) // <--- CAMBIADO A ROJO
-        });
+          let pdfBytes;
+          if (ext === 'pdf') {
+            pdfBytes = await file.arrayBuffer();
+          } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
+            pdfBytes = await img2pdf(file);
+          } else if (ext === 'txt') {
+            pdfBytes = await txt2pdf(file);
+          } else {
+            continue;
+          }
 
-        pageCounter++;
+          const srcPdf = await PDFLib.PDFDocument.load(pdfBytes);
+          const srcPages = srcPdf.getPages();
+
+          for (let p = 0; p < srcPages.length; p++) {
+            const [copiedPage] = await destPdf.copyPages(srcPdf, [p]);
+            const page = destPdf.addPage(copiedPage);
+            const { width, height } = page.getSize();
+
+            const font = await destPdf.embedFont(PDFLib.StandardFonts.HelveticaBold);
+            const fontSize = 12;
+
+            // ---- Cabecera: nombre del archivo (rojo, centrado) ----
+            const textWidth = font.widthOfTextAtSize(baseName, fontSize);
+            const xHeader = (width - textWidth) / 2;
+            const yHeader = height - 30;
+            page.drawText(baseName, {
+              x: xHeader,
+              y: yHeader,
+              size: fontSize,
+              font: font,
+              color: PDFLib.rgb(1, 0, 0)
+            });
+
+            // ---- Número de página (centrado abajo, en ROJO) ----
+            const numText = `Página ${pageCounter}`;
+            const numWidth = font.widthOfTextAtSize(numText, fontSize);
+            const xNum = (width - numWidth) / 2;
+            const yNum = 30;
+            page.drawText(numText, {
+              x: xNum,
+              y: yNum,
+              size: fontSize,
+              font: font,
+              color: PDFLib.rgb(1, 0, 0)
+            });
+
+            pageCounter++;
+          }
+
+          const progress = 10 + Math.round((idx / sorted.length) * 80);
+          setProg('progNum', 'pctNum', progress);
+        }
+
+        log(logId, '⚙️ Generando PDF final...');
+        const finalBytes = await destPdf.save();
+        if (!finalBytes || finalBytes.byteLength === 0) {
+          throw new Error('El PDF generado está vacío.');
+        }
+
+        const blob = new Blob([finalBytes], { type: 'application/pdf' });
+        setProg('progNum', 'pctNum', 100);
+        log(logId, `📦 PDF unificado con ${pageCounter-1} páginas (${(blob.size / 1024).toFixed(1)} KB)`);
+
+        const ok = downloadBlob(blob, 'CARPETA_UNIFICADA.pdf');
+        if (ok) {
+          log(logId, '✅ Descarga completada.');
+        } else {
+          throw new Error('Falló la descarga.');
+        }
+
+      } catch (err) {
+        log(logId, `❌ Error: ${err.message}`);
+        console.error(err);
       }
-
-      const progress = 10 + Math.round((idx / sorted.length) * 80);
-      setProg('progNum', 'pctNum', progress);
-    }
-
-    log(logId, '⚙️ Generando PDF final...');
-    const finalBytes = await destPdf.save();
-    if (!finalBytes || finalBytes.byteLength === 0) {
-      throw new Error('El PDF generado está vacío.');
-    }
-
-    const blob = new Blob([finalBytes], { type: 'application/pdf' });
-    setProg('progNum', 'pctNum', 100);
-    log(logId, `📦 PDF unificado con ${pageCounter-1} páginas (${(blob.size / 1024).toFixed(1)} KB)`);
-
-    const ok = downloadBlob(blob, 'CARPETA_UNIFICADA.pdf');
-    if (ok) {
-      log(logId, '✅ Descarga completada.');
-    } else {
-      throw new Error('Falló la descarga.');
-    }
-
-  } catch (err) {
-    log(logId, `❌ Error: ${err.message}`);
-    console.error(err);
-  }
-});
+    });
 
     // ============================================================
-    // 5. RENOMBRAR (JSZip) - (código existente)
+    // 5. RENOMBRAR (JSZip)
     // ============================================================
     let renameFiles = [];
     setupZone('zoneRename', 'renameFolder', async files => {
@@ -1153,7 +1167,7 @@ document.getElementById('btnNum').addEventListener('click', async function() {
     });
 
     // ============================================================
-    // 6. .eml → EXCEL (mailparser + xlsx) - (código existente)
+    // 6. .eml → EXCEL
     // ============================================================
     setupZone('zoneEml', 'emlFolder', async files => {
       const logId = 'logEml';
@@ -1204,7 +1218,7 @@ document.getElementById('btnNum').addEventListener('click', async function() {
     });
 
     // ============================================================
-    // 7. CSVs → PDF (PapaParse + jspdf-autotable) - (código existente)
+    // 7. CSVs → PDF (PapaParse + jspdf-autotable)
     // ============================================================
     let csvFilesList = [];
     setupZone('zoneCsv', 'csvFiles', async files => {
@@ -1279,110 +1293,108 @@ document.getElementById('btnNum').addEventListener('click', async function() {
     });
 
     // ============================================================
-    // 8. COMPRIMIR PDF (NUEVO)
+    // 8. PDF → POWERPOINT (PptxGenJS)
     // ============================================================
-    setupZone('zoneCompress', 'compressPdf', async files => {
-      const logId = 'logCompress';
-      log(logId, '📂 PDF seleccionado: ' + (files.length > 0 ? files[0].name : 'ninguno'));
-      setProg('progCompress', 'pctCompress', 0);
+    let pptFiles = [];
+    setupZone('zonePpt', 'pdfPpt', async files => {
+      pptFiles = [];
+      const logId = 'logPpt';
+      log(logId, '📂 Archivos seleccionados:');
+      setProg('progPpt', 'pctPpt', 0);
+      let valid = 0;
+      for (let i = 0; i < files.length; i++) {
+        const f = files[i];
+        if (!f.name.toLowerCase().endsWith('.pdf')) {
+          log(logId, `⚠️ Ignorado: ${f.name} (no es PDF)`);
+          continue;
+        }
+        pptFiles.push(f);
+        valid++;
+        log(logId, `✔️ Listo: ${f.name}`);
+        setProg('progPpt', 'pctPpt', (valid / files.length) * 100);
+      }
+      if (pptFiles.length) {
+        log(logId, `✅ ${pptFiles.length} PDF(s) en memoria. Pulsa "Descargar PowerPoint".`);
+      }
     });
 
-    document.getElementById('btnCompress').addEventListener('click', async function() {
-      const logId = 'logCompress';
-      const input = document.getElementById('compressPdf');
-      if (!input.files || input.files.length === 0) {
-        alert('Selecciona un PDF primero.');
+    document.getElementById('btnPpt').addEventListener('click', async function() {
+      if (pptFiles.length === 0) {
+        alert('Selecciona al menos un PDF');
         return;
       }
-      const file = input.files[0];
-      if (!file.name.toLowerCase().endsWith('.pdf')) {
-        alert('El archivo debe ser un PDF.');
-        return;
-      }
-
-      log(logId, '⏳ Iniciando compresión...');
-      setProg('progCompress', 'pctCompress', 5);
+      const logId = 'logPpt';
+      log(logId, '⏳ Iniciando conversión segura a PowerPoint...');
+      setProg('progPpt', 'pctPpt', 5);
 
       try {
         if (typeof pdfjsLib === 'undefined') throw new Error('pdf.js no cargó correctamente.');
-        if (typeof PDFLib === 'undefined') throw new Error('pdf-lib no cargó correctamente.');
+        if (typeof PptxGenJS === 'undefined') throw new Error('PptxGenJS no cargó correctamente.');
 
-        const quality = parseFloat(document.getElementById('compressQuality').value);
-        log(logId, `🔧 Calidad seleccionada: ${quality}`);
-
-        const originalSize = file.size;
-        log(logId, `📄 Tamaño original: ${(originalSize / 1024).toFixed(1)} KB`);
-
-        const compressedBytes = await compressPdf(file, quality, logId);
-        if (!compressedBytes || compressedBytes.byteLength === 0) {
-          throw new Error('El PDF comprimido está vacío.');
+        const pptxBlob = await generarPowerPointSeguro(pptFiles, logId);
+        if (!pptxBlob || pptxBlob.size === 0) {
+          throw new Error('El archivo generado está vacío.');
         }
-
-        const compressedSize = compressedBytes.byteLength;
-        const reduction = ((1 - compressedSize / originalSize) * 100).toFixed(1);
-        log(logId, `📦 Tamaño comprimido: ${(compressedSize / 1024).toFixed(1)} KB (${reduction}% reducción)`);
-
-        const blob = new Blob([compressedBytes], { type: 'application/pdf' });
-        const ok = downloadBlob(blob, 'PDF_COMPRIMIDO.pdf');
-        if (ok) {
-          setProg('progCompress', 'pctCompress', 100);
-          log(logId, '✅ PDF comprimido descargado correctamente.');
-        } else {
-          throw new Error('Falló la descarga.');
-        }
+        setProg('progPpt', 'pctPpt', 100);
+        log(logId, `📦 PowerPoint finalizado (${(pptxBlob.size / 1024).toFixed(1)} KB)`);
+        const ok = downloadBlob(pptxBlob, 'Presentacion_ServiPDF.pptx');
+        if (ok) log(logId, '✅ Descarga completada.');
+        else log(logId, '❌ Falló la descarga.');
       } catch (err) {
         log(logId, `❌ Error: ${err.message}`);
         console.error(err);
       }
     });
 
-    async function compressPdf(file, quality, logId) {
-      const pdfBytes = await file.arrayBuffer();
-      const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(pdfBytes) });
-      const pdf = await loadingTask.promise;
-      const totalPages = pdf.numPages;
+    async function generarPowerPointSeguro(pdfFiles, logId) {
+      let pres = new PptxGenJS();
+      pres.layout = 'LAYOUT_4x3';
+      let slideNumberCounter = 1;
+      let totalPgs = 0;
+      let processedPgs = 0;
 
-      log(logId, `📄 Páginas: ${totalPages}`);
-
-      const newPdf = await PDFLib.PDFDocument.create();
-      let processed = 0;
-
-      for (let p = 1; p <= totalPages; p++) {
-        log(logId, `   ↳ Procesando página ${p} de ${totalPages}...`);
-        const page = await pdf.getPage(p);
-        const viewport = page.getViewport({ scale: 1.2 });
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-        await page.render({ canvasContext: ctx, viewport }).promise;
-
-        const jpgBlob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', quality));
-        if (!jpgBlob) throw new Error(`No se pudo convertir la página ${p} a JPG`);
-        const jpgBytes = await jpgBlob.arrayBuffer();
-
-        const image = await newPdf.embedJpg(jpgBytes);
-        const pageWidth = image.width;
-        const pageHeight = image.height;
-        const newPage = newPdf.addPage([pageWidth, pageHeight]);
-        newPage.drawImage(image, {
-          x: 0,
-          y: 0,
-          width: pageWidth,
-          height: pageHeight,
-        });
-
-        processed++;
-        const pct = 5 + Math.round((processed / totalPages) * 85);
-        setProg('progCompress', 'pctCompress', pct);
+      for (let f of pdfFiles) {
+        const bytes = await f.arrayBuffer();
+        const pdfInfo = await pdfjsLib.getDocument({ data: new Uint8Array(bytes) }).promise;
+        totalPgs += pdfInfo.numPages;
       }
 
-      log(logId, '⚙️ Guardando PDF comprimido...');
-      return await newPdf.save();
+      for (let idx = 0; idx < pdfFiles.length; idx++) {
+        const file = pdfFiles[idx];
+        log(logId, `📄 Procesando ${file.name}...`);
+        const pdfBytes = await file.arrayBuffer();
+        const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(pdfBytes) });
+        const pdf = await loadingTask.promise;
+
+        for (let p = 1; p <= pdf.numPages; p++) {
+          log(logId, `   ↳ Renderizando página ${p} de ${pdf.numPages}...`);
+          const page = await pdf.getPage(p);
+          const viewport = page.getViewport({ scale: 1.5 });
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+          await page.render({ canvasContext: ctx, viewport }).promise;
+          const base64Img = canvas.toDataURL('image/jpeg', 0.85);
+
+          let slide = pres.addSlide();
+          slide.addImage({ data: base64Img, x: 0, y: 0, w: '100%', h: '100%', sizing: { type: 'contain' } });
+          slide.addText(String(slideNumberCounter), {
+            x: '85%', y: '85%', w: '10%', h: '10%',
+            fontSize: 24, bold: true, color: 'FF0000',
+            align: 'center', valign: 'middle'
+          });
+          slideNumberCounter++;
+          processedPgs++;
+          setProg('progPpt', 'pctPpt', 5 + Math.round((processedPgs / totalPgs) * 85));
+        }
+      }
+      log(logId, '⚙️ Generando archivo PPTX...');
+      return await pres.write({ outputType: 'blob' });
     }
 
     // ============================================================
-    // 9. FIRMA VISUAL (NUEVO)
+    // 9. FIRMA VISUAL
     // ============================================================
     const canvas = document.getElementById('signatureCanvas');
     let signaturePad = null;
@@ -1516,7 +1528,7 @@ document.getElementById('btnNum').addEventListener('click', async function() {
     });
 
     // ============================================================
-    // FUNCIONES AUXILIARES (pdf-lib) - (compartidas)
+    // FUNCIONES AUXILIARES (pdf-lib)
     // ============================================================
     async function stampPdf(pdfBytes, texto, align) {
       const pdf = await PDFLib.PDFDocument.load(pdfBytes);
