@@ -107,13 +107,14 @@
         Soluciones avanzadas para documentos PDF en tu navegador - Sin subidas a servidores, 100% privado
       </p>
       
-      <!-- Enlaces de contacto añadidos -->
+      <!-- Enlaces de contacto mejorados -->
       <div class="mt-5 flex flex-wrap justify-center gap-3">
         <a href="https://wa.me/34644247796" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-medium px-5 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
           <i class="fab fa-whatsapp text-xl"></i>
-          Contactar con el creador
+          Contactar por WhatsApp
         </a>
-        <a href="mailto:servipdfs@gmail.com" class="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-medium px-5 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+        <!-- Se añadió ?subject= para mejorar la compatibilidad con el sistema operativo -->
+        <a href="mailto:servipdfs@gmail.com?subject=Consulta%20desde%20la%20web%20ServiPDF" class="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-medium px-5 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
           <i class="fas fa-envelope text-lg"></i>
           servipdfs@gmail.com
         </a>
@@ -125,7 +126,7 @@
     <!-- ====== GRID DE TARJETAS (9 herramientas) ====== -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
       
-      <!-- 1. Comprimir PDF (MOVIDO A PRIMERA POSICIÓN) -->
+      <!-- 1. Comprimir PDF -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalCompress">
         <div class="bg-gradient-to-r from-teal-500 to-emerald-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-file-archive mr-2"></i> Comprimir PDF</h2>
@@ -209,7 +210,7 @@
         </div>
       </div>
 
-      <!-- 8. PDF a PowerPoint (MOVIDO AQUÍ) -->
+      <!-- 8. PDF a PowerPoint -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalPpt">
         <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-file-powerpoint mr-2"></i> PDF a PowerPoint</h2>
@@ -636,9 +637,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
 
   <script>
-    // ============================================================
-    // CONFIGURACIÓN INICIAL
-    // ============================================================
     if (typeof pdfjsLib !== 'undefined') {
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     }
@@ -681,9 +679,6 @@
       }
     }
 
-    // ============================================================
-    // GESTIÓN DE MODALES
-    // ============================================================
     document.querySelectorAll('.feature-card[data-modal]').forEach(card => {
       card.addEventListener('click', function() {
         const modalId = this.dataset.modal;
@@ -705,9 +700,6 @@
       });
     });
 
-    // ============================================================
-    // FUNCIÓN COMÚN PARA CONFIGURAR ZONAS DE ARRASTRE
-    // ============================================================
     function setupZone(zoneId, inputId, onFiles) {
       const zone = $(zoneId);
       const inp = $(inputId);
@@ -725,9 +717,7 @@
       });
     }
 
-    // ============================================================
     // 1. COMPRIMIR PDF
-    // ============================================================
     setupZone('zoneCompress', 'compressPdf', async files => {
       const logId = 'logCompress';
       log(logId, '📂 PDF seleccionado: ' + (files.length > 0 ? files[0].name : 'ninguno'));
@@ -812,12 +802,7 @@
         const pageWidth = image.width;
         const pageHeight = image.height;
         const newPage = newPdf.addPage([pageWidth, pageHeight]);
-        newPage.drawImage(image, {
-          x: 0,
-          y: 0,
-          width: pageWidth,
-          height: pageHeight,
-        });
+        newPage.drawImage(image, { x: 0, y: 0, width: pageWidth, height: pageHeight });
 
         processed++;
         const pct = 5 + Math.round((processed / totalPages) * 85);
@@ -828,9 +813,7 @@
       return await newPdf.save();
     }
 
-    // ============================================================
-    // 2. IMÁGENES → PDF (pdf-lib)
-    // ============================================================
+    // 2. IMÁGENES → PDF
     let imageFiles = [];
     setupZone('zoneImages', 'imagesFiles', async files => {
       imageFiles = [];
@@ -884,20 +867,15 @@
       return await pdfDoc.save();
     }
 
-    // ============================================================
-    // 3. UNIR FORMATOS (ACUMULATIVO)
-    // ============================================================
+    // 3. UNIR FORMATOS
     let bufAll = [];
     let allFilesList = [];
     let useWatermark = true;
-
     const fileCounterAll = document.getElementById('fileCounterAll');
     const clearAllBtn = document.getElementById('clearAllBtn');
 
     function updateCounterAll() {
-      if (fileCounterAll) {
-        fileCounterAll.textContent = `${bufAll.length} archivos acumulados`;
-      }
+      if (fileCounterAll) fileCounterAll.textContent = `${bufAll.length} archivos acumulados`;
     }
 
     if (clearAllBtn) {
@@ -912,10 +890,7 @@
     setupZone('zoneAll', 'allFiles', async files => {
       const logId = 'logAll';
       const total = files.length;
-      if (total === 0) {
-        log(logId, '⚠️ No se seleccionó ningún archivo.');
-        return;
-      }
+      if (total === 0) { log(logId, '⚠️ No se seleccionó ningún archivo.'); return; }
       log(logId, `📥 Añadiendo ${total} archivo(s) a la lista...`);
       let processedCount = 0;
       for (let i = 0; i < total; i++) {
@@ -923,102 +898,52 @@
         const ext = f.name.split('.').pop().toLowerCase();
         try {
           let pdfBytes = null;
-          if (ext === 'pdf') {
-            pdfBytes = await f.arrayBuffer();
-          } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
-            pdfBytes = await img2pdf(f);
-          } else if (ext === 'txt') {
-            pdfBytes = await txt2pdf(f);
-          } else {
-            log(logId, `⚠️ Formato no soportado: ${f.name} (${ext})`);
-            continue;
-          }
-          if (!pdfBytes || pdfBytes.byteLength === 0) {
-            log(logId, `⚠️ Error: ${f.name} generó un PDF vacío.`);
-            continue;
-          }
-          let finalBytes;
-          if (useWatermark) {
-            try {
-              finalBytes = await stampPdf(pdfBytes, f.name.replace(/\.[^.]+$/, ''), 'center');
-            } catch (stampErr) {
-              log(logId, `⚠️ Error al estampar ${f.name}, se usa sin marca: ${stampErr.message}`);
-              finalBytes = pdfBytes;
-            }
-          } else {
-            finalBytes = pdfBytes;
-          }
+          if (ext === 'pdf') pdfBytes = await f.arrayBuffer();
+          else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) pdfBytes = await img2pdf(f);
+          else if (ext === 'txt') pdfBytes = await txt2pdf(f);
+          else { log(logId, `⚠️ Formato no soportado: ${f.name} (${ext})`); continue; }
+          
+          if (!pdfBytes || pdfBytes.byteLength === 0) { log(logId, `⚠️ Error: ${f.name} generó un PDF vacío.`); continue; }
+          
+          let finalBytes = useWatermark ? await stampPdf(pdfBytes, f.name.replace(/\.[^.]+$/, ''), 'center').catch(() => pdfBytes) : pdfBytes;
           bufAll.push(finalBytes);
           allFilesList.push(f.name);
           log(logId, `➕ ${f.name} (${(finalBytes.byteLength / 1024).toFixed(1)} KB)`);
-        } catch (err) {
-          log(logId, `❌ Error procesando ${f.name}: ${err.message}`);
-          console.error(err);
-        }
+        } catch (err) { log(logId, `❌ Error procesando ${f.name}: ${err.message}`); }
         processedCount++;
         setProg('progAll', 'pctAll', (processedCount / total) * 100);
       }
       updateCounterAll();
       log(logId, `✅ Total acumulado: ${bufAll.length} archivos.`);
-      if (bufAll.length > 0) {
-        log(logId, '💡 Pulsa "Descargar Todo en PDF" para unirlos.');
-      } else {
-        log(logId, '⚠️ No se pudo procesar ningún archivo de esta tanda.');
-      }
     });
 
     document.getElementById('btnAll').addEventListener('click', async function() {
-      if (!bufAll.length) {
-        alert('No hay archivos acumulados. Selecciona algunos primero.');
-        return;
-      }
+      if (!bufAll.length) { alert('No hay archivos acumulados.'); return; }
       const logId = 'logAll';
-      log(logId, `⏳ Uniendo ${bufAll.length} archivos en un solo PDF...`);
+      log(logId, `⏳ Uniendo ${bufAll.length} archivos...`);
       try {
         const mergedBytes = await mergePdfs(bufAll);
-        if (!mergedBytes || mergedBytes.byteLength === 0) {
-          throw new Error('El PDF unificado está vacío.');
-        }
+        if (!mergedBytes || mergedBytes.byteLength === 0) throw new Error('El PDF unificado está vacío.');
         const blob = new Blob([mergedBytes], { type: 'application/pdf' });
-        const ok = downloadBlob(blob, 'TODO_UNIDO.pdf');
-        if (ok) {
-          log(logId, '✅ PDF unificado descargado correctamente.');
-        } else {
-          throw new Error('Falló la descarga.');
-        }
-      } catch (err) {
-        log(logId, `❌ Error al unir: ${err.message}`);
-        console.error(err);
-      }
+        if (downloadBlob(blob, 'TODO_UNIDO.pdf')) log(logId, '✅ PDF unificado descargado.');
+      } catch (err) { log(logId, `❌ Error al unir: ${err.message}`); }
     });
 
-    // ============================================================
-    // 4. CARPETA → PDF UNIFICADO CON CABECERA Y NUMERACIÓN
-    // ============================================================
+    // 4. CARPETA → PDF UNIFICADO
     let folderFiles = [];
-
     setupZone('zoneNum', 'numFolder', async files => {
       folderFiles = Array.from(files).filter(f => {
         const ext = f.name.split('.').pop().toLowerCase();
         return ext === 'pdf' || ['jpg','jpeg','png','gif'].includes(ext) || ext === 'txt';
       });
       const logId = 'logNum';
-      log(logId, `📂 Carpeta cargada: ${folderFiles.length} archivos compatibles (PDF, imagen, TXT).`);
+      log(logId, `📂 Carpeta cargada: ${folderFiles.length} archivos compatibles.`);
       setProg('progNum', 'pctNum', 0);
-      if (folderFiles.length === 0) {
-        log(logId, '⚠️ No se encontraron archivos compatibles.');
-      } else {
-        log(logId, `✅ Listos para fusionar. Pulsa "Descargar PDF unificado".`);
-      }
     });
 
     document.getElementById('btnNum').addEventListener('click', async function() {
       const logId = 'logNum';
-      if (folderFiles.length === 0) {
-        alert('Selecciona una carpeta con archivos compatibles primero.');
-        return;
-      }
-
+      if (folderFiles.length === 0) { alert('Selecciona una carpeta con archivos compatibles primero.'); return; }
       log(logId, '⏳ Iniciando fusión con cabecera y numeración...');
       setProg('progNum', 'pctNum', 5);
 
@@ -1031,165 +956,96 @@
           const file = sorted[idx];
           const ext = file.name.split('.').pop().toLowerCase();
           const baseName = file.name.replace(/\.[^.]+$/, '');
-
           log(logId, `📄 Procesando: ${file.name} (${idx+1}/${sorted.length})`);
 
           let pdfBytes;
-          if (ext === 'pdf') {
-            pdfBytes = await file.arrayBuffer();
-          } else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
-            pdfBytes = await img2pdf(file);
-          } else if (ext === 'txt') {
-            pdfBytes = await txt2pdf(file);
-          } else {
-            continue;
-          }
+          if (ext === 'pdf') pdfBytes = await file.arrayBuffer();
+          else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) pdfBytes = await img2pdf(file);
+          else if (ext === 'txt') pdfBytes = await txt2pdf(file);
+          else continue;
 
           const srcPdf = await PDFLib.PDFDocument.load(pdfBytes);
-          const srcPages = srcPdf.getPages();
-
-          for (let p = 0; p < srcPages.length; p++) {
+          for (let p = 0; p < srcPdf.getPages().length; p++) {
             const [copiedPage] = await destPdf.copyPages(srcPdf, [p]);
             const page = destPdf.addPage(copiedPage);
             const { width, height } = page.getSize();
-
             const font = await destPdf.embedFont(PDFLib.StandardFonts.HelveticaBold);
             const fontSize = 12;
 
-            // ---- Cabecera: nombre del archivo (rojo, centrado) ----
             const textWidth = font.widthOfTextAtSize(baseName, fontSize);
-            const xHeader = (width - textWidth) / 2;
-            const yHeader = height - 30;
-            page.drawText(baseName, {
-              x: xHeader,
-              y: yHeader,
-              size: fontSize,
-              font: font,
-              color: PDFLib.rgb(1, 0, 0)
-            });
+            page.drawText(baseName, { x: (width - textWidth) / 2, y: height - 30, size: fontSize, font, color: PDFLib.rgb(1, 0, 0) });
 
-            // ---- Número de página (centrado abajo, en ROJO) ----
             const numText = `Página ${pageCounter}`;
             const numWidth = font.widthOfTextAtSize(numText, fontSize);
-            const xNum = (width - numWidth) / 2;
-            const yNum = 30;
-            page.drawText(numText, {
-              x: xNum,
-              y: yNum,
-              size: fontSize,
-              font: font,
-              color: PDFLib.rgb(1, 0, 0)
-            });
-
+            page.drawText(numText, { x: (width - numWidth) / 2, y: 30, size: fontSize, font, color: PDFLib.rgb(1, 0, 0) });
             pageCounter++;
           }
-
-          const progress = 10 + Math.round((idx / sorted.length) * 80);
-          setProg('progNum', 'pctNum', progress);
+          setProg('progNum', 'pctNum', 10 + Math.round((idx / sorted.length) * 80));
         }
 
-        log(logId, '⚙️ Generando PDF final...');
         const finalBytes = await destPdf.save();
-        if (!finalBytes || finalBytes.byteLength === 0) {
-          throw new Error('El PDF generado está vacío.');
-        }
-
         const blob = new Blob([finalBytes], { type: 'application/pdf' });
         setProg('progNum', 'pctNum', 100);
-        log(logId, `📦 PDF unificado con ${pageCounter-1} páginas (${(blob.size / 1024).toFixed(1)} KB)`);
-
-        const ok = downloadBlob(blob, 'CARPETA_UNIFICADA.pdf');
-        if (ok) {
-          log(logId, '✅ Descarga completada.');
-        } else {
-          throw new Error('Falló la descarga.');
-        }
-
-      } catch (err) {
-        log(logId, `❌ Error: ${err.message}`);
-        console.error(err);
-      }
+        log(logId, `📦 PDF unificado con ${pageCounter-1} páginas.`);
+        if (downloadBlob(blob, 'CARPETA_UNIFICADA.pdf')) log(logId, '✅ Descarga completada.');
+      } catch (err) { log(logId, `❌ Error: ${err.message}`); }
     });
 
-    // ============================================================
-    // 5. RENOMBRAR (JSZip)
-    // ============================================================
+    // 5. RENOMBRAR
     let renameFiles = [];
     setupZone('zoneRename', 'renameFolder', async files => {
       renameFiles = Array.from(files);
-      const logId = 'logRename';
-      log(logId, `📂 ${renameFiles.length} archivos cargados.`);
+      log('logRename', `📂 ${renameFiles.length} archivos cargados.`);
       setProg('progRename', 'pctRename', 0);
     });
 
     document.getElementById('btnRename').addEventListener('click', async function() {
       if (renameFiles.length === 0) { alert('Selecciona archivos'); return; }
       const logId = 'logRename';
-      const pattern = $('#regexIn').value.trim();
-      const repl = $('#replaceFmt').value.trim();
       let regex;
-      try { regex = new RegExp(pattern, 'i'); } catch (e) {
-        log(logId, `❌ Regex inválido: ${e.message}`);
-        return;
-      }
+      try { regex = new RegExp($('#regexIn').value.trim(), 'i'); } catch (e) { log(logId, `❌ Regex inválido: ${e.message}`); return; }
+      
       const zip = new JSZip();
       const total = renameFiles.length;
       let processed = 0;
+      
       for (const f of renameFiles) {
-        const name = f.name;
-        const m = name.match(regex);
-        if (!m) {
-          log(logId, `⚠️ Sin coincidencia: ${name}`);
-          processed++;
-          setProg('progRename', 'pctRename', (processed/total)*100);
-          continue;
-        }
-        let nuevo = repl;
+        const m = f.name.match(regex);
+        if (!m) { processed++; setProg('progRename', 'pctRename', (processed/total)*100); continue; }
+        
+        let nuevo = $('#replaceFmt').value.trim();
         m.forEach((g, idx) => { if (idx > 0) nuevo = nuevo.replaceAll(`$${idx}`, g || ''); });
+        
         try {
-          const content = await f.arrayBuffer();
-          zip.file(nuevo, content);
-          log(logId, `✔️ ${name} → ${nuevo}`);
-        } catch (e) {
-          log(logId, `⚠️ Error con ${name}: ${e.message}`);
-        }
+          zip.file(nuevo, await f.arrayBuffer());
+          log(logId, `✔️ ${f.name} → ${nuevo}`);
+        } catch (e) { log(logId, `⚠️ Error con ${f.name}`); }
         processed++;
         setProg('progRename', 'pctRename', (processed/total)*100);
       }
-      try {
-        const blob = await zip.generateAsync({ type: 'blob' });
-        const ok = downloadBlob(blob, 'CARPETA_RENOMBRADA.zip');
-        if (ok) log(logId, '✅ ZIP descargado');
-        else log(logId, '❌ Falló descarga');
-      } catch (err) {
-        log(logId, `❌ Error: ${err.message}`);
-      }
+      
+      const blob = await zip.generateAsync({ type: 'blob' });
+      if (downloadBlob(blob, 'CARPETA_RENOMBRADA.zip')) log(logId, '✅ ZIP descargado');
     });
 
-    // ============================================================
     // 6. .eml → EXCEL
-    // ============================================================
     setupZone('zoneEml', 'emlFolder', async files => {
       const logId = 'logEml';
       log(logId, '📂 Procesando correos .eml...');
       setProg('progEml', 'pctEml', 0);
       const validFiles = Array.from(files).filter(f => f.name.toLowerCase().endsWith('.eml'));
-      if (validFiles.length === 0) {
-        log(logId, '⚠️ No se encontraron archivos .eml');
-        return;
-      }
+      if (validFiles.length === 0) { log(logId, '⚠️ No se encontraron archivos .eml'); return; }
+      
       try {
         const [mailparser, xlsx] = await Promise.all([
           import('https://cdn.skypack.dev/mailparser@3.4.6'),
           import('https://cdn.skypack.dev/xlsx@0.18.5')
         ]);
         const rows = [];
-        const total = validFiles.length;
-        for (let i = 0; i < total; i++) {
+        for (let i = 0; i < validFiles.length; i++) {
           const f = validFiles[i];
           try {
-            const raw = await f.text();
-            const msg = await mailparser.simpleParser(raw);
+            const msg = await mailparser.simpleParser(await f.text());
             rows.push({
               'Fecha': msg.date ? new Date(msg.date).toLocaleString('es-ES') : '',
               'Remitente': msg.from?.text || '',
@@ -1199,43 +1055,30 @@
               'Adjuntos': msg.attachments?.map(a => a.filename).join('; ') || ''
             });
             log(logId, `✔️ ${f.name}`);
-          } catch (e) {
-            log(logId, `⚠️ Error en ${f.name}: ${e.message}`);
-          }
-          setProg('progEml', 'pctEml', ((i+1)/total)*100);
+          } catch (e) { log(logId, `⚠️ Error en ${f.name}`); }
+          setProg('progEml', 'pctEml', ((i+1)/validFiles.length)*100);
         }
-        if (!rows.length) { log(logId, '❌ No se procesó ningún correo'); return; }
-        const ws = xlsx.utils.json_to_sheet(rows);
-        const wb = xlsx.utils.book_new();
-        xlsx.utils.book_append_sheet(wb, ws, 'Mails');
-        const blob = xlsx.write(wb, { bookType: 'xlsx', type: 'blob' });
-        const ok = downloadBlob(blob, 'Mails_desde_EML.xlsx');
-        if (ok) log(logId, '✅ Excel descargado');
-        else log(logId, '❌ Falló descarga');
-      } catch (e) {
-        log(logId, `❌ Error: ${e.message}`);
-      }
+        
+        if (rows.length) {
+          const ws = xlsx.utils.json_to_sheet(rows);
+          const wb = xlsx.utils.book_new();
+          xlsx.utils.book_append_sheet(wb, ws, 'Mails');
+          if (downloadBlob(xlsx.write(wb, { bookType: 'xlsx', type: 'blob' }), 'Mails_desde_EML.xlsx')) log(logId, '✅ Excel descargado');
+        }
+      } catch (e) { log(logId, `❌ Error: ${e.message}`); }
     });
 
-    // ============================================================
-    // 7. CSVs → PDF (PapaParse + jspdf-autotable)
-    // ============================================================
+    // 7. CSVs → PDF
     let csvFilesList = [];
     setupZone('zoneCsv', 'csvFiles', async files => {
       csvFilesList = [];
       const logId = 'logCsv';
-      log(logId, '📂 CSVs seleccionados:');
-      setProg('progCsv', 'pctCsv', 0);
       let valid = 0;
       for (let i = 0; i < files.length; i++) {
-        const f = files[i];
-        if (!f.name.toLowerCase().endsWith('.csv')) {
-          log(logId, `⚠️ Ignorado: ${f.name} (no es CSV)`);
-          continue;
+        if (files[i].name.toLowerCase().endsWith('.csv')) {
+          csvFilesList.push(files[i]);
+          valid++;
         }
-        csvFilesList.push(f);
-        valid++;
-        log(logId, `✔️ ${f.name}`);
         setProg('progCsv', 'pctCsv', (valid / files.length) * 100);
       }
       if (csvFilesList.length) log(logId, `✅ ${csvFilesList.length} CSV(s) listos.`);
@@ -1248,299 +1091,166 @@
       try {
         let headers = [], allRows = [];
         for (let i = 0; i < csvFilesList.length; i++) {
-          const file = csvFilesList[i];
-          const text = await file.text();
-          const parsed = Papa.parse(text, { skipEmptyLines: true });
+          const parsed = Papa.parse(await csvFilesList[i].text(), { skipEmptyLines: true });
           if (parsed.data && parsed.data.length > 0) {
-            if (i === 0) {
-              headers = parsed.data[0];
-              allRows.push(...parsed.data.slice(1));
-            } else {
-              const currentHeaders = parsed.data[0];
-              if (JSON.stringify(currentHeaders) === JSON.stringify(headers)) {
-                allRows.push(...parsed.data.slice(1));
-              } else {
-                allRows.push(...parsed.data);
-              }
+            if (i === 0) { headers = parsed.data[0]; allRows.push(...parsed.data.slice(1)); }
+            else {
+              if (JSON.stringify(parsed.data[0]) === JSON.stringify(headers)) allRows.push(...parsed.data.slice(1));
+              else allRows.push(...parsed.data);
             }
           }
           setProg('progCsv', 'pctCsv', ((i+1)/csvFilesList.length)*50);
         }
-        if (!allRows.length && !headers.length) throw new Error('CSVs vacíos');
+        
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF({ orientation: 'landscape' });
         doc.setFontSize(16);
         doc.text("Documento Combinado desde CSVs", 14, 15);
-        doc.autoTable({
-          startY: 20,
-          head: [headers],
-          body: allRows,
-          theme: 'striped',
-          styles: { fontSize: 8, cellPadding: 2 },
-          headStyles: { fillColor: [79, 70, 229] }
-        });
-        const blob = doc.output('blob');
-        const ok = downloadBlob(blob, 'DOCUMENTO_UNIDO.pdf');
-        if (ok) {
+        doc.autoTable({ startY: 20, head: [headers], body: allRows, theme: 'striped', styles: { fontSize: 8, cellPadding: 2 }, headStyles: { fillColor: [79, 70, 229] } });
+        
+        if (downloadBlob(doc.output('blob'), 'DOCUMENTO_UNIDO.pdf')) {
           setProg('progCsv', 'pctCsv', 100);
           log(logId, '✅ PDF combinado descargado');
-        } else {
-          log(logId, '❌ Falló descarga');
         }
-      } catch (err) {
-        log(logId, `❌ Error: ${err.message}`);
-      }
+      } catch (err) { log(logId, `❌ Error: ${err.message}`); }
     });
 
-    // ============================================================
-    // 8. PDF → POWERPOINT (PptxGenJS)
-    // ============================================================
+    // 8. PDF → POWERPOINT
     let pptFiles = [];
     setupZone('zonePpt', 'pdfPpt', async files => {
       pptFiles = [];
       const logId = 'logPpt';
-      log(logId, '📂 Archivos seleccionados:');
-      setProg('progPpt', 'pctPpt', 0);
       let valid = 0;
       for (let i = 0; i < files.length; i++) {
-        const f = files[i];
-        if (!f.name.toLowerCase().endsWith('.pdf')) {
-          log(logId, `⚠️ Ignorado: ${f.name} (no es PDF)`);
-          continue;
+        if (files[i].name.toLowerCase().endsWith('.pdf')) {
+          pptFiles.push(files[i]);
+          valid++;
         }
-        pptFiles.push(f);
-        valid++;
-        log(logId, `✔️ Listo: ${f.name}`);
         setProg('progPpt', 'pctPpt', (valid / files.length) * 100);
       }
-      if (pptFiles.length) {
-        log(logId, `✅ ${pptFiles.length} PDF(s) en memoria. Pulsa "Descargar PowerPoint".`);
-      }
+      if (pptFiles.length) log(logId, `✅ ${pptFiles.length} PDF(s) en memoria.`);
     });
 
     document.getElementById('btnPpt').addEventListener('click', async function() {
-      if (pptFiles.length === 0) {
-        alert('Selecciona al menos un PDF');
-        return;
-      }
+      if (pptFiles.length === 0) { alert('Selecciona al menos un PDF'); return; }
       const logId = 'logPpt';
-      log(logId, '⏳ Iniciando conversión segura a PowerPoint...');
+      log(logId, '⏳ Iniciando conversión...');
       setProg('progPpt', 'pctPpt', 5);
 
       try {
-        if (typeof pdfjsLib === 'undefined') throw new Error('pdf.js no cargó correctamente.');
-        if (typeof PptxGenJS === 'undefined') throw new Error('PptxGenJS no cargó correctamente.');
-
         const pptxBlob = await generarPowerPointSeguro(pptFiles, logId);
-        if (!pptxBlob || pptxBlob.size === 0) {
-          throw new Error('El archivo generado está vacío.');
+        if (downloadBlob(pptxBlob, 'Presentacion_ServiPDF.pptx')) {
+          setProg('progPpt', 'pctPpt', 100);
+          log(logId, '✅ Descarga completada.');
         }
-        setProg('progPpt', 'pctPpt', 100);
-        log(logId, `📦 PowerPoint finalizado (${(pptxBlob.size / 1024).toFixed(1)} KB)`);
-        const ok = downloadBlob(pptxBlob, 'Presentacion_ServiPDF.pptx');
-        if (ok) log(logId, '✅ Descarga completada.');
-        else log(logId, '❌ Falló la descarga.');
-      } catch (err) {
-        log(logId, `❌ Error: ${err.message}`);
-        console.error(err);
-      }
+      } catch (err) { log(logId, `❌ Error: ${err.message}`); }
     });
 
     async function generarPowerPointSeguro(pdfFiles, logId) {
       let pres = new PptxGenJS();
       pres.layout = 'LAYOUT_4x3';
-      let slideNumberCounter = 1;
-      let totalPgs = 0;
-      let processedPgs = 0;
+      let slideNumberCounter = 1, totalPgs = 0, processedPgs = 0;
 
       for (let f of pdfFiles) {
-        const bytes = await f.arrayBuffer();
-        const pdfInfo = await pdfjsLib.getDocument({ data: new Uint8Array(bytes) }).promise;
+        const pdfInfo = await pdfjsLib.getDocument({ data: new Uint8Array(await f.arrayBuffer()) }).promise;
         totalPgs += pdfInfo.numPages;
       }
 
-      for (let idx = 0; idx < pdfFiles.length; idx++) {
-        const file = pdfFiles[idx];
-        log(logId, `📄 Procesando ${file.name}...`);
-        const pdfBytes = await file.arrayBuffer();
-        const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(pdfBytes) });
-        const pdf = await loadingTask.promise;
-
+      for (let file of pdfFiles) {
+        const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
         for (let p = 1; p <= pdf.numPages; p++) {
-          log(logId, `   ↳ Renderizando página ${p} de ${pdf.numPages}...`);
           const page = await pdf.getPage(p);
           const viewport = page.getViewport({ scale: 1.5 });
           const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          canvas.width = viewport.width;
-          canvas.height = viewport.height;
-          await page.render({ canvasContext: ctx, viewport }).promise;
-          const base64Img = canvas.toDataURL('image/jpeg', 0.85);
-
+          await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+          
           let slide = pres.addSlide();
-          slide.addImage({ data: base64Img, x: 0, y: 0, w: '100%', h: '100%', sizing: { type: 'contain' } });
-          slide.addText(String(slideNumberCounter), {
-            x: '85%', y: '85%', w: '10%', h: '10%',
-            fontSize: 24, bold: true, color: 'FF0000',
-            align: 'center', valign: 'middle'
-          });
+          slide.addImage({ data: canvas.toDataURL('image/jpeg', 0.85), x: 0, y: 0, w: '100%', h: '100%', sizing: { type: 'contain' } });
+          slide.addText(String(slideNumberCounter), { x: '85%', y: '85%', w: '10%', h: '10%', fontSize: 24, bold: true, color: 'FF0000', align: 'center', valign: 'middle' });
           slideNumberCounter++;
           processedPgs++;
           setProg('progPpt', 'pctPpt', 5 + Math.round((processedPgs / totalPgs) * 85));
         }
       }
-      log(logId, '⚙️ Generando archivo PPTX...');
       return await pres.write({ outputType: 'blob' });
     }
 
-    // ============================================================
     // 9. FIRMA VISUAL
-    // ============================================================
     const canvas = document.getElementById('signatureCanvas');
     let signaturePad = null;
     if (canvas) {
-      signaturePad = new SignaturePad(canvas, {
-        backgroundColor: 'rgba(255,255,255,0)',
-        penColor: 'rgb(0,0,0)',
-        minWidth: 2,
-        maxWidth: 4,
-      });
+      signaturePad = new SignaturePad(canvas, { backgroundColor: 'rgba(255,255,255,0)', penColor: 'rgb(0,0,0)', minWidth: 2, maxWidth: 4 });
       const rect = canvas.getBoundingClientRect();
       canvas.width = rect.width || 600;
       canvas.height = 200;
     }
 
-    document.getElementById('clearSignatureBtn')?.addEventListener('click', function() {
-      if (signaturePad) signaturePad.clear();
-    });
+    document.getElementById('clearSignatureBtn')?.addEventListener('click', () => signaturePad?.clear());
 
     document.querySelectorAll('input[name="signType"]').forEach(radio => {
       radio.addEventListener('change', function() {
-        if (this.value === 'draw') {
-          document.getElementById('signDrawArea').classList.remove('hidden');
-          document.getElementById('signImageArea').classList.add('hidden');
-        } else {
-          document.getElementById('signDrawArea').classList.add('hidden');
-          document.getElementById('signImageArea').classList.remove('hidden');
-        }
+        document.getElementById('signDrawArea').classList.toggle('hidden', this.value !== 'draw');
+        document.getElementById('signImageArea').classList.toggle('hidden', this.value !== 'image');
       });
     });
 
-    let signImageData = null;
+    let signImageData = null, signPdfFile = null;
     setupZone('zoneSignImage', 'signImageInput', async files => {
       if (files.length > 0) {
-        const file = files[0];
         const reader = new FileReader();
-        reader.onload = function(e) {
-          signImageData = e.target.result;
-          document.getElementById('signImagePreview').classList.remove('hidden');
-          log('logSign', '✅ Imagen de firma cargada.');
-        };
-        reader.readAsDataURL(file);
+        reader.onload = e => { signImageData = e.target.result; document.getElementById('signImagePreview').classList.remove('hidden'); };
+        reader.readAsDataURL(files[0]);
       }
     });
-
-    let signPdfFile = null;
     setupZone('zoneSign', 'signPdf', async files => {
-      if (files.length > 0) {
-        signPdfFile = files[0];
-        log('logSign', `📂 PDF seleccionado: ${signPdfFile.name}`);
-        setProg('progSign', 'pctSign', 0);
-      }
+      if (files.length > 0) { signPdfFile = files[0]; log('logSign', `📂 PDF seleccionado: ${signPdfFile.name}`); }
     });
 
     document.getElementById('btnSign').addEventListener('click', async function() {
+      if (!signPdfFile) { alert('Selecciona un PDF primero.'); return; }
       const logId = 'logSign';
-      if (!signPdfFile) {
-        alert('Selecciona un PDF primero.');
-        return;
-      }
-
       let signatureBlob = null;
       const signType = document.querySelector('input[name="signType"]:checked').value;
 
       if (signType === 'draw') {
-        if (!signaturePad || signaturePad.isEmpty()) {
-          alert('Dibuja una firma primero o elige "Subir imagen".');
-          return;
-        }
-        const dataUrl = signaturePad.toDataURL('image/png');
-        const response = await fetch(dataUrl);
-        signatureBlob = await response.blob();
+        if (!signaturePad || signaturePad.isEmpty()) { alert('Dibuja una firma primero.'); return; }
+        signatureBlob = await (await fetch(signaturePad.toDataURL('image/png'))).blob();
       } else {
-        if (!signImageData) {
-          alert('Sube una imagen de firma primero.');
-          return;
-        }
-        const response = await fetch(signImageData);
-        signatureBlob = await response.blob();
+        if (!signImageData) { alert('Sube una imagen de firma primero.'); return; }
+        signatureBlob = await (await fetch(signImageData)).blob();
       }
 
       log(logId, '⏳ Añadiendo firma al PDF...');
-      setProg('progSign', 'pctSign', 5);
-
       try {
-        if (typeof PDFLib === 'undefined') throw new Error('pdf-lib no cargó correctamente.');
-
+        const pdfDoc = await PDFLib.PDFDocument.load(await signPdfFile.arrayBuffer());
+        const image = await pdfDoc.embedPng(await signatureBlob.arrayBuffer());
+        const pages = document.getElementById('signAllPages').checked ? pdfDoc.getPages() : [pdfDoc.getPages()[0]];
         const posX = parseFloat(document.getElementById('signPosX').value) / 100;
         const posY = parseFloat(document.getElementById('signPosY').value) / 100;
         const widthPct = parseFloat(document.getElementById('signWidth').value) / 100;
         const heightPct = parseFloat(document.getElementById('signHeight').value) / 100;
-        const applyAll = document.getElementById('signAllPages').checked;
 
-        const pdfBytes = await signPdfFile.arrayBuffer();
-        const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
-        const pages = pdfDoc.getPages();
-
-        const imageBytes = await signatureBlob.arrayBuffer();
-        const image = await pdfDoc.embedPng(imageBytes);
-
-        const targetPages = applyAll ? pages : [pages[0]];
-
-        for (const page of targetPages) {
+        for (const page of pages) {
           const { width, height } = page.getSize();
-          const imageWidth = width * widthPct;
-          const imageHeight = height * heightPct;
-          const x = width * posX - imageWidth / 2;
-          const y = height * posY - imageHeight / 2;
-
-          page.drawImage(image, {
-            x: x,
-            y: y,
-            width: imageWidth,
-            height: imageHeight,
-          });
+          page.drawImage(image, { x: width * posX - (width * widthPct) / 2, y: height * posY - (height * heightPct) / 2, width: width * widthPct, height: height * heightPct });
         }
 
-        const savedBytes = await pdfDoc.save();
-        const blob = new Blob([savedBytes], { type: 'application/pdf' });
-        const ok = downloadBlob(blob, 'PDF_FIRMADO.pdf');
-        if (ok) {
+        if (downloadBlob(new Blob([await pdfDoc.save()], { type: 'application/pdf' }), 'PDF_FIRMADO.pdf')) {
           setProg('progSign', 'pctSign', 100);
-          log(logId, '✅ PDF firmado descargado correctamente.');
-        } else {
-          throw new Error('Falló la descarga.');
+          log(logId, '✅ PDF firmado descargado.');
         }
-      } catch (err) {
-        log(logId, `❌ Error: ${err.message}`);
-        console.error(err);
-      }
+      } catch (err) { log(logId, `❌ Error: ${err.message}`); }
     });
 
-    // ============================================================
-    // FUNCIONES AUXILIARES (pdf-lib)
-    // ============================================================
+    // FUNCIONES AUXILIARES
     async function stampPdf(pdfBytes, texto, align) {
       const pdf = await PDFLib.PDFDocument.load(pdfBytes);
       const font = await pdf.embedFont(PDFLib.StandardFonts.HelveticaBold);
       const txt = texto.toUpperCase().substring(0, 40);
-      const fontSize = 10;
-      const pages = pdf.getPages();
-      pages.forEach(page => {
+      pdf.getPages().forEach(page => {
         const { width } = page.getSize();
-        const textWidth = font.widthOfTextAtSize(txt, fontSize);
-        const x = (align === 'left') ? 30 : (width - textWidth) / 2;
-        page.drawText(txt, { x, y: page.getHeight() - 30, size: fontSize, font, color: PDFLib.rgb(1,0,0) });
+        const x = (align === 'left') ? 30 : (width - font.widthOfTextAtSize(txt, 10)) / 2;
+        page.drawText(txt, { x, y: page.getHeight() - 30, size: 10, font, color: PDFLib.rgb(1,0,0) });
       });
       return await pdf.save();
     }
@@ -1549,39 +1259,30 @@
       const merged = await PDFLib.PDFDocument.create();
       for (const bytes of arrBytes) {
         const doc = await PDFLib.PDFDocument.load(bytes);
-        const copiedPages = await merged.copyPages(doc, doc.getPageIndices());
-        copiedPages.forEach(page => merged.addPage(page));
+        (await merged.copyPages(doc, doc.getPageIndices())).forEach(page => merged.addPage(page));
       }
       return await merged.save();
     }
 
     async function img2pdf(f) {
-      const img = await f.arrayBuffer();
       const pdf = await PDFLib.PDFDocument.create();
+      const img = await f.arrayBuffer();
       const ext = f.name.split('.').pop().toLowerCase();
-      let imgObj;
-      if (ext === 'png') imgObj = await pdf.embedPng(img);
-      else if (['jpg','jpeg'].includes(ext)) imgObj = await pdf.embedJpg(img);
-      else throw new Error('Formato no soportado');
+      const imgObj = ext === 'png' ? await pdf.embedPng(img) : await pdf.embedJpg(img);
       const page = pdf.addPage([imgObj.width, imgObj.height]);
       page.drawImage(imgObj, { x: 0, y: 0, width: imgObj.width, height: imgObj.height });
       return await pdf.save();
     }
 
     async function txt2pdf(f) {
-      const text = await f.text();
       const pdf = await PDFLib.PDFDocument.create();
       const font = await pdf.embedFont(PDFLib.StandardFonts.Helvetica);
-      const fontSize = 12;
-      const lineHeight = fontSize * 1.5;
-      const margin = 50;
       let page = pdf.addPage();
-      let y = page.getHeight() - margin;
-      const lines = text.split('\n');
-      for (const line of lines) {
-        if (y < margin + fontSize) { page = pdf.addPage(); y = page.getHeight() - margin; }
-        page.drawText(line, { x: margin, y: y, size: fontSize, font, color: PDFLib.rgb(0,0,0) });
-        y -= lineHeight;
+      let y = page.getHeight() - 50;
+      for (const line of (await f.text()).split('\n')) {
+        if (y < 60) { page = pdf.addPage(); y = page.getHeight() - 50; }
+        page.drawText(line, { x: 50, y, size: 12, font });
+        y -= 18;
       }
       return await pdf.save();
     }
