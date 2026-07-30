@@ -92,41 +92,6 @@
       height: auto;
       touch-action: none;
     }
-
-    .action-buttons {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
-      margin-top: 1rem;
-    }
-    .action-btn {
-      padding: 0.875rem 1rem;
-      border-radius: 0.75rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      transition: all 0.3s;
-      border: none;
-      cursor: pointer;
-      color: white;
-      font-size: 0.95rem;
-    }
-    .action-btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
-    .action-btn:not(:disabled):hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-    .btn-whatsapp { background: #25D366; }
-    .btn-whatsapp:not(:disabled):hover { background: #20BD5A; }
-    .btn-download { background: #0D9488; }
-    .btn-download:not(:disabled):hover { background: #0F766E; }
-    .btn-email { background: #3B82F6; }
-    .btn-email:not(:disabled):hover { background: #2563EB; }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen pt-6 pb-12">
@@ -142,12 +107,13 @@
         Soluciones avanzadas para documentos PDF en tu navegador - Sin subidas a servidores, 100% privado
       </p>
       
+      <!-- Enlaces de contacto añadidos -->
       <div class="mt-5 flex flex-wrap justify-center gap-3">
         <a href="https://wa.me/34644247796" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-medium px-5 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
           <i class="fab fa-whatsapp text-xl"></i>
-          Contactar por WhatsApp
+          Contactar con el creador
         </a>
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=servipdfs@gmail.com&su=Consulta%20desde%20la%20web%20ServiPDF" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-medium px-5 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+        <a href="mailto:servipdfs@gmail.com" class="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-medium px-5 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
           <i class="fas fa-envelope text-lg"></i>
           servipdfs@gmail.com
         </a>
@@ -156,7 +122,10 @@
       <p class="text-sm text-gray-500 mt-4">Haz clic en cualquier tarjeta para abrir la herramienta</p>
     </header>
 
+    <!-- ====== GRID DE TARJETAS (9 herramientas) ====== -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      
+      <!-- 1. Comprimir PDF -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalCompress">
         <div class="bg-gradient-to-r from-teal-500 to-emerald-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-file-archive mr-2"></i> Comprimir PDF</h2>
@@ -168,6 +137,7 @@
         </div>
       </div>
 
+      <!-- 2. Fotos a PDF -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalImages">
         <div class="bg-gradient-to-r from-emerald-500 to-cyan-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-images mr-2"></i> Fotos a PDF</h2>
@@ -179,6 +149,7 @@
         </div>
       </div>
 
+      <!-- 3. Unir formatos -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalAll">
         <div class="bg-gradient-to-r from-purple-500 to-pink-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-sync-alt mr-2"></i> Unir formatos</h2>
@@ -190,6 +161,7 @@
         </div>
       </div>
 
+      <!-- 4. Carpeta numerada -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalNum">
         <div class="bg-gradient-to-r from-orange-500 to-amber-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-folder-open mr-2"></i> Carpeta a PDF unificado</h2>
@@ -201,6 +173,7 @@
         </div>
       </div>
 
+      <!-- 5. Renombrar -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalRename">
         <div class="bg-gradient-to-r from-rose-500 to-fuchsia-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-magic mr-2"></i> Renombrar</h2>
@@ -212,6 +185,7 @@
         </div>
       </div>
 
+      <!-- 6. .eml a Excel -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalEml">
         <div class="bg-gradient-to-r from-cyan-500 to-teal-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-envelope mr-2"></i> .eml a Excel</h2>
@@ -223,6 +197,7 @@
         </div>
       </div>
 
+      <!-- 7. CSVs a PDF -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalCsv">
         <div class="bg-gradient-to-r from-indigo-500 to-blue-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-table mr-2"></i> CSVs a PDF</h2>
@@ -234,6 +209,7 @@
         </div>
       </div>
 
+      <!-- 8. PDF a PowerPoint -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalPpt">
         <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-file-powerpoint mr-2"></i> PDF a PowerPoint</h2>
@@ -245,6 +221,7 @@
         </div>
       </div>
 
+      <!-- 9. Firma visual -->
       <div class="feature-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden" data-modal="modalSign">
         <div class="bg-gradient-to-r from-amber-500 to-orange-600 p-4">
           <h2 class="text-white text-lg font-bold flex items-center"><i class="fas fa-pen mr-2"></i> Firma visual</h2>
@@ -262,6 +239,8 @@
       <p class="text-sm">Ningún archivo se envía a servidores externos. Tu privacidad es nuestra prioridad.</p>
     </footer>
   </div>
+
+  <!-- ====== MODALES ====== -->
 
   <!-- Modal 1: Comprimir PDF -->
   <div class="modal-overlay" id="modalCompress">
@@ -296,19 +275,11 @@
           <div id="progCompress" class="progress-fill h-full bg-teal-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
-      <button id="btnCompress" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-        <i class="fas fa-download mr-2"></i>Descargar PDF comprimido
-      </button>
-      <div class="action-buttons">
-        <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="compress" disabled>
-          <i class="fab fa-whatsapp"></i> WhatsApp
-        </button>
-        <button class="action-btn btn-download" data-action="download" data-tool="compress" disabled>
-          <i class="fas fa-download"></i> Descargar
-        </button>
-        <button class="action-btn btn-email" data-action="email" data-tool="compress" disabled>
-          <i class="fas fa-envelope"></i> Email
-        </button>
+      <!-- 3 Botones -->
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <button id="btnCompress_wa" class="bg-[#86efac] hover:bg-[#6ee7b7] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fab fa-whatsapp mr-1"></i>WhatsApp</button>
+        <button id="btnCompress_dl" class="bg-[#6ee7b7] hover:bg-[#34d399] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-download mr-1"></i>Descargar</button>
+        <button id="btnCompress_em" class="bg-[#93c5fd] hover:bg-[#60a5fa] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-envelope mr-1"></i>Email</button>
       </div>
       <div id="logCompress" class="log-container"></div>
     </div>
@@ -339,19 +310,11 @@
           <div id="progImages" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
-      <button id="btnImages" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-        <i class="fas fa-download mr-2"></i>Descargar PDF único
-      </button>
-      <div class="action-buttons">
-        <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="images" disabled>
-          <i class="fab fa-whatsapp"></i> WhatsApp
-        </button>
-        <button class="action-btn btn-download" data-action="download" data-tool="images" disabled>
-          <i class="fas fa-download"></i> Descargar
-        </button>
-        <button class="action-btn btn-email" data-action="email" data-tool="images" disabled>
-          <i class="fas fa-envelope"></i> Email
-        </button>
+      <!-- 3 Botones -->
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <button id="btnImages_wa" class="bg-[#86efac] hover:bg-[#6ee7b7] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fab fa-whatsapp mr-1"></i>WhatsApp</button>
+        <button id="btnImages_dl" class="bg-[#6ee7b7] hover:bg-[#34d399] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-download mr-1"></i>Descargar</button>
+        <button id="btnImages_em" class="bg-[#93c5fd] hover:bg-[#60a5fa] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-envelope mr-1"></i>Email</button>
       </div>
       <div id="logImages" class="log-container"></div>
     </div>
@@ -388,19 +351,11 @@
           <div id="progAll" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
-      <button id="btnAll" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-        <i class="fas fa-download mr-2"></i>Descargar Todo en PDF
-      </button>
-      <div class="action-buttons">
-        <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="all" disabled>
-          <i class="fab fa-whatsapp"></i> WhatsApp
-        </button>
-        <button class="action-btn btn-download" data-action="download" data-tool="all" disabled>
-          <i class="fas fa-download"></i> Descargar
-        </button>
-        <button class="action-btn btn-email" data-action="email" data-tool="all" disabled>
-          <i class="fas fa-envelope"></i> Email
-        </button>
+      <!-- 3 Botones -->
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <button id="btnAll_wa" class="bg-[#86efac] hover:bg-[#6ee7b7] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fab fa-whatsapp mr-1"></i>WhatsApp</button>
+        <button id="btnAll_dl" class="bg-[#6ee7b7] hover:bg-[#34d399] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-download mr-1"></i>Descargar</button>
+        <button id="btnAll_em" class="bg-[#93c5fd] hover:bg-[#60a5fa] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-envelope mr-1"></i>Email</button>
       </div>
       <div id="logAll" class="log-container"></div>
     </div>
@@ -419,7 +374,7 @@
         <label for="numFolder" class="bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 px-6 rounded-xl inline-block cursor-pointer transition-colors shadow-md">
           <i class="fas fa-folder mr-2"></i>Seleccionar carpeta
         </label>
-        <p class="text-gray-500 mt-2 text-sm">Todos los PDF, imágenes y TXT se unirán en un solo PDF con el nombre del archivo en cabecera y numeración global</p>
+        <p class="text-gray-500 mt-2 text-sm">Todos los PDF, imágenes y TXT se unirán en un solo PDF</p>
         <input type="file" id="numFolder" webkitdirectory multiple class="file-input">
       </div>
       <div class="mb-4">
@@ -431,19 +386,11 @@
           <div id="progNum" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
-      <button id="btnNum" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-        <i class="fas fa-download mr-2"></i>Descargar PDF unificado
-      </button>
-      <div class="action-buttons">
-        <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="num" disabled>
-          <i class="fab fa-whatsapp"></i> WhatsApp
-        </button>
-        <button class="action-btn btn-download" data-action="download" data-tool="num" disabled>
-          <i class="fas fa-download"></i> Descargar
-        </button>
-        <button class="action-btn btn-email" data-action="email" data-tool="num" disabled>
-          <i class="fas fa-envelope"></i> Email
-        </button>
+      <!-- 3 Botones -->
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <button id="btnNum_wa" class="bg-[#86efac] hover:bg-[#6ee7b7] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fab fa-whatsapp mr-1"></i>WhatsApp</button>
+        <button id="btnNum_dl" class="bg-[#6ee7b7] hover:bg-[#34d399] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-download mr-1"></i>Descargar</button>
+        <button id="btnNum_em" class="bg-[#93c5fd] hover:bg-[#60a5fa] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-envelope mr-1"></i>Email</button>
       </div>
       <div id="logNum" class="log-container"></div>
     </div>
@@ -484,19 +431,11 @@
           <input type="text" id="replaceFmt" value="$2.$1$3" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent">
         </div>
       </div>
-      <button id="btnRename" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-        <i class="fas fa-download mr-2"></i>Descargar carpeta renombrada
-      </button>
-      <div class="action-buttons">
-        <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="rename" disabled>
-          <i class="fab fa-whatsapp"></i> WhatsApp
-        </button>
-        <button class="action-btn btn-download" data-action="download" data-tool="rename" disabled>
-          <i class="fas fa-download"></i> Descargar
-        </button>
-        <button class="action-btn btn-email" data-action="email" data-tool="rename" disabled>
-          <i class="fas fa-envelope"></i> Email
-        </button>
+      <!-- 3 Botones -->
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <button id="btnRename_wa" class="bg-[#86efac] hover:bg-[#6ee7b7] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fab fa-whatsapp mr-1"></i>WhatsApp</button>
+        <button id="btnRename_dl" class="bg-[#6ee7b7] hover:bg-[#34d399] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-download mr-1"></i>Descargar</button>
+        <button id="btnRename_em" class="bg-[#93c5fd] hover:bg-[#60a5fa] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-envelope mr-1"></i>Email</button>
       </div>
       <div id="logRename" class="log-container"></div>
     </div>
@@ -527,19 +466,11 @@
           <div id="progEml" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
-      <button id="btnEml" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-        <i class="fas fa-download mr-2"></i>Descargar Excel
-      </button>
-      <div class="action-buttons">
-        <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="eml" disabled>
-          <i class="fab fa-whatsapp"></i> WhatsApp
-        </button>
-        <button class="action-btn btn-download" data-action="download" data-tool="eml" disabled>
-          <i class="fas fa-download"></i> Descargar
-        </button>
-        <button class="action-btn btn-email" data-action="email" data-tool="eml" disabled>
-          <i class="fas fa-envelope"></i> Email
-        </button>
+      <!-- 3 Botones -->
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <button id="btnEml_wa" class="bg-[#86efac] hover:bg-[#6ee7b7] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fab fa-whatsapp mr-1"></i>WhatsApp</button>
+        <button id="btnEml_dl" class="bg-[#6ee7b7] hover:bg-[#34d399] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-download mr-1"></i>Descargar</button>
+        <button id="btnEml_em" class="bg-[#93c5fd] hover:bg-[#60a5fa] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-envelope mr-1"></i>Email</button>
       </div>
       <div id="logEml" class="log-container"></div>
     </div>
@@ -570,19 +501,11 @@
           <div id="progCsv" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
-      <button id="btnCsv" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-        <i class="fas fa-download mr-2"></i>Descargar PDF Unido
-      </button>
-      <div class="action-buttons">
-        <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="csv" disabled>
-          <i class="fab fa-whatsapp"></i> WhatsApp
-        </button>
-        <button class="action-btn btn-download" data-action="download" data-tool="csv" disabled>
-          <i class="fas fa-download"></i> Descargar
-        </button>
-        <button class="action-btn btn-email" data-action="email" data-tool="csv" disabled>
-          <i class="fas fa-envelope"></i> Email
-        </button>
+      <!-- 3 Botones -->
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <button id="btnCsv_wa" class="bg-[#86efac] hover:bg-[#6ee7b7] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fab fa-whatsapp mr-1"></i>WhatsApp</button>
+        <button id="btnCsv_dl" class="bg-[#6ee7b7] hover:bg-[#34d399] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-download mr-1"></i>Descargar</button>
+        <button id="btnCsv_em" class="bg-[#93c5fd] hover:bg-[#60a5fa] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-envelope mr-1"></i>Email</button>
       </div>
       <div id="logCsv" class="log-container"></div>
     </div>
@@ -613,19 +536,11 @@
           <div id="progPpt" class="progress-fill h-full bg-blue-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
-      <button id="btnPpt" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-        <i class="fas fa-download mr-2"></i>Descargar PowerPoint
-      </button>
-      <div class="action-buttons">
-        <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="ppt" disabled>
-          <i class="fab fa-whatsapp"></i> WhatsApp
-        </button>
-        <button class="action-btn btn-download" data-action="download" data-tool="ppt" disabled>
-          <i class="fas fa-download"></i> Descargar
-        </button>
-        <button class="action-btn btn-email" data-action="email" data-tool="ppt" disabled>
-          <i class="fas fa-envelope"></i> Email
-        </button>
+      <!-- 3 Botones -->
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <button id="btnPpt_wa" class="bg-[#86efac] hover:bg-[#6ee7b7] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fab fa-whatsapp mr-1"></i>WhatsApp</button>
+        <button id="btnPpt_dl" class="bg-[#6ee7b7] hover:bg-[#34d399] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-download mr-1"></i>Descargar</button>
+        <button id="btnPpt_em" class="bg-[#93c5fd] hover:bg-[#60a5fa] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-envelope mr-1"></i>Email</button>
       </div>
       <div id="logPpt" class="log-container"></div>
     </div>
@@ -726,25 +641,17 @@
           <div id="progSign" class="progress-fill h-full bg-amber-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
-
-      <button id="btnSign" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
-        <i class="fas fa-download mr-2"></i>Descargar PDF firmado
-      </button>
-      <div class="action-buttons">
-        <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="sign" disabled>
-          <i class="fab fa-whatsapp"></i> WhatsApp
-        </button>
-        <button class="action-btn btn-download" data-action="download" data-tool="sign" disabled>
-          <i class="fas fa-download"></i> Descargar
-        </button>
-        <button class="action-btn btn-email" data-action="email" data-tool="sign" disabled>
-          <i class="fas fa-envelope"></i> Email
-        </button>
+      <!-- 3 Botones -->
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <button id="btnSign_wa" class="bg-[#86efac] hover:bg-[#6ee7b7] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fab fa-whatsapp mr-1"></i>WhatsApp</button>
+        <button id="btnSign_dl" class="bg-[#6ee7b7] hover:bg-[#34d399] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-download mr-1"></i>Descargar</button>
+        <button id="btnSign_em" class="bg-[#93c5fd] hover:bg-[#60a5fa] text-white font-bold py-2 rounded-xl transition-colors shadow-md flex items-center justify-center text-sm"><i class="fas fa-envelope mr-1"></i>Email</button>
       </div>
       <div id="logSign" class="log-container"></div>
     </div>
   </div>
 
+  <!-- ====== LIBRERÍAS ====== -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
@@ -755,6 +662,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
 
   <script>
+    // ============================================================
+    // CONFIGURACIÓN INICIAL
+    // ============================================================
     if (typeof pdfjsLib !== 'undefined') {
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     }
@@ -774,9 +684,47 @@
       if (bar) bar.style.width = Math.min(pct, 100) + '%';
       if (pctEl) pctEl.textContent = Math.round(pct) + ' %';
     }
+    
+    // Función central para gestionar la acción de los 3 botones
+    async function procesarYCompartir(blob, filename, action, logId) {
+      if (action === 'dl') {
+        const ok = downloadBlob(blob, filename);
+        if (ok) log(logId, '✅ Archivo descargado correctamente.');
+        else log(logId, '❌ Falló la descarga.');
+      } else {
+        const file = new File([blob], filename, { type: blob.type });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              title: filename,
+              text: 'Documento procesado con ServiPDF Pro',
+              files: [file]
+            });
+            log(logId, '✅ Archivo enviado correctamente al menú nativo.');
+          } catch (err) {
+            if (err.name !== 'AbortError') {
+              log(logId, '⚠️ Error al compartir. Fallback: descargando archivo...');
+              downloadBlob(blob, filename);
+            } else {
+              log(logId, 'ℹ️ Compartir cancelado por el usuario.');
+            }
+          }
+        } else {
+          alert('Tu navegador o dispositivo no soporta enviar archivos directamente a apps. El archivo se descargará normalmente.');
+          downloadBlob(blob, filename);
+        }
+      }
+    }
+
+    function bindAcciones(baseId, actionFunction) {
+      $(`${baseId}_wa`)?.addEventListener('click', () => actionFunction('wa'));
+      $(`${baseId}_dl`)?.addEventListener('click', () => actionFunction('dl'));
+      $(`${baseId}_em`)?.addEventListener('click', () => actionFunction('em'));
+    }
+
     function downloadBlob(blob, filename) {
       if (!blob || blob.size === 0) {
-        console.error('Blob vacío');
+        console.error('❌ Blob vacío');
         return false;
       }
       try {
@@ -792,11 +740,14 @@
         }, 200);
         return true;
       } catch (e) {
-        console.error('Error en descarga:', e);
+        console.error('❌ Error en descarga:', e);
         return false;
       }
     }
 
+    // ============================================================
+    // GESTIÓN DE MODALES
+    // ============================================================
     document.querySelectorAll('.feature-card[data-modal]').forEach(card => {
       card.addEventListener('click', function() {
         const modalId = this.dataset.modal;
@@ -835,133 +786,42 @@
       });
     }
 
-    // Sistema unificado de blobs y botones
-    const toolBlobs = {
-      compress: { blob: null, filename: 'PDF_COMPRIMIDO.pdf' },
-      images: { blob: null, filename: 'IMAGENES_UNIDAS.pdf' },
-      all: { blob: null, filename: 'TODO_UNIDO.pdf' },
-      num: { blob: null, filename: 'CARPETA_UNIFICADA.pdf' },
-      rename: { blob: null, filename: 'CARPETA_RENOMBRADA.zip' },
-      eml: { blob: null, filename: 'Mails_desde_EML.xlsx' },
-      csv: { blob: null, filename: 'DOCUMENTO_UNIDO.pdf' },
-      ppt: { blob: null, filename: 'Presentacion_ServiPDF.pptx' },
-      sign: { blob: null, filename: 'PDF_FIRMADO.pdf' }
-    };
-
-    const toolMessages = {
-      compress: 'PDF comprimido generado con ServiPDF Pro',
-      images: 'PDF de imágenes generado con ServiPDF Pro',
-      all: 'PDF unificado generado con ServiPDF Pro',
-      num: 'PDF unificado de carpeta generado con ServiPDF Pro',
-      rename: 'Carpeta renombrada generada con ServiPDF Pro',
-      eml: 'Excel de correos generado con ServiPDF Pro',
-      csv: 'PDF de CSVs generado con ServiPDF Pro',
-      ppt: 'PowerPoint generado con ServiPDF Pro',
-      sign: 'PDF firmado generado con ServiPDF Pro'
-    };
-
-    function enableToolButtons(tool) {
-      document.querySelectorAll(`[data-tool="${tool}"]`).forEach(btn => {
-        btn.disabled = false;
-      });
-    }
-
-    function disableToolButtons(tool) {
-      document.querySelectorAll(`[data-tool="${tool}"]`).forEach(btn => {
-        btn.disabled = true;
-      });
-    }
-
-    // Manejador global de botones de acción
-    document.querySelectorAll('.action-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const action = this.dataset.action;
-        const tool = this.dataset.tool;
-        const toolData = toolBlobs[tool];
-        const logId = 'log' + tool.charAt(0).toUpperCase() + tool.slice(1);
-        
-        if (!toolData.blob) {
-          alert('Primero debes generar el archivo');
-          return;
-        }
-
-        if (action === 'download') {
-          if (downloadBlob(toolData.blob, toolData.filename)) {
-            log(logId, '✅ Archivo descargado correctamente');
-          }
-        } else if (action === 'whatsapp') {
-          downloadBlob(toolData.blob, toolData.filename);
-          setTimeout(() => {
-            const mensaje = encodeURIComponent(`Hola, te envío el archivo: ${toolMessages[tool]}`);
-            window.open(`https://wa.me/34644247796?text=${mensaje}`, '_blank');
-            log(logId, '📱 WhatsApp abierto. Adjunta el archivo descargado.');
-          }, 500);
-        } else if (action === 'email') {
-          downloadBlob(toolData.blob, toolData.filename);
-          setTimeout(() => {
-            const asunto = encodeURIComponent(toolMessages[tool]);
-            const cuerpo = encodeURIComponent(`Hola,\n\nTe envío el archivo generado con ServiPDF Pro.\n\nSaludos.`);
-            window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=servipdfs@gmail.com&su=${asunto}&body=${cuerpo}`, '_blank');
-            log(logId, '📧 Email abierto. Adjunta el archivo descargado.');
-          }, 500);
-        }
-      });
-    });
-
+    // ============================================================
     // 1. COMPRIMIR PDF
+    // ============================================================
     setupZone('zoneCompress', 'compressPdf', async files => {
       const logId = 'logCompress';
       log(logId, '📂 PDF seleccionado: ' + (files.length > 0 ? files[0].name : 'ninguno'));
       setProg('progCompress', 'pctCompress', 0);
-      disableToolButtons('compress');
-      toolBlobs.compress.blob = null;
     });
 
-    $('btnCompress').addEventListener('click', async function() {
+    bindAcciones('btnCompress', async function(action) {
       const logId = 'logCompress';
       const input = $('compressPdf');
-      if (!input.files || input.files.length === 0) {
-        alert('Selecciona un PDF primero.');
-        return;
-      }
+      if (!input.files || input.files.length === 0) { alert('Selecciona un PDF primero.'); return; }
       const file = input.files[0];
-      if (!file.name.toLowerCase().endsWith('.pdf')) {
-        alert('El archivo debe ser un PDF.');
-        return;
-      }
+      if (!file.name.toLowerCase().endsWith('.pdf')) { alert('El archivo debe ser un PDF.'); return; }
 
       log(logId, '⏳ Iniciando compresión...');
       setProg('progCompress', 'pctCompress', 5);
-      disableToolButtons('compress');
 
       try {
-        if (typeof pdfjsLib === 'undefined') throw new Error('pdf.js no cargó correctamente.');
-        if (typeof PDFLib === 'undefined') throw new Error('pdf-lib no cargó correctamente.');
-
         const quality = parseFloat($('compressQuality').value);
         log(logId, `🔧 Calidad seleccionada: ${quality}`);
-
         const originalSize = file.size;
-        log(logId, `📄 Tamaño original: ${(originalSize / 1024).toFixed(1)} KB`);
 
         const compressedBytes = await compressPdf(file, quality, logId);
-        if (!compressedBytes || compressedBytes.byteLength === 0) {
-          throw new Error('El PDF comprimido está vacío.');
-        }
-
+        if (!compressedBytes) throw new Error('El PDF comprimido está vacío.');
+        
         const compressedSize = compressedBytes.byteLength;
         const reduction = ((1 - compressedSize / originalSize) * 100).toFixed(1);
         log(logId, `📦 Tamaño comprimido: ${(compressedSize / 1024).toFixed(1)} KB (${reduction}% reducción)`);
 
-        toolBlobs.compress.blob = new Blob([compressedBytes], { type: 'application/pdf' });
-        toolBlobs.compress.filename = `COMPRIMIDO_${file.name}`;
-        
+        const blob = new Blob([compressedBytes], { type: 'application/pdf' });
+        await procesarYCompartir(blob, 'PDF_COMPRIMIDO.pdf', action, logId);
         setProg('progCompress', 'pctCompress', 100);
-        log(logId, '✅ PDF comprimido correctamente.');
-        enableToolButtons('compress');
       } catch (err) {
         log(logId, `❌ Error: ${err.message}`);
-        console.error(err);
       }
     });
 
@@ -970,9 +830,6 @@
       const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(pdfBytes) });
       const pdf = await loadingTask.promise;
       const totalPages = pdf.numPages;
-
-      log(logId, `📄 Páginas: ${totalPages}`);
-
       const newPdf = await PDFLib.PDFDocument.create();
       let processed = 0;
 
@@ -987,25 +844,20 @@
         await page.render({ canvasContext: ctx, viewport }).promise;
 
         const jpgBlob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', quality));
-        if (!jpgBlob) throw new Error(`No se pudo convertir la página ${p} a JPG`);
         const jpgBytes = await jpgBlob.arrayBuffer();
-
         const image = await newPdf.embedJpg(jpgBytes);
-        const pageWidth = image.width;
-        const pageHeight = image.height;
-        const newPage = newPdf.addPage([pageWidth, pageHeight]);
-        newPage.drawImage(image, { x: 0, y: 0, width: pageWidth, height: pageHeight });
+        const newPage = newPdf.addPage([image.width, image.height]);
+        newPage.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
 
         processed++;
-        const pct = 5 + Math.round((processed / totalPages) * 85);
-        setProg('progCompress', 'pctCompress', pct);
+        setProg('progCompress', 'pctCompress', 5 + Math.round((processed / totalPages) * 85));
       }
-
-      log(logId, '⚙️ Guardando PDF comprimido...');
       return await newPdf.save();
     }
 
+    // ============================================================
     // 2. IMÁGENES → PDF
+    // ============================================================
     let imageFiles = [];
     setupZone('zoneImages', 'imagesFiles', async files => {
       imageFiles = [];
@@ -1016,35 +868,24 @@
       for (let i = 0; i < files.length; i++) {
         const f = files[i];
         const ext = f.name.split('.').pop().toLowerCase();
-        if (!['jpg','jpeg','png','gif'].includes(ext)) {
-          log(logId, `️ Ignorado: ${f.name} (formato no soportado)`);
-          continue;
+        if (['jpg','jpeg','png','gif'].includes(ext)) {
+          imageFiles.push(f);
+          valid++;
+          log(logId, `✔️ ${f.name}`);
         }
-        imageFiles.push(f);
-        valid++;
-        log(logId, `✔️ ${f.name}`);
         setProg('progImages', 'pctImages', (valid / files.length) * 100);
       }
-      if (imageFiles.length) log(logId, `✅ ${imageFiles.length} imagen(es) listas.`);
-      disableToolButtons('images');
-      toolBlobs.images.blob = null;
     });
 
-    $('btnImages').addEventListener('click', async function() {
+    bindAcciones('btnImages', async function(action) {
       if (imageFiles.length === 0) { alert('Selecciona al menos una imagen'); return; }
       const logId = 'logImages';
       log(logId, '⏳ Creando PDF...');
       try {
         const pdfBytes = await imagesToPdf(imageFiles);
-        if (!pdfBytes || pdfBytes.length === 0) throw new Error('PDF vacío');
-        toolBlobs.images.blob = new Blob([pdfBytes], { type: 'application/pdf' });
-        if (downloadBlob(toolBlobs.images.blob, toolBlobs.images.filename)) {
-          log(logId, '✅ PDF descargado');
-          enableToolButtons('images');
-        }
-      } catch (err) {
-        log(logId, `❌ Error: ${err.message}`);
-      }
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        await procesarYCompartir(blob, 'IMAGENES_UNIDAS.pdf', action, logId);
+      } catch (err) { log(logId, `❌ Error: ${err.message}`); }
     });
 
     async function imagesToPdf(files) {
@@ -1062,35 +903,24 @@
       return await pdfDoc.save();
     }
 
+    // ============================================================
     // 3. UNIR FORMATOS
+    // ============================================================
     let bufAll = [];
-    let allFilesList = [];
     let useWatermark = true;
-    const fileCounterAll = $('fileCounterAll');
-    const clearAllBtn = $('clearAllBtn');
+    function updateCounterAll() { $('fileCounterAll').textContent = `${bufAll.length} archivos acumulados`; }
 
-    function updateCounterAll() {
-      if (fileCounterAll) fileCounterAll.textContent = `${bufAll.length} archivos acumulados`;
-    }
-
-    if (clearAllBtn) {
-      clearAllBtn.addEventListener('click', function() {
-        bufAll = [];
-        allFilesList = [];
-        updateCounterAll();
-        log('logAll', '️ Lista limpiada.');
-        disableToolButtons('all');
-        toolBlobs.all.blob = null;
-      });
-    }
+    $('clearAllBtn')?.addEventListener('click', function() {
+      bufAll = [];
+      updateCounterAll();
+      log('logAll', '🗑️ Lista limpiada.');
+    });
 
     setupZone('zoneAll', 'allFiles', async files => {
       const logId = 'logAll';
-      const total = files.length;
-      if (total === 0) { log(logId, '️ No se seleccionó ningún archivo.'); return; }
-      log(logId, `📥 Añadiendo ${total} archivo(s)...`);
-      let processedCount = 0;
-      for (let i = 0; i < total; i++) {
+      if (files.length === 0) return;
+      log(logId, `📥 Añadiendo ${files.length} archivo(s)...`);
+      for (let i = 0; i < files.length; i++) {
         const f = files[i];
         const ext = f.name.split('.').pop().toLowerCase();
         try {
@@ -1098,52 +928,44 @@
           if (ext === 'pdf') pdfBytes = await f.arrayBuffer();
           else if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) pdfBytes = await img2pdf(f);
           else if (ext === 'txt') pdfBytes = await txt2pdf(f);
-          else { log(logId, `⚠️ Formato no soportado: ${f.name}`); continue; }
           
-          if (!pdfBytes || pdfBytes.byteLength === 0) continue;
-          
-          let finalBytes = useWatermark ? await stampPdf(pdfBytes, f.name.replace(/\.[^.]+$/, ''), 'center').catch(() => pdfBytes) : pdfBytes;
-          bufAll.push(finalBytes);
-          allFilesList.push(f.name);
-          log(logId, `➕ ${f.name}`);
-        } catch (err) { log(logId, ` Error: ${f.name}`); }
-        processedCount++;
-        setProg('progAll', 'pctAll', (processedCount / total) * 100);
+          if (pdfBytes) {
+            let finalBytes = useWatermark ? await stampPdf(pdfBytes, f.name.replace(/\.[^.]+$/, ''), 'center').catch(()=>pdfBytes) : pdfBytes;
+            bufAll.push(finalBytes);
+            log(logId, `➕ ${f.name}`);
+          }
+        } catch (err) { log(logId, `❌ Error en ${f.name}`); }
+        setProg('progAll', 'pctAll', ((i+1) / files.length) * 100);
       }
       updateCounterAll();
-      log(logId, `✅ Total: ${bufAll.length} archivos.`);
     });
 
-    $('btnAll').addEventListener('click', async function() {
+    bindAcciones('btnAll', async function(action) {
       if (!bufAll.length) { alert('No hay archivos acumulados.'); return; }
       const logId = 'logAll';
+      log(logId, `⏳ Uniendo ${bufAll.length} archivos...`);
       try {
         const mergedBytes = await mergePdfs(bufAll);
-        toolBlobs.all.blob = new Blob([mergedBytes], { type: 'application/pdf' });
-        if (downloadBlob(toolBlobs.all.blob, toolBlobs.all.filename)) {
-          log(logId, '✅ PDF unificado descargado.');
-          setProg('progAll', 'pctAll', 100);
-          enableToolButtons('all');
-        }
+        const blob = new Blob([mergedBytes], { type: 'application/pdf' });
+        await procesarYCompartir(blob, 'TODO_UNIDO.pdf', action, logId);
       } catch (err) { log(logId, `❌ Error: ${err.message}`); }
     });
 
-    // 4. CARPETA → PDF UNIFICADO
+    // ============================================================
+    // 4. CARPETA A PDF NUMERADO
+    // ============================================================
     let folderFiles = [];
     setupZone('zoneNum', 'numFolder', async files => {
       folderFiles = Array.from(files).filter(f => {
         const ext = f.name.split('.').pop().toLowerCase();
         return ext === 'pdf' || ['jpg','jpeg','png','gif'].includes(ext) || ext === 'txt';
       });
-      log('logNum', `📂 ${folderFiles.length} archivos compatibles.`);
-      setProg('progNum', 'pctNum', 0);
-      disableToolButtons('num');
-      toolBlobs.num.blob = null;
+      log('logNum', `📂 Carpeta cargada: ${folderFiles.length} archivos compatibles.`);
     });
 
-    $('btnNum').addEventListener('click', async function() {
-      if (folderFiles.length === 0) { alert('Selecciona una carpeta'); return; }
+    bindAcciones('btnNum', async function(action) {
       const logId = 'logNum';
+      if (folderFiles.length === 0) { alert('Selecciona una carpeta.'); return; }
       log(logId, '⏳ Iniciando fusión...');
       setProg('progNum', 'pctNum', 5);
 
@@ -1156,6 +978,7 @@
           const file = sorted[idx];
           const ext = file.name.split('.').pop().toLowerCase();
           const baseName = file.name.replace(/\.[^.]+$/, '');
+          log(logId, `📄 Procesando: ${file.name}`);
 
           let pdfBytes;
           if (ext === 'pdf') pdfBytes = await file.arrayBuffer();
@@ -1164,86 +987,77 @@
           else continue;
 
           const srcPdf = await PDFLib.PDFDocument.load(pdfBytes);
-          for (let p = 0; p < srcPdf.getPages().length; p++) {
+          const srcPages = srcPdf.getPages();
+
+          for (let p = 0; p < srcPages.length; p++) {
             const [copiedPage] = await destPdf.copyPages(srcPdf, [p]);
             const page = destPdf.addPage(copiedPage);
             const { width, height } = page.getSize();
             const font = await destPdf.embedFont(PDFLib.StandardFonts.HelveticaBold);
-            const fontSize = 12;
-
-            const textWidth = font.widthOfTextAtSize(baseName, fontSize);
-            page.drawText(baseName, { x: (width - textWidth) / 2, y: height - 30, size: fontSize, font, color: PDFLib.rgb(1, 0, 0) });
-
-            const numText = `Página ${pageCounter}`;
-            const numWidth = font.widthOfTextAtSize(numText, fontSize);
-            page.drawText(numText, { x: (width - numWidth) / 2, y: 30, size: fontSize, font, color: PDFLib.rgb(1, 0, 0) });
+            
+            // Header
+            const tW = font.widthOfTextAtSize(baseName, 12);
+            page.drawText(baseName, { x: (width-tW)/2, y: height-30, size: 12, font, color: PDFLib.rgb(1,0,0) });
+            // Page Number
+            const nT = `Página ${pageCounter}`;
+            const nW = font.widthOfTextAtSize(nT, 12);
+            page.drawText(nT, { x: (width-nW)/2, y: 30, size: 12, font, color: PDFLib.rgb(1,0,0) });
             pageCounter++;
           }
           setProg('progNum', 'pctNum', 10 + Math.round((idx / sorted.length) * 80));
         }
-
         const finalBytes = await destPdf.save();
-        toolBlobs.num.blob = new Blob([finalBytes], { type: 'application/pdf' });
-        if (downloadBlob(toolBlobs.num.blob, toolBlobs.num.filename)) {
-          setProg('progNum', 'pctNum', 100);
-          log(logId, '✅ Descarga completada.');
-          enableToolButtons('num');
-        }
+        const blob = new Blob([finalBytes], { type: 'application/pdf' });
+        setProg('progNum', 'pctNum', 100);
+        await procesarYCompartir(blob, 'CARPETA_UNIFICADA.pdf', action, logId);
       } catch (err) { log(logId, `❌ Error: ${err.message}`); }
     });
 
-    // 5. RENOMBRAR
+    // ============================================================
+    // 5. RENOMBRAR (ZIP)
+    // ============================================================
     let renameFiles = [];
     setupZone('zoneRename', 'renameFolder', async files => {
       renameFiles = Array.from(files);
-      log('logRename', `📂 ${renameFiles.length} archivos.`);
-      setProg('progRename', 'pctRename', 0);
-      disableToolButtons('rename');
-      toolBlobs.rename.blob = null;
+      log('logRename', `📂 ${renameFiles.length} archivos cargados.`);
     });
 
-    $('btnRename').addEventListener('click', async function() {
+    bindAcciones('btnRename', async function(action) {
       if (renameFiles.length === 0) { alert('Selecciona archivos'); return; }
       const logId = 'logRename';
-      let regex;
-      try { regex = new RegExp($('regexIn').value.trim(), 'i'); } catch (e) { log(logId, `❌ Regex inválido`); return; }
-      
+      const regex = new RegExp($('regexIn').value.trim(), 'i');
+      const repl = $('replaceFmt').value.trim();
       const zip = new JSZip();
-      const total = renameFiles.length;
-      let processed = 0;
       
+      let processed = 0;
       for (const f of renameFiles) {
         const m = f.name.match(regex);
-        if (!m) { processed++; setProg('progRename', 'pctRename', (processed/total)*100); continue; }
-        
-        let nuevo = $('replaceFmt').value.trim();
-        m.forEach((g, idx) => { if (idx > 0) nuevo = nuevo.replaceAll(`$${idx}`, g || ''); });
-        
-        try {
+        if (m) {
+          let nuevo = repl;
+          m.forEach((g, idx) => { if (idx > 0) nuevo = nuevo.replaceAll(`$${idx}`, g || ''); });
           zip.file(nuevo, await f.arrayBuffer());
-          log(logId, `✔️ ${f.name} → ${nuevo}`);
-        } catch (e) { log(logId, `⚠️ Error con ${f.name}`); }
+        }
         processed++;
-        setProg('progRename', 'pctRename', (processed/total)*100);
+        setProg('progRename', 'pctRename', (processed/renameFiles.length)*100);
       }
-      
-      const blob = await zip.generateAsync({ type: 'blob' });
-      toolBlobs.rename.blob = blob;
-      if (downloadBlob(blob, toolBlobs.rename.filename)) {
-        log(logId, '✅ ZIP descargado');
-        enableToolButtons('rename');
-      }
+      try {
+        const blob = await zip.generateAsync({ type: 'blob' });
+        await procesarYCompartir(blob, 'CARPETA_RENOMBRADA.zip', action, logId);
+      } catch (err) { log(logId, `❌ Error: ${err.message}`); }
     });
 
-    // 6. .eml → EXCEL
+    // ============================================================
+    // 6. .eml a EXCEL
+    // ============================================================
     setupZone('zoneEml', 'emlFolder', async files => {
+      // Usamos el input ya capturado y se evalúa directo en la función
+    });
+
+    bindAcciones('btnEml', async function(action) {
       const logId = 'logEml';
-      log(logId, '📂 Procesando correos...');
-      setProg('progEml', 'pctEml', 0);
+      const files = $('emlFolder').files;
       const validFiles = Array.from(files).filter(f => f.name.toLowerCase().endsWith('.eml'));
-      if (validFiles.length === 0) { log(logId, '️ No hay archivos .eml'); return; }
-      disableToolButtons('eml');
-      toolBlobs.eml.blob = null;
+      if (!validFiles.length) { alert('No hay .eml'); return; }
       
       try {
         const [mailparser, xlsx] = await Promise.all([
@@ -1252,269 +1066,209 @@
         ]);
         const rows = [];
         for (let i = 0; i < validFiles.length; i++) {
-          const f = validFiles[i];
-          try {
-            const msg = await mailparser.simpleParser(await f.text());
-            rows.push({
-              'Fecha': msg.date ? new Date(msg.date).toLocaleString('es-ES') : '',
-              'Remitente': msg.from?.text || '',
-              'Asunto': msg.subject || '',
-              'Destinatario': Array.isArray(msg.to) ? msg.to.map(t => t.text).join('; ') : (msg.to?.text || ''),
-              'Cuerpo': (msg.text || '').replace(/\s+/g, ' ').substring(0, 32767),
-              'Adjuntos': msg.attachments?.map(a => a.filename).join('; ') || ''
-            });
-            log(logId, `✔️ ${f.name}`);
-          } catch (e) { log(logId, `⚠️ Error en ${f.name}`); }
+          const raw = await validFiles[i].text();
+          const msg = await mailparser.simpleParser(raw);
+          rows.push({
+            'Fecha': msg.date ? new Date(msg.date).toLocaleString('es-ES') : '',
+            'Remitente': msg.from?.text || '',
+            'Asunto': msg.subject || '',
+            'Destinatario': Array.isArray(msg.to) ? msg.to.map(t => t.text).join('; ') : (msg.to?.text || ''),
+            'Cuerpo': (msg.text || '').replace(/\s+/g, ' ').substring(0, 32767)
+          });
           setProg('progEml', 'pctEml', ((i+1)/validFiles.length)*100);
         }
-        
-        if (rows.length) {
-          const ws = xlsx.utils.json_to_sheet(rows);
-          const wb = xlsx.utils.book_new();
-          xlsx.utils.book_append_sheet(wb, ws, 'Mails');
-          const blob = xlsx.write(wb, { bookType: 'xlsx', type: 'blob' });
-          toolBlobs.eml.blob = blob;
-          if (downloadBlob(blob, toolBlobs.eml.filename)) {
-            log(logId, '✅ Excel descargado');
-            enableToolButtons('eml');
-          }
-        }
+        const ws = xlsx.utils.json_to_sheet(rows);
+        const wb = xlsx.utils.book_new();
+        xlsx.utils.book_append_sheet(wb, ws, 'Mails');
+        const blob = xlsx.write(wb, { bookType: 'xlsx', type: 'blob' });
+        await procesarYCompartir(blob, 'Mails.xlsx', action, logId);
       } catch (e) { log(logId, `❌ Error: ${e.message}`); }
     });
 
-    // 7. CSVs → PDF
+    // ============================================================
+    // 7. CSVs a PDF
+    // ============================================================
     let csvFilesList = [];
     setupZone('zoneCsv', 'csvFiles', async files => {
-      csvFilesList = [];
-      const logId = 'logCsv';
-      let valid = 0;
-      for (let i = 0; i < files.length; i++) {
-        if (files[i].name.toLowerCase().endsWith('.csv')) {
-          csvFilesList.push(files[i]);
-          valid++;
-        }
-        setProg('progCsv', 'pctCsv', (valid / files.length) * 100);
-      }
-      if (csvFilesList.length) log(logId, `✅ ${csvFilesList.length} CSV(s) listos.`);
-      disableToolButtons('csv');
-      toolBlobs.csv.blob = null;
+      csvFilesList = Array.from(files).filter(f => f.name.toLowerCase().endsWith('.csv'));
+      log('logCsv', `✅ ${csvFilesList.length} CSV(s) listos.`);
     });
 
-    $('btnCsv').addEventListener('click', async function() {
-      if (csvFilesList.length === 0) { alert('Selecciona al menos un CSV'); return; }
+    bindAcciones('btnCsv', async function(action) {
+      if (csvFilesList.length === 0) { alert('Selecciona CSVs'); return; }
       const logId = 'logCsv';
       try {
         let headers = [], allRows = [];
         for (let i = 0; i < csvFilesList.length; i++) {
-          const parsed = Papa.parse(await csvFilesList[i].text(), { skipEmptyLines: true });
-          if (parsed.data && parsed.data.length > 0) {
-            if (i === 0) { headers = parsed.data[0]; allRows.push(...parsed.data.slice(1)); }
-            else {
-              if (JSON.stringify(parsed.data[0]) === JSON.stringify(headers)) allRows.push(...parsed.data.slice(1));
-              else allRows.push(...parsed.data);
-            }
+          const text = await csvFilesList[i].text();
+          const parsed = Papa.parse(text, { skipEmptyLines: true });
+          if (parsed.data.length > 0) {
+            if (i === 0) { headers = parsed.data[0]; allRows.push(...parsed.data.slice(1)); } 
+            else { allRows.push(...parsed.data.slice(1)); }
           }
           setProg('progCsv', 'pctCsv', ((i+1)/csvFilesList.length)*50);
         }
-        
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF({ orientation: 'landscape' });
-        doc.setFontSize(16);
-        doc.text("Documento Combinado desde CSVs", 14, 15);
-        doc.autoTable({ startY: 20, head: [headers], body: allRows, theme: 'striped', styles: { fontSize: 8, cellPadding: 2 }, headStyles: { fillColor: [79, 70, 229] } });
-        
+        doc.autoTable({ head: [headers], body: allRows, startY: 20, theme: 'striped', styles: { fontSize: 8 } });
         const blob = doc.output('blob');
-        toolBlobs.csv.blob = blob;
-        if (downloadBlob(blob, toolBlobs.csv.filename)) {
-          setProg('progCsv', 'pctCsv', 100);
-          log(logId, '✅ PDF descargado');
-          enableToolButtons('csv');
-        }
+        setProg('progCsv', 'pctCsv', 100);
+        await procesarYCompartir(blob, 'DOCUMENTO_UNIDO.pdf', action, logId);
       } catch (err) { log(logId, `❌ Error: ${err.message}`); }
     });
 
-    // 8. PDF → POWERPOINT
+    // ============================================================
+    // 8. PDF a PowerPoint
+    // ============================================================
     let pptFiles = [];
     setupZone('zonePpt', 'pdfPpt', async files => {
-      pptFiles = [];
-      const logId = 'logPpt';
-      let valid = 0;
-      for (let i = 0; i < files.length; i++) {
-        if (files[i].name.toLowerCase().endsWith('.pdf')) {
-          pptFiles.push(files[i]);
-          valid++;
-        }
-        setProg('progPpt', 'pctPpt', (valid / files.length) * 100);
-      }
-      if (pptFiles.length) log(logId, `✅ ${pptFiles.length} PDF(s) en memoria.`);
-      disableToolButtons('ppt');
-      toolBlobs.ppt.blob = null;
+      pptFiles = Array.from(files).filter(f => f.name.toLowerCase().endsWith('.pdf'));
+      log('logPpt', `✅ ${pptFiles.length} PDF(s) en memoria.`);
     });
 
-    $('btnPpt').addEventListener('click', async function() {
-      if (pptFiles.length === 0) { alert('Selecciona al menos un PDF'); return; }
+    bindAcciones('btnPpt', async function(action) {
+      if (pptFiles.length === 0) { alert('Selecciona PDF'); return; }
       const logId = 'logPpt';
-      log(logId, '⏳ Iniciando conversión...');
       setProg('progPpt', 'pctPpt', 5);
-
       try {
-        const pptxBlob = await generarPowerPointSeguro(pptFiles, logId);
-        toolBlobs.ppt.blob = pptxBlob;
-        if (downloadBlob(pptxBlob, toolBlobs.ppt.filename)) {
-          setProg('progPpt', 'pctPpt', 100);
-          log(logId, '✅ Descarga completada.');
-          enableToolButtons('ppt');
+        let pres = new PptxGenJS();
+        pres.layout = 'LAYOUT_4x3';
+        let slideNum = 1;
+        
+        for (let file of pptFiles) {
+          const pdfBytes = await file.arrayBuffer();
+          const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(pdfBytes) }).promise;
+          for (let p = 1; p <= pdf.numPages; p++) {
+            const page = await pdf.getPage(p);
+            const vp = page.getViewport({ scale: 1.5 });
+            const cvs = document.createElement('canvas');
+            const ctx = cvs.getContext('2d');
+            cvs.width = vp.width; cvs.height = vp.height;
+            await page.render({ canvasContext: ctx, viewport: vp }).promise;
+            
+            let slide = pres.addSlide();
+            slide.addImage({ data: cvs.toDataURL('image/jpeg', 0.85), x: 0, y: 0, w: '100%', h: '100%', sizing: { type: 'contain' } });
+            slide.addText(String(slideNum++), { x: '85%', y: '85%', w: '10%', fontSize: 24, bold: true, color: 'FF0000', align: 'center' });
+          }
         }
+        const pptxBlob = await pres.write({ outputType: 'blob' });
+        setProg('progPpt', 'pctPpt', 100);
+        await procesarYCompartir(pptxBlob, 'Presentacion.pptx', action, logId);
       } catch (err) { log(logId, `❌ Error: ${err.message}`); }
     });
 
-    async function generarPowerPointSeguro(pdfFiles, logId) {
-      let pres = new PptxGenJS();
-      pres.layout = 'LAYOUT_4x3';
-      let slideNumberCounter = 1, totalPgs = 0, processedPgs = 0;
-
-      for (let f of pdfFiles) {
-        const pdfInfo = await pdfjsLib.getDocument({ data: new Uint8Array(await f.arrayBuffer()) }).promise;
-        totalPgs += pdfInfo.numPages;
-      }
-
-      for (let file of pdfFiles) {
-        const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
-        for (let p = 1; p <= pdf.numPages; p++) {
-          const page = await pdf.getPage(p);
-          const viewport = page.getViewport({ scale: 1.5 });
-          const canvas = document.createElement('canvas');
-          await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
-          
-          let slide = pres.addSlide();
-          slide.addImage({ data: canvas.toDataURL('image/jpeg', 0.85), x: 0, y: 0, w: '100%', h: '100%', sizing: { type: 'contain' } });
-          slide.addText(String(slideNumberCounter), { x: '85%', y: '85%', w: '10%', h: '10%', fontSize: 24, bold: true, color: 'FF0000', align: 'center', valign: 'middle' });
-          slideNumberCounter++;
-          processedPgs++;
-          setProg('progPpt', 'pctPpt', 5 + Math.round((processedPgs / totalPgs) * 85));
-        }
-      }
-      return await pres.write({ outputType: 'blob' });
-    }
-
+    // ============================================================
     // 9. FIRMA VISUAL
+    // ============================================================
     const canvas = $('signatureCanvas');
-    let signaturePad = null;
-    if (canvas) {
-      signaturePad = new SignaturePad(canvas, { backgroundColor: 'rgba(255,255,255,0)', penColor: 'rgb(0,0,0)', minWidth: 2, maxWidth: 4 });
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width || 600;
-      canvas.height = 200;
-    }
+    let signaturePad = canvas ? new SignaturePad(canvas, { minWidth: 2, maxWidth: 4 }) : null;
+    let signImageData = null;
+    let signPdfFile = null;
 
     $('clearSignatureBtn')?.addEventListener('click', () => signaturePad?.clear());
-
     document.querySelectorAll('input[name="signType"]').forEach(radio => {
       radio.addEventListener('change', function() {
         $('signDrawArea').classList.toggle('hidden', this.value !== 'draw');
-        $('signImageArea').classList.toggle('hidden', this.value !== 'image');
+        $('signImageArea').classList.toggle('hidden', this.value === 'draw');
       });
     });
 
-    let signImageData = null, signPdfFile = null;
     setupZone('zoneSignImage', 'signImageInput', async files => {
-      if (files.length > 0) {
+      if (files.length) {
         const reader = new FileReader();
         reader.onload = e => { signImageData = e.target.result; $('signImagePreview').classList.remove('hidden'); };
         reader.readAsDataURL(files[0]);
       }
     });
+
     setupZone('zoneSign', 'signPdf', async files => {
-      if (files.length > 0) { signPdfFile = files[0]; log('logSign', `📂 PDF seleccionado`); }
-      disableToolButtons('sign');
-      toolBlobs.sign.blob = null;
+      if (files.length) { signPdfFile = files[0]; log('logSign', `📂 Seleccionado: ${signPdfFile.name}`); }
     });
 
-    $('btnSign').addEventListener('click', async function() {
+    bindAcciones('btnSign', async function(action) {
       if (!signPdfFile) { alert('Selecciona un PDF primero.'); return; }
       const logId = 'logSign';
-      let signatureBlob = null;
       const signType = document.querySelector('input[name="signType"]:checked').value;
+      let signatureBlob = null;
 
       if (signType === 'draw') {
-        if (!signaturePad || signaturePad.isEmpty()) { alert('Dibuja una firma primero.'); return; }
+        if (!signaturePad || signaturePad.isEmpty()) { alert('Dibuja una firma.'); return; }
         signatureBlob = await (await fetch(signaturePad.toDataURL('image/png'))).blob();
       } else {
-        if (!signImageData) { alert('Sube una imagen de firma primero.'); return; }
+        if (!signImageData) { alert('Sube imagen.'); return; }
         signatureBlob = await (await fetch(signImageData)).blob();
       }
 
-      log(logId, ' Añadiendo firma...');
       try {
-        const pdfDoc = await PDFLib.PDFDocument.load(await signPdfFile.arrayBuffer());
+        const pdfBytes = await signPdfFile.arrayBuffer();
+        const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
         const image = await pdfDoc.embedPng(await signatureBlob.arrayBuffer());
-        const pages = $('signAllPages').checked ? pdfDoc.getPages() : [pdfDoc.getPages()[0]];
+        const applyAll = $('signAllPages').checked;
+        const targetPages = applyAll ? pdfDoc.getPages() : [pdfDoc.getPages()[0]];
+        
         const posX = parseFloat($('signPosX').value) / 100;
         const posY = parseFloat($('signPosY').value) / 100;
-        const widthPct = parseFloat($('signWidth').value) / 100;
-        const heightPct = parseFloat($('signHeight').value) / 100;
+        const wPct = parseFloat($('signWidth').value) / 100;
+        const hPct = parseFloat($('signHeight').value) / 100;
 
-        for (const page of pages) {
+        for (const page of targetPages) {
           const { width, height } = page.getSize();
-          page.drawImage(image, { x: width * posX - (width * widthPct) / 2, y: height * posY - (height * heightPct) / 2, width: width * widthPct, height: height * heightPct });
+          page.drawImage(image, {
+            x: (width * posX) - ((width * wPct)/2), 
+            y: (height * posY) - ((height * hPct)/2),
+            width: width * wPct, height: height * hPct
+          });
         }
-
-        const blob = new Blob([await pdfDoc.save()], { type: 'application/pdf' });
-        toolBlobs.sign.blob = blob;
-        if (downloadBlob(blob, toolBlobs.sign.filename)) {
-          setProg('progSign', 'pctSign', 100);
-          log(logId, '✅ PDF firmado descargado.');
-          enableToolButtons('sign');
-        }
+        const savedBytes = await pdfDoc.save();
+        const blob = new Blob([savedBytes], { type: 'application/pdf' });
+        setProg('progSign', 'pctSign', 100);
+        await procesarYCompartir(blob, 'FIRMADO.pdf', action, logId);
       } catch (err) { log(logId, `❌ Error: ${err.message}`); }
     });
 
-    // FUNCIONES AUXILIARES
+    // ============================================================
+    // FUNCIONES AUXILIARES (pdf-lib)
+    // ============================================================
     async function stampPdf(pdfBytes, texto, align) {
       const pdf = await PDFLib.PDFDocument.load(pdfBytes);
       const font = await pdf.embedFont(PDFLib.StandardFonts.HelveticaBold);
-      const txt = texto.toUpperCase().substring(0, 40);
       pdf.getPages().forEach(page => {
-        const { width } = page.getSize();
-        const x = (align === 'left') ? 30 : (width - font.widthOfTextAtSize(txt, 10)) / 2;
-        page.drawText(txt, { x, y: page.getHeight() - 30, size: 10, font, color: PDFLib.rgb(1,0,0) });
+        const tW = font.widthOfTextAtSize(texto.substring(0,40), 10);
+        page.drawText(texto.substring(0,40), { x: (page.getWidth()-tW)/2, y: page.getHeight()-30, size: 10, font, color: PDFLib.rgb(1,0,0) });
       });
       return await pdf.save();
     }
-
     async function mergePdfs(arrBytes) {
       const merged = await PDFLib.PDFDocument.create();
       for (const bytes of arrBytes) {
         const doc = await PDFLib.PDFDocument.load(bytes);
-        (await merged.copyPages(doc, doc.getPageIndices())).forEach(page => merged.addPage(page));
+        const copied = await merged.copyPages(doc, doc.getPageIndices());
+        copied.forEach(p => merged.addPage(p));
       }
       return await merged.save();
     }
-
     async function img2pdf(f) {
-      const pdf = await PDFLib.PDFDocument.create();
       const img = await f.arrayBuffer();
+      const pdf = await PDFLib.PDFDocument.create();
       const ext = f.name.split('.').pop().toLowerCase();
-      const imgObj = ext === 'png' ? await pdf.embedPng(img) : await pdf.embedJpg(img);
+      const imgObj = (ext === 'png') ? await pdf.embedPng(img) : await pdf.embedJpg(img);
       const page = pdf.addPage([imgObj.width, imgObj.height]);
       page.drawImage(imgObj, { x: 0, y: 0, width: imgObj.width, height: imgObj.height });
       return await pdf.save();
     }
-
     async function txt2pdf(f) {
+      const text = await f.text();
       const pdf = await PDFLib.PDFDocument.create();
       const font = await pdf.embedFont(PDFLib.StandardFonts.Helvetica);
-      let page = pdf.addPage();
-      let y = page.getHeight() - 50;
-      for (const line of (await f.text()).split('\n')) {
-        if (y < 60) { page = pdf.addPage(); y = page.getHeight() - 50; }
-        page.drawText(line, { x: 50, y, size: 12, font });
+      let page = pdf.addPage(), y = page.getHeight() - 50;
+      text.split('\n').forEach(line => {
+        if (y < 62) { page = pdf.addPage(); y = page.getHeight() - 50; }
+        page.drawText(line, { x: 50, y, size: 12, font, color: PDFLib.rgb(0,0,0) });
         y -= 18;
-      }
+      });
       return await pdf.save();
     }
-
-    console.log('✅ ServiPDF Pro cargado con 9 herramientas y 3 botones cada una.');
+    console.log('✅ ServiPDF Pro cargado con 3 botones de acción por tarjeta.');
   </script>
 </body>
 </html>
