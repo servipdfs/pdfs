@@ -97,10 +97,10 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 0.75rem;
-      margin-bottom: 1rem;
+      margin-top: 1rem;
     }
     .action-btn {
-      padding: 0.75rem 1rem;
+      padding: 0.875rem 1rem;
       border-radius: 0.75rem;
       font-weight: 600;
       display: flex;
@@ -111,14 +111,15 @@
       border: none;
       cursor: pointer;
       color: white;
+      font-size: 0.95rem;
     }
     .action-btn:disabled {
-      opacity: 0.5;
+      opacity: 0.4;
       cursor: not-allowed;
     }
     .action-btn:not(:disabled):hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
     .btn-whatsapp { background: #25D366; }
     .btn-whatsapp:not(:disabled):hover { background: #20BD5A; }
@@ -295,6 +296,9 @@
           <div id="progCompress" class="progress-fill h-full bg-teal-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
+      <button id="btnCompress" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+        <i class="fas fa-download mr-2"></i>Descargar PDF comprimido
+      </button>
       <div class="action-buttons">
         <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="compress" disabled>
           <i class="fab fa-whatsapp"></i> WhatsApp
@@ -335,6 +339,9 @@
           <div id="progImages" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
+      <button id="btnImages" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+        <i class="fas fa-download mr-2"></i>Descargar PDF único
+      </button>
       <div class="action-buttons">
         <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="images" disabled>
           <i class="fab fa-whatsapp"></i> WhatsApp
@@ -381,6 +388,9 @@
           <div id="progAll" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
+      <button id="btnAll" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+        <i class="fas fa-download mr-2"></i>Descargar Todo en PDF
+      </button>
       <div class="action-buttons">
         <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="all" disabled>
           <i class="fab fa-whatsapp"></i> WhatsApp
@@ -421,6 +431,9 @@
           <div id="progNum" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
+      <button id="btnNum" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+        <i class="fas fa-download mr-2"></i>Descargar PDF unificado
+      </button>
       <div class="action-buttons">
         <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="num" disabled>
           <i class="fab fa-whatsapp"></i> WhatsApp
@@ -471,6 +484,9 @@
           <input type="text" id="replaceFmt" value="$2.$1$3" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent">
         </div>
       </div>
+      <button id="btnRename" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+        <i class="fas fa-download mr-2"></i>Descargar carpeta renombrada
+      </button>
       <div class="action-buttons">
         <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="rename" disabled>
           <i class="fab fa-whatsapp"></i> WhatsApp
@@ -511,6 +527,9 @@
           <div id="progEml" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
+      <button id="btnEml" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+        <i class="fas fa-download mr-2"></i>Descargar Excel
+      </button>
       <div class="action-buttons">
         <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="eml" disabled>
           <i class="fab fa-whatsapp"></i> WhatsApp
@@ -551,6 +570,9 @@
           <div id="progCsv" class="progress-fill h-full bg-green-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
+      <button id="btnCsv" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+        <i class="fas fa-download mr-2"></i>Descargar PDF Unido
+      </button>
       <div class="action-buttons">
         <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="csv" disabled>
           <i class="fab fa-whatsapp"></i> WhatsApp
@@ -591,6 +613,9 @@
           <div id="progPpt" class="progress-fill h-full bg-blue-500 rounded-full" style="width: 0%"></div>
         </div>
       </div>
+      <button id="btnPpt" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+        <i class="fas fa-download mr-2"></i>Descargar PowerPoint
+      </button>
       <div class="action-buttons">
         <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="ppt" disabled>
           <i class="fab fa-whatsapp"></i> WhatsApp
@@ -702,6 +727,9 @@
         </div>
       </div>
 
+      <button id="btnSign" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-xl mb-4 transition-colors shadow-md flex items-center justify-center">
+        <i class="fas fa-download mr-2"></i>Descargar PDF firmado
+      </button>
       <div class="action-buttons">
         <button class="action-btn btn-whatsapp" data-action="whatsapp" data-tool="sign" disabled>
           <i class="fab fa-whatsapp"></i> WhatsApp
@@ -748,7 +776,7 @@
     }
     function downloadBlob(blob, filename) {
       if (!blob || blob.size === 0) {
-        console.error(' Blob vacío');
+        console.error('Blob vacío');
         return false;
       }
       try {
@@ -764,7 +792,7 @@
         }, 200);
         return true;
       } catch (e) {
-        console.error('❌ Error en descarga:', e);
+        console.error('Error en descarga:', e);
         return false;
       }
     }
@@ -850,6 +878,7 @@
         const action = this.dataset.action;
         const tool = this.dataset.tool;
         const toolData = toolBlobs[tool];
+        const logId = 'log' + tool.charAt(0).toUpperCase() + tool.slice(1);
         
         if (!toolData.blob) {
           alert('Primero debes generar el archivo');
@@ -858,14 +887,14 @@
 
         if (action === 'download') {
           if (downloadBlob(toolData.blob, toolData.filename)) {
-            log(`log${tool.charAt(0).toUpperCase() + tool.slice(1)}`, '✅ Archivo descargado correctamente');
+            log(logId, '✅ Archivo descargado correctamente');
           }
         } else if (action === 'whatsapp') {
           downloadBlob(toolData.blob, toolData.filename);
           setTimeout(() => {
             const mensaje = encodeURIComponent(`Hola, te envío el archivo: ${toolMessages[tool]}`);
             window.open(`https://wa.me/34644247796?text=${mensaje}`, '_blank');
-            log(`log${tool.charAt(0).toUpperCase() + tool.slice(1)}`, '📱 WhatsApp abierto. Adjunta el archivo descargado.');
+            log(logId, '📱 WhatsApp abierto. Adjunta el archivo descargado.');
           }, 500);
         } else if (action === 'email') {
           downloadBlob(toolData.blob, toolData.filename);
@@ -873,7 +902,7 @@
             const asunto = encodeURIComponent(toolMessages[tool]);
             const cuerpo = encodeURIComponent(`Hola,\n\nTe envío el archivo generado con ServiPDF Pro.\n\nSaludos.`);
             window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=servipdfs@gmail.com&su=${asunto}&body=${cuerpo}`, '_blank');
-            log(`log${tool.charAt(0).toUpperCase() + tool.slice(1)}`, '📧 Email abierto. Adjunta el archivo descargado.');
+            log(logId, '📧 Email abierto. Adjunta el archivo descargado.');
           }, 500);
         }
       });
@@ -885,11 +914,12 @@
       log(logId, '📂 PDF seleccionado: ' + (files.length > 0 ? files[0].name : 'ninguno'));
       setProg('progCompress', 'pctCompress', 0);
       disableToolButtons('compress');
+      toolBlobs.compress.blob = null;
     });
 
-    document.getElementById('btnCompress').addEventListener('click', async function() {
+    $('btnCompress').addEventListener('click', async function() {
       const logId = 'logCompress';
-      const input = document.getElementById('compressPdf');
+      const input = $('compressPdf');
       if (!input.files || input.files.length === 0) {
         alert('Selecciona un PDF primero.');
         return;
@@ -900,7 +930,7 @@
         return;
       }
 
-      log(logId, ' Iniciando compresión...');
+      log(logId, '⏳ Iniciando compresión...');
       setProg('progCompress', 'pctCompress', 5);
       disableToolButtons('compress');
 
@@ -908,7 +938,7 @@
         if (typeof pdfjsLib === 'undefined') throw new Error('pdf.js no cargó correctamente.');
         if (typeof PDFLib === 'undefined') throw new Error('pdf-lib no cargó correctamente.');
 
-        const quality = parseFloat(document.getElementById('compressQuality').value);
+        const quality = parseFloat($('compressQuality').value);
         log(logId, `🔧 Calidad seleccionada: ${quality}`);
 
         const originalSize = file.size;
@@ -930,7 +960,7 @@
         log(logId, '✅ PDF comprimido correctamente.');
         enableToolButtons('compress');
       } catch (err) {
-        log(logId, ` Error: ${err.message}`);
+        log(logId, `❌ Error: ${err.message}`);
         console.error(err);
       }
     });
@@ -987,7 +1017,7 @@
         const f = files[i];
         const ext = f.name.split('.').pop().toLowerCase();
         if (!['jpg','jpeg','png','gif'].includes(ext)) {
-          log(logId, `⚠️ Ignorado: ${f.name} (formato no soportado)`);
+          log(logId, `️ Ignorado: ${f.name} (formato no soportado)`);
           continue;
         }
         imageFiles.push(f);
@@ -997,12 +1027,13 @@
       }
       if (imageFiles.length) log(logId, `✅ ${imageFiles.length} imagen(es) listas.`);
       disableToolButtons('images');
+      toolBlobs.images.blob = null;
     });
 
-    document.getElementById('btnImages').addEventListener('click', async function() {
+    $('btnImages').addEventListener('click', async function() {
       if (imageFiles.length === 0) { alert('Selecciona al menos una imagen'); return; }
       const logId = 'logImages';
-      log(logId, ' Creando PDF...');
+      log(logId, '⏳ Creando PDF...');
       try {
         const pdfBytes = await imagesToPdf(imageFiles);
         if (!pdfBytes || pdfBytes.length === 0) throw new Error('PDF vacío');
@@ -1012,7 +1043,7 @@
           enableToolButtons('images');
         }
       } catch (err) {
-        log(logId, ` Error: ${err.message}`);
+        log(logId, `❌ Error: ${err.message}`);
       }
     });
 
@@ -1035,8 +1066,8 @@
     let bufAll = [];
     let allFilesList = [];
     let useWatermark = true;
-    const fileCounterAll = document.getElementById('fileCounterAll');
-    const clearAllBtn = document.getElementById('clearAllBtn');
+    const fileCounterAll = $('fileCounterAll');
+    const clearAllBtn = $('clearAllBtn');
 
     function updateCounterAll() {
       if (fileCounterAll) fileCounterAll.textContent = `${bufAll.length} archivos acumulados`;
@@ -1047,15 +1078,16 @@
         bufAll = [];
         allFilesList = [];
         updateCounterAll();
-        log('logAll', '🗑️ Lista limpiada.');
+        log('logAll', '️ Lista limpiada.');
         disableToolButtons('all');
+        toolBlobs.all.blob = null;
       });
     }
 
     setupZone('zoneAll', 'allFiles', async files => {
       const logId = 'logAll';
       const total = files.length;
-      if (total === 0) { log(logId, '⚠️ No se seleccionó ningún archivo.'); return; }
+      if (total === 0) { log(logId, '️ No se seleccionó ningún archivo.'); return; }
       log(logId, `📥 Añadiendo ${total} archivo(s)...`);
       let processedCount = 0;
       for (let i = 0; i < total; i++) {
@@ -1074,7 +1106,7 @@
           bufAll.push(finalBytes);
           allFilesList.push(f.name);
           log(logId, `➕ ${f.name}`);
-        } catch (err) { log(logId, `❌ Error: ${f.name}`); }
+        } catch (err) { log(logId, ` Error: ${f.name}`); }
         processedCount++;
         setProg('progAll', 'pctAll', (processedCount / total) * 100);
       }
@@ -1082,7 +1114,7 @@
       log(logId, `✅ Total: ${bufAll.length} archivos.`);
     });
 
-    document.getElementById('btnAll').addEventListener('click', async function() {
+    $('btnAll').addEventListener('click', async function() {
       if (!bufAll.length) { alert('No hay archivos acumulados.'); return; }
       const logId = 'logAll';
       try {
@@ -1106,9 +1138,10 @@
       log('logNum', `📂 ${folderFiles.length} archivos compatibles.`);
       setProg('progNum', 'pctNum', 0);
       disableToolButtons('num');
+      toolBlobs.num.blob = null;
     });
 
-    document.getElementById('btnNum').addEventListener('click', async function() {
+    $('btnNum').addEventListener('click', async function() {
       if (folderFiles.length === 0) { alert('Selecciona una carpeta'); return; }
       const logId = 'logNum';
       log(logId, '⏳ Iniciando fusión...');
@@ -1166,13 +1199,14 @@
       log('logRename', `📂 ${renameFiles.length} archivos.`);
       setProg('progRename', 'pctRename', 0);
       disableToolButtons('rename');
+      toolBlobs.rename.blob = null;
     });
 
-    document.getElementById('btnRename').addEventListener('click', async function() {
+    $('btnRename').addEventListener('click', async function() {
       if (renameFiles.length === 0) { alert('Selecciona archivos'); return; }
       const logId = 'logRename';
       let regex;
-      try { regex = new RegExp($('#regexIn').value.trim(), 'i'); } catch (e) { log(logId, `❌ Regex inválido`); return; }
+      try { regex = new RegExp($('regexIn').value.trim(), 'i'); } catch (e) { log(logId, `❌ Regex inválido`); return; }
       
       const zip = new JSZip();
       const total = renameFiles.length;
@@ -1182,7 +1216,7 @@
         const m = f.name.match(regex);
         if (!m) { processed++; setProg('progRename', 'pctRename', (processed/total)*100); continue; }
         
-        let nuevo = $('#replaceFmt').value.trim();
+        let nuevo = $('replaceFmt').value.trim();
         m.forEach((g, idx) => { if (idx > 0) nuevo = nuevo.replaceAll(`$${idx}`, g || ''); });
         
         try {
@@ -1209,6 +1243,7 @@
       const validFiles = Array.from(files).filter(f => f.name.toLowerCase().endsWith('.eml'));
       if (validFiles.length === 0) { log(logId, '️ No hay archivos .eml'); return; }
       disableToolButtons('eml');
+      toolBlobs.eml.blob = null;
       
       try {
         const [mailparser, xlsx] = await Promise.all([
@@ -1262,9 +1297,10 @@
       }
       if (csvFilesList.length) log(logId, `✅ ${csvFilesList.length} CSV(s) listos.`);
       disableToolButtons('csv');
+      toolBlobs.csv.blob = null;
     });
 
-    document.getElementById('btnCsv').addEventListener('click', async function() {
+    $('btnCsv').addEventListener('click', async function() {
       if (csvFilesList.length === 0) { alert('Selecciona al menos un CSV'); return; }
       const logId = 'logCsv';
       try {
@@ -1312,9 +1348,10 @@
       }
       if (pptFiles.length) log(logId, `✅ ${pptFiles.length} PDF(s) en memoria.`);
       disableToolButtons('ppt');
+      toolBlobs.ppt.blob = null;
     });
 
-    document.getElementById('btnPpt').addEventListener('click', async function() {
+    $('btnPpt').addEventListener('click', async function() {
       if (pptFiles.length === 0) { alert('Selecciona al menos un PDF'); return; }
       const logId = 'logPpt';
       log(logId, '⏳ Iniciando conversión...');
@@ -1361,7 +1398,7 @@
     }
 
     // 9. FIRMA VISUAL
-    const canvas = document.getElementById('signatureCanvas');
+    const canvas = $('signatureCanvas');
     let signaturePad = null;
     if (canvas) {
       signaturePad = new SignaturePad(canvas, { backgroundColor: 'rgba(255,255,255,0)', penColor: 'rgb(0,0,0)', minWidth: 2, maxWidth: 4 });
@@ -1370,12 +1407,12 @@
       canvas.height = 200;
     }
 
-    document.getElementById('clearSignatureBtn')?.addEventListener('click', () => signaturePad?.clear());
+    $('clearSignatureBtn')?.addEventListener('click', () => signaturePad?.clear());
 
     document.querySelectorAll('input[name="signType"]').forEach(radio => {
       radio.addEventListener('change', function() {
-        document.getElementById('signDrawArea').classList.toggle('hidden', this.value !== 'draw');
-        document.getElementById('signImageArea').classList.toggle('hidden', this.value !== 'image');
+        $('signDrawArea').classList.toggle('hidden', this.value !== 'draw');
+        $('signImageArea').classList.toggle('hidden', this.value !== 'image');
       });
     });
 
@@ -1383,16 +1420,17 @@
     setupZone('zoneSignImage', 'signImageInput', async files => {
       if (files.length > 0) {
         const reader = new FileReader();
-        reader.onload = e => { signImageData = e.target.result; document.getElementById('signImagePreview').classList.remove('hidden'); };
+        reader.onload = e => { signImageData = e.target.result; $('signImagePreview').classList.remove('hidden'); };
         reader.readAsDataURL(files[0]);
       }
     });
     setupZone('zoneSign', 'signPdf', async files => {
       if (files.length > 0) { signPdfFile = files[0]; log('logSign', `📂 PDF seleccionado`); }
       disableToolButtons('sign');
+      toolBlobs.sign.blob = null;
     });
 
-    document.getElementById('btnSign').addEventListener('click', async function() {
+    $('btnSign').addEventListener('click', async function() {
       if (!signPdfFile) { alert('Selecciona un PDF primero.'); return; }
       const logId = 'logSign';
       let signatureBlob = null;
@@ -1406,15 +1444,15 @@
         signatureBlob = await (await fetch(signImageData)).blob();
       }
 
-      log(logId, '⏳ Añadiendo firma...');
+      log(logId, ' Añadiendo firma...');
       try {
         const pdfDoc = await PDFLib.PDFDocument.load(await signPdfFile.arrayBuffer());
         const image = await pdfDoc.embedPng(await signatureBlob.arrayBuffer());
-        const pages = document.getElementById('signAllPages').checked ? pdfDoc.getPages() : [pdfDoc.getPages()[0]];
-        const posX = parseFloat(document.getElementById('signPosX').value) / 100;
-        const posY = parseFloat(document.getElementById('signPosY').value) / 100;
-        const widthPct = parseFloat(document.getElementById('signWidth').value) / 100;
-        const heightPct = parseFloat(document.getElementById('signHeight').value) / 100;
+        const pages = $('signAllPages').checked ? pdfDoc.getPages() : [pdfDoc.getPages()[0]];
+        const posX = parseFloat($('signPosX').value) / 100;
+        const posY = parseFloat($('signPosY').value) / 100;
+        const widthPct = parseFloat($('signWidth').value) / 100;
+        const heightPct = parseFloat($('signHeight').value) / 100;
 
         for (const page of pages) {
           const { width, height } = page.getSize();
