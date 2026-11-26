@@ -1,0 +1,357 @@
+<!DOCTYPE html><html lang="es"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ServiPDF Pro — Ordenar y Unir Archivos</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'success': '#15803D',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'light-primary': '#B51A13',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#D93629',
+        'light-on-primary-container': '#FFFBFF',
+        'light-secondary': '#9F3F34',
+        'light-on-secondary': '#FFFFFF',
+        'light-secondary-container': '#FD8777',
+        'light-on-secondary-container': '#731F17',
+        'light-tertiary': '#00628D',
+        'light-on-tertiary': '#FFFFFF',
+        'light-tertiary-container': '#007CB1',
+        'light-on-tertiary-container': '#FCFCFF',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FFDAD6',
+        'light-on-error-container': '#93000A',
+        'light-background': '#F6DDD4',
+        'light-on-background': '#251913',
+        'light-surface': '#FFF8F6',
+        'light-surface-dim': '#EED5CB',
+        'light-surface-bright': '#FFF8F6',
+        'light-surface-container-lowest': '#FFFFFF',
+        'light-surface-container-low': '#FFF1EC',
+        'light-surface-container': '#FFE9E1',
+        'light-surface-container-high': '#FCE3D9',
+        'light-surface-container-highest': '#F6DDD4',
+        'light-on-surface': '#251913',
+        'light-surface-variant': '#FFDAD5',
+        'light-on-surface-variant': '#5B403C',
+        'light-outline': '#8F6F6B',
+        'light-outline-variant': '#E4BEB8',
+        'light-inverse-surface': '#251913',
+        'light-inverse-on-surface': '#FFEDE7',
+        'light-inverse-primary': '#FFB4A9',
+        'light-shadow': '#000000',
+        'light-scrim': '#000000',
+        'dark-primary': '#FFB4A9',
+        'dark-on-primary': '#690001',
+        'dark-primary-container': '#D93629',
+        'dark-on-primary-container': '#FFFBFF',
+        'dark-secondary': '#FFB4A9',
+        'dark-on-secondary': '#61120B',
+        'dark-secondary-container': '#80281F',
+        'dark-on-secondary-container': '#FF9A8C',
+        'dark-tertiary': '#89CEFF',
+        'dark-on-tertiary': '#00344D',
+        'dark-tertiary-container': '#007CB1',
+        'dark-on-tertiary-container': '#FCFCFF',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-background': '#1C110B',
+        'dark-on-background': '#F6DDD4',
+        'dark-surface': '#1C110B',
+        'dark-surface-dim': '#1C110B',
+        'dark-surface-bright': '#45362F',
+        'dark-surface-container-lowest': '#170B07',
+        'dark-surface-container-low': '#251913',
+        'dark-surface-container': '#2A1D17',
+        'dark-surface-container-high': '#352721',
+        'dark-surface-container-highest': '#41312B',
+        'dark-on-surface': '#F6DDD4',
+        'dark-surface-variant': '#5B403C',
+        'dark-on-surface-variant': '#E4BEB8',
+        'dark-outline': '#AB8984',
+        'dark-outline-variant': '#5B403C',
+        'dark-inverse-surface': '#F6DDD4',
+        'dark-inverse-on-surface': '#3C2D27',
+        'dark-inverse-primary': '#B91D15',
+        'dark-shadow': '#000000',
+        'dark-scrim': '#000000',
+      },
+      borderRadius: {
+        'sm': '8px',
+        'DEFAULT': '12px',
+        'md': '16px',
+        'lg': '20px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '40px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Mulish"', 'sans-serif'],
+        'headline': ['"Mulish"', 'sans-serif'],
+        'title': ['"Radio Canada Big"', 'sans-serif'],
+        'body': ['"Radio Canada Big"', 'sans-serif'],
+        'label': ['"Radio Canada Big"', 'sans-serif'],
+        'mono': ['"Red Hat Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['28px', { lineHeight: '34px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-md': ['22px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '700' }],
+        'title-lg': ['18px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.1px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'surface-enter': '220ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600;700;800&amp;family=Radio+Canada+Big:wght@400;500;600;700&amp;family=Red+Hat+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined, .material-symbols-rounded, .material-symbols-sharp, .material-icons {
+      display: inline-block; width: 1em; height: 1em; line-height: 1 !important;
+      box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle;
+    }
+    .glass-canvas {
+      background-image:
+        radial-gradient(circle at 12% 10%, rgba(217, 54, 41, 0.16) 0%, transparent 42%),
+        radial-gradient(circle at 88% 18%, rgba(253, 135, 119, 0.24) 0%, transparent 40%),
+        radial-gradient(circle at 50% 90%, rgba(143, 111, 107, 0.16) 0%, transparent 50%);
+    }
+    .thumb-card {
+      transition: transform 150ms ease-out, box-shadow 150ms ease-out, opacity 150ms ease-out;
+    }
+    .thumb-card.dragging {
+      opacity: 0.45;
+      transform: scale(0.96);
+    }
+    .thumb-card.drag-over {
+      box-shadow: 0 0 0 2px #B51A13;
+      transform: translateY(-2px);
+    }
+    .file-input {
+      opacity: 0; width: 0; height: 0; position: absolute; pointer-events: none;
+    }
+  </style>
+</head>
+<body class="min-h-[1024px] bg-light-background text-light-on-background font-body glass-canvas flex items-center justify-center p-gutter-md md:p-gutter-xl" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+  <!-- Ventana modal de Unir y Ordenar Archivos -->
+  <section aria-labelledby="merge-modal-title" class="rounded-xl bg-light-surface/95 backdrop-blur-xl border border-light-outline-variant/70 p-gutter-lg md:p-gutter-xl shadow-2xl max-w-4xl w-full text-light-on-surface flex flex-col gap-gutter-lg">
+    <header class="flex items-start justify-between gap-gutter-md">
+      <div class="flex items-center gap-gutter-md">
+        <div class="w-12 h-12 rounded-md bg-light-primary-container text-light-on-primary-container flex items-center justify-center shadow-sm">
+          <span class="material-symbols-outlined text-headline-md">merge_type</span>
+        </div>
+        <div>
+          <h1 id="merge-modal-title" data-design-text-token="headline-md" class="font-headline text-headline-md text-light-on-surface">
+            Unir y ordenar formatos
+          </h1>
+          <p data-design-text-token="body-md" class="font-body text-body-md text-light-on-surface-variant">
+            Visualiza cada archivo en pequeño y arrástralos en la ventana para elegir el orden exacto
+          </p>
+        </div>
+      </div>
+      <span class="px-3 py-1 rounded-full bg-success-container text-on-success-container font-label text-label-sm shrink-0">
+        4 archivos listos
+      </span>
+    </header>
+
+    <!-- Zona de añadir más archivos -->
+    <div id="demoDropZone" class="border-2 border-dashed border-light-outline/60 rounded-lg p-gutter-md bg-light-surface-container-low/70 flex flex-wrap items-center justify-between gap-gutter-md">
+      <div class="flex items-center gap-gutter-sm">
+        <span class="material-symbols-outlined text-headline-md text-light-primary" aria-hidden="true">cloud_upload</span>
+        <div>
+          <span data-design-text-token="label-lg" class="font-label text-label-lg text-light-on-surface block">Añade más PDFs, fotos o texto</span>
+          <span data-design-text-token="label-sm" class="font-label text-label-sm text-light-on-surface-variant">Puedes añadir en varias tandas o arrastrar archivos aquí</span>
+        </div>
+      </div>
+      <label for="demoAddFiles" class="inline-flex items-center gap-gutter-xs px-gutter-lg py-2.5 rounded-full bg-light-primary text-light-on-primary font-label text-label-lg cursor-pointer shadow-sm hover:bg-light-primary-container">
+        <span class="material-symbols-outlined text-title-md" aria-hidden="true">add</span>
+        <span data-design-text-token="label-lg">Añadir archivos</span>
+      </label>
+      <input type="file" id="demoAddFiles" accept=".pdf,image/*,.txt" multiple class="file-input">
+    </div>
+
+    <!-- Barra de controles de orden -->
+    <div class="flex flex-wrap items-center justify-between gap-gutter-sm">
+      <div class="flex items-center gap-gutter-md">
+        <span id="demoCounter" data-design-text-token="mono-sm" class="font-mono text-mono-sm text-light-on-surface-variant">4 archivos · 18 páginas en total</span>
+        <label class="inline-flex items-center gap-1.5 font-label text-label-sm text-light-on-surface cursor-pointer">
+          <input type="checkbox" checked class="rounded text-light-primary focus:ring-light-primary">
+          Cabecera con nombre
+        </label>
+      </div>
+      <div class="flex flex-wrap items-center gap-gutter-xs">
+        <button type="button" id="demoSortAZ" class="px-3 py-1.5 rounded-full bg-light-surface-container text-light-on-surface font-label text-label-sm hover:bg-light-surface-container-high inline-flex items-center gap-1">
+          <span class="material-symbols-outlined text-body-md" aria-hidden="true">sort_by_alpha</span> Ordenar A–Z
+        </button>
+        <button type="button" id="demoReverse" class="px-3 py-1.5 rounded-full bg-light-surface-container text-light-on-surface font-label text-label-sm hover:bg-light-surface-container-high inline-flex items-center gap-1">
+          <span class="material-symbols-outlined text-body-md" aria-hidden="true">swap_vert</span> Invertir orden
+        </button>
+      </div>
+    </div>
+
+    <!-- Rejilla de miniaturas arrastrables (estilo iLovePDF sobre cristal cálido) -->
+    <div id="demoGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-gutter-md p-gutter-md rounded-lg bg-light-surface-container-low/60 border border-light-outline-variant/50">
+      <!-- Se renderiza dinámicamente con JS para permitir arrastrar y soltar en vivo -->
+    </div>
+
+    <!-- Progreso y acciones -->
+    <div class="flex flex-col gap-gutter-md">
+      <div>
+        <div class="flex justify-between font-label text-label-sm mb-1">
+          <span>Orden listo para unir</span>
+          <span class="font-mono text-mono-sm text-light-on-surface-variant">100 %</span>
+        </div>
+        <div class="bg-light-surface-container-high h-2.5 rounded-full overflow-hidden">
+          <div class="h-full bg-light-primary-container rounded-full" style="width: 100%"></div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter-sm">
+        <button type="button" class="py-3 px-gutter-md rounded-full bg-success text-on-success font-label text-label-lg flex items-center justify-center gap-gutter-xs shadow-sm hover:opacity-90">
+          <span class="material-symbols-outlined text-title-md" aria-hidden="true">chat</span>
+          <span data-design-text-token="label-lg">Enviar por WhatsApp</span>
+        </button>
+        <button type="button" class="py-3 px-gutter-md rounded-full bg-light-primary text-light-on-primary font-label text-label-lg flex items-center justify-center gap-gutter-xs shadow-sm hover:bg-light-primary-container">
+          <span class="material-symbols-outlined text-title-md" aria-hidden="true">download</span>
+          <span data-design-text-token="label-lg">Unir y descargar PDF</span>
+        </button>
+        <button type="button" class="py-3 px-gutter-md rounded-full bg-light-inverse-surface text-light-inverse-on-surface font-label text-label-lg flex items-center justify-center gap-gutter-xs shadow-sm hover:opacity-90">
+          <span class="material-symbols-outlined text-title-md" aria-hidden="true">mail</span>
+          <span data-design-text-token="label-lg">Enviar por Email</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const sampleItems = [
+      { id: 1, name: 'Guia_usuario_Sabi.pdf', pages: '6 pág.', tag: 'PDF', accent: 'bg-light-primary-container text-light-on-primary-container' },
+      { id: 2, name: 'Recuperacion_acceso.pdf', pages: '2 pág.', tag: 'PDF', accent: 'bg-light-surface-variant text-light-primary' },
+      { id: 3, name: 'Portada_matricula.jpg', pages: '1 img', tag: 'JPG', accent: 'bg-success-container text-on-success-container' },
+      { id: 4, name: 'Tarifas_2026.pdf', pages: '9 pág.', tag: 'PDF', accent: 'bg-light-inverse-surface text-light-inverse-on-surface' }
+    ];
+
+    let dragSrc = null;
+    const grid = document.getElementById('demoGrid');
+
+    function moveItem(from, to) {
+      if (to < 0 || to >= sampleItems.length || from === to) return;
+      const [m] = sampleItems.splice(from, 1);
+      sampleItems.splice(to, 0, m);
+      renderDemoGrid();
+    }
+
+    function renderDemoGrid() {
+      grid.innerHTML = '';
+      document.getElementById('demoCounter').textContent = `${sampleItems.length} archivos listos para unir`;
+      sampleItems.forEach((item, idx) => {
+        const card = document.createElement('article');
+        card.draggable = true;
+        card.className = 'thumb-card rounded-md bg-light-surface-container-lowest border border-light-outline-variant/70 p-gutter-sm shadow-sm flex flex-col gap-2 cursor-grab active:cursor-grabbing select-none';
+        card.innerHTML = `
+          <div class="flex items-center justify-between gap-1">
+            <span class="font-mono text-mono-sm px-2 py-0.5 rounded-full bg-light-primary-container text-light-on-primary-container">#${idx + 1}</span>
+            <span class="font-label text-label-sm text-light-on-surface-variant">${item.pages}</span>
+            <button type="button" data-rm="${idx}" aria-label="Quitar" class="w-6 h-6 rounded-full bg-light-surface-container text-light-on-surface hover:bg-light-error-container hover:text-light-on-error-container flex items-center justify-center">
+              <span class="material-symbols-outlined text-body-md" aria-hidden="true">close</span>
+            </button>
+          </div>
+          <div class="h-32 rounded-sm bg-light-surface-container-low border border-light-outline-variant/40 p-3 flex flex-col justify-between pointer-events-none">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 rounded-sm font-mono text-mono-sm ${item.accent}">${item.tag}</span>
+              <span class="material-symbols-outlined text-body-md text-light-outline">description</span>
+            </div>
+            <div class="space-y-1.5 opacity-60">
+              <div class="h-2 w-4/5 rounded-full bg-light-outline-variant"></div>
+              <div class="h-2 w-3/5 rounded-full bg-light-outline-variant"></div>
+              <div class="h-2 w-2/3 rounded-full bg-light-outline-variant"></div>
+            </div>
+          </div>
+          <p class="font-label text-label-sm text-light-on-surface truncate" title="${item.name}">${item.name}</p>
+          <div class="flex items-center justify-between gap-1 pt-1 border-t border-light-outline-variant/40">
+            <button type="button" data-left="${idx}" ${idx === 0 ? 'disabled' : ''} class="flex-1 py-0.5 rounded-sm bg-light-surface-container disabled:opacity-30 hover:bg-light-surface-container-high flex items-center justify-center">
+              <span class="material-symbols-outlined text-body-md" aria-hidden="true">chevron_left</span>
+            </button>
+            <span class="material-symbols-outlined text-body-md text-light-outline" aria-hidden="true">drag_indicator</span>
+            <button type="button" data-right="${idx}" ${idx === sampleItems.length - 1 ? 'disabled' : ''} class="flex-1 py-0.5 rounded-sm bg-light-surface-container disabled:opacity-30 hover:bg-light-surface-container-high flex items-center justify-center">
+              <span class="material-symbols-outlined text-body-md" aria-hidden="true">chevron_right</span>
+            </button>
+          </div>
+        `;
+
+        card.querySelector(`[data-rm="${idx}"]`).addEventListener('click', () => { sampleItems.splice(idx, 1); renderDemoGrid(); });
+        card.querySelector(`[data-left="${idx}"]`).addEventListener('click', () => moveItem(idx, idx - 1));
+        card.querySelector(`[data-right="${idx}"]`).addEventListener('click', () => moveItem(idx, idx + 1));
+
+        card.addEventListener('dragstart', () => { dragSrc = idx; card.classList.add('dragging'); });
+        card.addEventListener('dragover', (e) => { e.preventDefault(); card.classList.add('drag-over'); });
+        card.addEventListener('dragleave', () => card.classList.remove('drag-over'));
+        card.addEventListener('drop', (e) => {
+          e.preventDefault();
+          card.classList.remove('drag-over');
+          if (dragSrc !== null && dragSrc !== idx) moveItem(dragSrc, idx);
+        });
+        card.addEventListener('dragend', () => { card.classList.remove('dragging'); dragSrc = null; });
+
+        grid.appendChild(card);
+      });
+    }
+
+    document.getElementById('demoSortAZ').addEventListener('click', () => {
+      sampleItems.sort((a, b) => a.name.localeCompare(b.name));
+      renderDemoGrid();
+    });
+    document.getElementById('demoReverse').addEventListener('click', () => {
+      sampleItems.reverse();
+      renderDemoGrid();
+    });
+
+    renderDemoGrid();
+  </script>
+
+
+</body></html>
