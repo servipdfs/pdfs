@@ -1,0 +1,1390 @@
+<!DOCTYPE html><html lang="es"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ServiPDF Pro — Ordenar y Unir Archivos</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'success': '#15803D',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'blue-glass': '#DBEAFE',
+        'blue-glass-border': '#93C5FD',
+        'on-blue-glass': '#0F172A',
+        'tab-compress': '#CCFBF1',
+        'on-tab-compress': '#115E59',
+        'tab-images': '#D1FAE5',
+        'on-tab-images': '#065F46',
+        'tab-merge': '#7C3AED',
+        'on-tab-merge': '#FFFFFF',
+        'tab-folder': '#FEF3C7',
+        'on-tab-folder': '#92400E',
+        'tab-rename': '#FFE4E6',
+        'on-tab-rename': '#9F1239',
+        'tab-eml': '#CFFAFE',
+        'on-tab-eml': '#155E75',
+        'tab-csv': '#E0E7FF',
+        'on-tab-csv': '#3730A3',
+        'tab-ppt': '#E0F2FE',
+        'on-tab-ppt': '#075985',
+        'tab-sign': '#ECFCCB',
+        'on-tab-sign': '#3F6212',
+        'light-primary': '#006B2C',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#00873A',
+        'light-on-primary-container': '#F7FFF2',
+        'light-secondary': '#3B6842',
+        'light-on-secondary': '#FFFFFF',
+        'light-secondary-container': '#BAECBC',
+        'light-on-secondary-container': '#406C46',
+        'light-tertiary': '#00628D',
+        'light-on-tertiary': '#FFFFFF',
+        'light-tertiary-container': '#007CB1',
+        'light-on-tertiary-container': '#FCFCFF',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FFDAD6',
+        'light-on-error-container': '#93000A',
+        'light-background': '#E9FFED',
+        'light-on-background': '#0B2014',
+        'light-surface': '#E9FFED',
+        'light-surface-dim': '#C8E0CD',
+        'light-surface-bright': '#E9FFED',
+        'light-surface-container-lowest': '#FFFFFF',
+        'light-surface-container-low': '#E1FAE6',
+        'light-surface-container': '#DBF4E0',
+        'light-surface-container-high': '#D6EEDB',
+        'light-surface-container-highest': '#D0E9D5',
+        'light-on-surface': '#0B2014',
+        'light-surface-variant': '#D9E6D5',
+        'light-on-surface-variant': '#3E4A3D',
+        'light-outline': '#6E7B6C',
+        'light-outline-variant': '#BDCABA',
+        'light-inverse-surface': '#203528',
+        'light-inverse-on-surface': '#DEF7E3',
+        'light-inverse-primary': '#62DF7D',
+        'light-shadow': '#000000',
+        'light-scrim': '#000000',
+        'dark-primary': '#62DF7D',
+        'dark-on-primary': '#003914',
+        'dark-primary-container': '#1CA64D',
+        'dark-on-primary-container': '#002E0F',
+        'dark-secondary': '#A1D3A4',
+        'dark-on-secondary': '#093817',
+        'dark-secondary-container': '#23502C',
+        'dark-on-secondary-container': '#90C193',
+        'dark-tertiary': '#89CEFF',
+        'dark-on-tertiary': '#00344D',
+        'dark-tertiary-container': '#007CB1',
+        'dark-on-tertiary-container': '#FCFCFF',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-background': '#04170C',
+        'dark-on-background': '#D0E9D5',
+        'dark-surface': '#04170C',
+        'dark-surface-dim': '#04170C',
+        'dark-surface-bright': '#293E30',
+        'dark-surface-container-lowest': '#011207',
+        'dark-surface-container-low': '#0B2014',
+        'dark-surface-container': '#0F2417',
+        'dark-surface-container-high': '#1A2E21',
+        'dark-surface-container-highest': '#25392C',
+        'dark-on-surface': '#D0E9D5',
+        'dark-surface-variant': '#3E4A3D',
+        'dark-on-surface-variant': '#BDCABA',
+        'dark-outline': '#879485',
+        'dark-outline-variant': '#3E4A3D',
+        'dark-inverse-surface': '#D0E9D5',
+        'dark-inverse-on-surface': '#203528',
+        'dark-inverse-primary': '#006E2D',
+        'dark-shadow': '#000000',
+        'dark-scrim': '#000000',
+      },
+      borderRadius: {
+        'sm': '8px',
+        'DEFAULT': '12px',
+        'md': '16px',
+        'lg': '20px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '40px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Mulish"', 'sans-serif'],
+        'headline': ['"Mulish"', 'sans-serif'],
+        'title': ['"Radio Canada Big"', 'sans-serif'],
+        'body': ['"Radio Canada Big"', 'sans-serif'],
+        'label': ['"Radio Canada Big"', 'sans-serif'],
+        'mono': ['"Red Hat Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['28px', { lineHeight: '34px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-md': ['22px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '700' }],
+        'title-lg': ['18px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['16px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.1px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'surface-enter': '220ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600;700;800&amp;family=Radio+Canada+Big:wght@400;500;600;700&amp;family=Red+Hat+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined, .material-symbols-rounded, .material-symbols-sharp, .material-icons {
+      display: inline-block; width: 1em; height: 1em; line-height: 1 !important;
+      box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle;
+    }
+    .glass-canvas {
+      background-image:
+        radial-gradient(circle at 12% 10%, rgba(28, 166, 77, 0.16) 0%, transparent 42%),
+        radial-gradient(circle at 88% 18%, rgba(98, 223, 125, 0.22) 0%, transparent 40%),
+        radial-gradient(circle at 50% 90%, rgba(122, 145, 128, 0.16) 0%, transparent 50%);
+    }
+    .thumb-card {
+      transition: transform 150ms ease-out, box-shadow 150ms ease-out, opacity 150ms ease-out;
+    }
+    .thumb-card.dragging {
+      opacity: 0.45;
+      transform: scale(0.96);
+    }
+    .thumb-card.drag-over {
+      box-shadow: 0 0 0 2px #006B2C;
+      transform: translateY(-2px);
+    }
+    .file-input {
+      opacity: 0; width: 0; height: 0; position: absolute; pointer-events: none;
+    }
+  </style>
+</head>
+<body class="min-h-[1024px] bg-light-background text-light-on-background font-body glass-canvas flex flex-col items-center p-gutter-md md:p-gutter-lg gap-gutter-lg" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+  <!-- Barra superior con las 9 herramientas de la portada -->
+  <header class="w-full max-w-5xl rounded-xl bg-light-surface-container-lowest/80 backdrop-blur-md border border-light-surface-container-lowest px-gutter-md py-gutter-sm shadow-sm flex flex-col gap-gutter-sm">
+    <div class="flex flex-wrap items-center justify-between gap-gutter-sm">
+      <button type="button" id="brandPortadaBtn" class="flex items-center gap-gutter-sm text-left hover:opacity-85 transition-opacity duration-state-change">
+        <div class="w-9 h-9 rounded-md bg-light-primary-container text-light-on-primary-container flex items-center justify-center shadow-sm">
+          <span class="material-symbols-outlined text-title-lg" style="font-variation-settings: &#39;FILL&#39; 1;">picture_as_pdf</span>
+        </div>
+        <div>
+          <span data-design-text-token="title-md" class="font-headline text-title-md text-light-on-surface block">ServiPDF Pro</span>
+          <span data-design-text-token="label-sm" class="font-label text-label-sm text-light-on-surface-variant">Soluciones avanzadas para documentos PDF en tu navegador - Sin subidas a servidores, 100% privado, tus ficheros se quedan en tu navegador</span>
+        </div>
+      </button>
+      <button type="button" id="togglePortadaBtn" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-light-surface-container text-light-on-surface font-label text-label-sm hover:bg-light-surface-container-high shrink-0">
+        <span class="material-symbols-outlined text-body-md" aria-hidden="true">grid_view</span>
+        <span id="togglePortadaLabel">Ver portada (9 herramientas)</span>
+      </button>
+    </div>
+
+    <nav aria-label="Herramientas PDF" class="flex flex-wrap items-center gap-1.5 pt-1 border-t border-light-outline-variant/40">
+      <button type="button" data-tool="compress" class="tool-tab px-2.5 py-1 rounded-full bg-tab-compress text-on-tab-compress font-label text-label-sm hover:opacity-85">Comprimir PDF</button>
+      <button type="button" data-tool="images" class="tool-tab px-2.5 py-1 rounded-full bg-tab-images text-on-tab-images font-label text-label-sm hover:opacity-85">Fotos a PDF</button>
+      <button type="button" data-tool="merge" id="navMergeBtn" class="tool-tab px-2.5 py-1 rounded-full bg-tab-merge text-on-tab-merge font-label text-label-sm ring-2 ring-light-on-surface shadow-sm">Unir formatos</button>
+      <button type="button" data-tool="folder" class="tool-tab px-2.5 py-1 rounded-full bg-tab-folder text-on-tab-folder font-label text-label-sm hover:opacity-85">Carpeta a PDF</button>
+      <button type="button" data-tool="rename" class="tool-tab px-2.5 py-1 rounded-full bg-tab-rename text-on-tab-rename font-label text-label-sm hover:opacity-85">Renombrar</button>
+      <button type="button" data-tool="eml" class="tool-tab px-2.5 py-1 rounded-full bg-tab-eml text-on-tab-eml font-label text-label-sm hover:opacity-85">.eml a Excel</button>
+      <button type="button" data-tool="csv" class="tool-tab px-2.5 py-1 rounded-full bg-tab-csv text-on-tab-csv font-label text-label-sm hover:opacity-85">CSVs a PDF</button>
+      <button type="button" data-tool="ppt" class="tool-tab px-2.5 py-1 rounded-full bg-tab-ppt text-on-tab-ppt font-label text-label-sm hover:opacity-85">PDF a PowerPoint</button>
+      <button type="button" data-tool="sign" class="tool-tab px-2.5 py-1 rounded-full bg-tab-sign text-on-tab-sign font-label text-label-sm hover:opacity-85">Firma visual</button>
+    </nav>
+  </header>
+
+  <!-- Vista Portada (9 herramientas) -->
+  <section id="portadaView" class="hidden w-full max-w-5xl rounded-xl bg-light-surface/95 backdrop-blur-xl border border-light-outline-variant/70 p-gutter-lg shadow-2xl flex-col gap-gutter-md">
+    <div class="flex flex-wrap items-center justify-between gap-gutter-sm">
+      <div>
+        <h2 class="font-headline text-headline-md text-light-on-surface">Todas las herramientas (9)</h2>
+        <p class="font-body text-body-md text-light-on-surface-variant">Haz clic en cualquier herramienta para abrirla</p>
+      </div>
+      <button type="button" id="backToMergeBtn" class="px-4 py-2 rounded-full bg-light-primary text-light-on-primary font-label text-label-lg">
+        Volver a herramienta activa
+      </button>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter-md">
+      <button type="button" data-tool="compress" class="text-left rounded-lg bg-tab-compress text-on-tab-compress p-gutter-md shadow-sm hover:opacity-90"><h3 class="font-headline text-title-md">1. Comprimir PDF</h3><p class="font-body text-body-md mt-1">Reduce el peso del PDF.</p></button>
+      <button type="button" data-tool="images" class="text-left rounded-lg bg-tab-images text-on-tab-images p-gutter-md shadow-sm hover:opacity-90"><h3 class="font-headline text-title-md">2. Fotos a PDF</h3><p class="font-body text-body-md mt-1">Une imágenes en un PDF.</p></button>
+      <button type="button" data-tool="merge" id="cardMergeBtn" class="text-left rounded-lg bg-tab-merge text-on-tab-merge p-gutter-md shadow-sm hover:opacity-90"><h3 class="font-headline text-title-md">3. Unir formatos</h3><p class="font-body text-body-md mt-1">PDF, imágenes, texto y Word ordenables.</p></button>
+      <button type="button" data-tool="folder" class="text-left rounded-lg bg-tab-folder text-on-tab-folder p-gutter-md shadow-sm hover:opacity-90"><h3 class="font-headline text-title-md">4. Carpeta a PDF unificado</h3><p class="font-body text-body-md mt-1">Cabecera y numeración automática.</p></button>
+      <button type="button" data-tool="rename" class="text-left rounded-lg bg-tab-rename text-on-tab-rename p-gutter-md shadow-sm hover:opacity-90"><h3 class="font-headline text-title-md">5. Renombrar con regex</h3><p class="font-body text-body-md mt-1">Renombrado masivo en ZIP.</p></button>
+      <button type="button" data-tool="eml" class="text-left rounded-lg bg-tab-eml text-on-tab-eml p-gutter-md shadow-sm hover:opacity-90"><h3 class="font-headline text-title-md">6. .eml a Excel</h3><p class="font-body text-body-md mt-1">Extrae correos a hoja Excel.</p></button>
+      <button type="button" data-tool="csv" class="text-left rounded-lg bg-tab-csv text-on-tab-csv p-gutter-md shadow-sm hover:opacity-90"><h3 class="font-headline text-title-md">7. CSVs a PDF</h3><p class="font-body text-body-md mt-1">Combina CSVs en tabla PDF.</p></button>
+      <button type="button" data-tool="ppt" class="text-left rounded-lg bg-tab-ppt text-on-tab-ppt p-gutter-md shadow-sm hover:opacity-90"><h3 class="font-headline text-title-md">8. PDF a PowerPoint</h3><p class="font-body text-body-md mt-1">Diapositivas PPTX numeradas.</p></button>
+      <button type="button" data-tool="sign" class="text-left rounded-lg bg-tab-sign text-on-tab-sign p-gutter-md shadow-sm hover:opacity-90"><h3 class="font-headline text-title-md">9. Firma visual</h3><p class="font-body text-body-md mt-1">Añade firma dibujada o imagen.</p></button>
+    </div>
+  </section>
+
+  <!-- Ventana de trabajo en azul transparente (cambia según la solapa activa) -->
+  <section id="mergeWorkspace" aria-labelledby="merge-modal-title" class="rounded-xl bg-blue-glass/75 backdrop-blur-xl border border-blue-glass-border p-gutter-lg md:p-gutter-xl shadow-2xl max-w-5xl w-full text-on-blue-glass flex flex-col gap-gutter-lg">
+
+    <!-- PANEL 3 (activo por defecto): Unir y ordenar formatos -->
+    <div id="panel-merge" class="tool-panel flex flex-col gap-gutter-lg">
+      <header class="flex items-start justify-between gap-gutter-md">
+        <div class="flex items-center gap-gutter-md">
+          <div class="w-12 h-12 rounded-md bg-light-primary-container text-light-on-primary-container flex items-center justify-center shadow-sm">
+            <span class="material-symbols-outlined text-headline-md">merge_type</span>
+          </div>
+          <div>
+            <h1 id="merge-modal-title" data-design-text-token="headline-md" class="font-headline text-headline-md text-on-blue-glass">
+              Unir y ordenar formatos
+            </h1>
+            <p data-design-text-token="body-md" class="font-body text-body-md text-on-blue-glass">
+              Previsualiza el contenido de cada fichero en pequeño y arrástralos en la ventana para elegir el orden exacto
+            </p>
+          </div>
+        </div>
+        <span id="demoStatusBadge" class="px-3 py-1 rounded-full bg-light-surface-container-lowest text-on-blue-glass font-label text-label-sm shrink-0">
+          Sin archivos
+        </span>
+      </header>
+
+      <div id="demoDropZone" class="border-2 border-dashed border-blue-glass-border rounded-lg p-gutter-md bg-light-surface-container-lowest/75 flex flex-wrap items-center justify-between gap-gutter-md">
+        <div class="flex items-center gap-gutter-sm">
+          <span class="material-symbols-outlined text-headline-md text-light-primary" aria-hidden="true">cloud_upload</span>
+          <div>
+            <span data-design-text-token="label-lg" class="font-label text-label-lg text-on-blue-glass block">Añade PDFs, fotos, texto o Word (.docx)</span>
+            <span data-design-text-token="label-sm" class="font-label text-label-sm text-light-on-surface-variant">Puedes añadir en varias tandas o arrastrar archivos aquí</span>
+          </div>
+        </div>
+        <label for="demoAddFiles" class="inline-flex items-center gap-gutter-xs px-gutter-lg py-2.5 rounded-full bg-light-primary text-light-on-primary font-label text-label-lg cursor-pointer shadow-sm hover:bg-light-primary-container">
+          <span class="material-symbols-outlined text-title-md" aria-hidden="true">add</span>
+          <span data-design-text-token="label-lg">Añadir archivos</span>
+        </label>
+        <input type="file" id="demoAddFiles" accept=".pdf,image/*,.txt,.docx" multiple autocomplete="off" class="file-input">
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-gutter-sm">
+        <div class="flex flex-wrap items-center gap-gutter-md">
+          <span id="demoCounter" data-design-text-token="mono-sm" class="font-mono text-mono-sm text-on-blue-glass">0 archivos en cola</span>
+          <label class="inline-flex items-center gap-1.5 font-label text-label-sm text-on-blue-glass cursor-pointer">
+            <input type="checkbox" id="mergeHeaderCheck" checked class="rounded text-light-primary focus:ring-light-primary">
+            Cabecera con nombre fichero original
+          </label>
+        </div>
+        <div class="flex flex-wrap items-center gap-gutter-xs">
+          <button type="button" id="demoSortAZ" class="px-3 py-1.5 rounded-full bg-light-surface-container-lowest text-on-blue-glass font-label text-label-sm hover:opacity-90 inline-flex items-center gap-1">
+            <span class="material-symbols-outlined text-body-md" aria-hidden="true">sort_by_alpha</span> Ordenar A–Z
+          </button>
+          <button type="button" id="demoReverse" class="px-3 py-1.5 rounded-full bg-light-surface-container-lowest text-on-blue-glass font-label text-label-sm hover:opacity-90 inline-flex items-center gap-1">
+            <span class="material-symbols-outlined text-body-md" aria-hidden="true">swap_vert</span> Invertir orden
+          </button>
+          <button type="button" id="demoClear" class="px-3 py-1.5 rounded-full bg-light-error-container text-light-on-error-container font-label text-label-sm hover:opacity-90 inline-flex items-center gap-1">
+            <span class="material-symbols-outlined text-body-md" aria-hidden="true">delete_sweep</span> Limpiar todo
+          </button>
+        </div>
+      </div>
+
+      <div id="demoGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-gutter-md p-gutter-md rounded-lg bg-light-surface-container-lowest/65 border border-blue-glass-border min-h-40"></div>
+
+      <div class="flex flex-col gap-gutter-md">
+        <div>
+          <div class="flex justify-between font-label text-label-sm mb-1">
+            <span id="mergeStatusText">Añade archivos para unir</span>
+            <span id="mergeProgPct" class="font-mono text-mono-sm text-on-blue-glass">0 %</span>
+          </div>
+          <div class="bg-light-surface-container-lowest/80 h-2.5 rounded-full overflow-hidden">
+            <div id="mergeProgBar" class="h-full bg-light-primary-container rounded-full transition-all duration-state-change" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter-sm">
+          <button type="button" id="btnMergeWhatsApp" class="py-3 px-gutter-md rounded-full bg-success text-on-success font-label text-label-lg flex items-center justify-center gap-gutter-xs shadow-sm hover:opacity-90">
+            <span class="material-symbols-outlined text-title-md" aria-hidden="true">chat</span>
+            <span data-design-text-token="label-lg">Enviar por WhatsApp</span>
+          </button>
+          <button type="button" id="btnMergeDownload" class="py-3 px-gutter-md rounded-full bg-light-primary text-light-on-primary font-label text-label-lg flex items-center justify-center gap-gutter-xs shadow-sm hover:bg-light-primary-container">
+            <span class="material-symbols-outlined text-title-md" aria-hidden="true">download</span>
+            <span data-design-text-token="label-lg">Unir y descargar PDF</span>
+          </button>
+          <button type="button" id="btnMergeEmail" class="py-3 px-gutter-md rounded-full bg-light-inverse-surface text-light-inverse-on-surface font-label text-label-lg flex items-center justify-center gap-gutter-xs shadow-sm hover:opacity-90">
+            <span class="material-symbols-outlined text-title-md" aria-hidden="true">mail</span>
+            <span data-design-text-token="label-lg">Enviar por Email</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL 1: Comprimir PDF -->
+    <div id="panel-compress" class="tool-panel hidden flex-col gap-gutter-md">
+      <header class="flex items-center gap-gutter-md">
+        <div class="w-12 h-12 rounded-md bg-tab-compress text-on-tab-compress flex items-center justify-center shadow-sm">
+          <span class="material-symbols-outlined text-headline-md">compress</span>
+        </div>
+        <div>
+          <h2 class="font-headline text-headline-md text-on-blue-glass">Comprimir PDF</h2>
+          <p class="font-body text-body-md text-on-blue-glass">Reduce el tamaño del PDF optimizando sus páginas en tu navegador</p>
+        </div>
+      </header>
+      <div id="zoneCompress" class="border-2 border-dashed border-blue-glass-border rounded-lg p-gutter-md bg-light-surface-container-lowest/75 flex flex-wrap items-center justify-between gap-gutter-md">
+        <div>
+          <span class="font-label text-label-lg text-on-blue-glass block">Selecciona un archivo PDF</span>
+          <span id="compressFileName" class="font-label text-label-sm text-light-on-surface-variant">Ningún archivo seleccionado</span>
+        </div>
+        <label for="compressPdf" class="inline-flex items-center gap-gutter-xs px-gutter-lg py-2.5 rounded-full bg-light-primary text-light-on-primary font-label text-label-lg cursor-pointer shadow-sm">
+          <span class="material-symbols-outlined text-title-md">upload_file</span> Seleccionar PDF
+        </label>
+        <input type="file" id="compressPdf" accept="application/pdf" autocomplete="off" class="file-input">
+      </div>
+      <div>
+        <label for="compressQuality" class="font-label text-label-sm text-on-blue-glass block mb-1">Calidad de compresión:</label>
+        <select id="compressQuality" class="w-full rounded-lg bg-light-surface-container-lowest border border-blue-glass-border px-3 py-2 font-body text-body-md text-light-on-surface">
+          <option value="0.3">Baja (más compresión, menor peso)</option>
+          <option value="0.6" selected>Media (equilibrio recomendado)</option>
+          <option value="0.85">Alta (menos compresión, mejor calidad)</option>
+        </select>
+      </div>
+      <div>
+        <div class="flex justify-between font-label text-label-sm mb-1"><span id="statusCompress">Listo</span><span id="pctCompress" class="font-mono text-mono-sm">0 %</span></div>
+        <div class="bg-light-surface-container-lowest/80 h-2.5 rounded-full overflow-hidden"><div id="progCompress" class="h-full bg-light-primary-container rounded-full transition-all" style="width: 0%"></div></div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter-sm">
+        <button type="button" id="btnCompress_wa" class="py-3 px-gutter-md rounded-full bg-success text-on-success font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">chat</span>Enviar por WhatsApp</button>
+        <button type="button" id="btnCompress_dl" class="py-3 px-gutter-md rounded-full bg-light-primary text-light-on-primary font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">download</span>Comprimir y descargar</button>
+        <button type="button" id="btnCompress_em" class="py-3 px-gutter-md rounded-full bg-light-inverse-surface text-light-inverse-on-surface font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">mail</span>Enviar por Email</button>
+      </div>
+    </div>
+
+    <!-- PANEL 2: Fotos a PDF -->
+    <div id="panel-images" class="tool-panel hidden flex-col gap-gutter-md">
+      <header class="flex items-center gap-gutter-md">
+        <div class="w-12 h-12 rounded-md bg-tab-images text-on-tab-images flex items-center justify-center shadow-sm">
+          <span class="material-symbols-outlined text-headline-md">imagesmode</span>
+        </div>
+        <div>
+          <h2 class="font-headline text-headline-md text-on-blue-glass">Fotos a PDF en un solo fichero</h2>
+          <p class="font-body text-body-md text-on-blue-glass">Convierte imágenes JPG, PNG, GIF o WebP en un único PDF</p>
+        </div>
+      </header>
+      <div id="zoneImages" class="border-2 border-dashed border-blue-glass-border rounded-lg p-gutter-md bg-light-surface-container-lowest/75 flex flex-wrap items-center justify-between gap-gutter-md">
+        <div>
+          <span class="font-label text-label-lg text-on-blue-glass block">Selecciona tus imágenes</span>
+          <span id="imagesFileInfo" class="font-label text-label-sm text-light-on-surface-variant">0 imágenes seleccionadas</span>
+        </div>
+        <label for="imagesFiles" class="inline-flex items-center gap-gutter-xs px-gutter-lg py-2.5 rounded-full bg-light-primary text-light-on-primary font-label text-label-lg cursor-pointer shadow-sm">
+          <span class="material-symbols-outlined text-title-md">add_photo_alternate</span> Seleccionar imágenes
+        </label>
+        <input type="file" id="imagesFiles" accept="image/*" multiple autocomplete="off" class="file-input">
+      </div>
+      <div>
+        <div class="flex justify-between font-label text-label-sm mb-1"><span id="statusImages">Listo</span><span id="pctImages" class="font-mono text-mono-sm">0 %</span></div>
+        <div class="bg-light-surface-container-lowest/80 h-2.5 rounded-full overflow-hidden"><div id="progImages" class="h-full bg-light-primary-container rounded-full transition-all" style="width: 0%"></div></div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter-sm">
+        <button type="button" id="btnImages_wa" class="py-3 px-gutter-md rounded-full bg-success text-on-success font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">chat</span>Enviar por WhatsApp</button>
+        <button type="button" id="btnImages_dl" class="py-3 px-gutter-md rounded-full bg-light-primary text-light-on-primary font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">download</span>Crear y descargar PDF</button>
+        <button type="button" id="btnImages_em" class="py-3 px-gutter-md rounded-full bg-light-inverse-surface text-light-inverse-on-surface font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">mail</span>Enviar por Email</button>
+      </div>
+    </div>
+
+    <!-- PANEL 4: Carpeta a PDF -->
+    <div id="panel-folder" class="tool-panel hidden flex-col gap-gutter-md">
+      <header class="flex items-center gap-gutter-md">
+        <div class="w-12 h-12 rounded-md bg-tab-folder text-on-tab-folder flex items-center justify-center shadow-sm">
+          <span class="material-symbols-outlined text-headline-md">folder_open</span>
+        </div>
+        <div>
+          <h2 class="font-headline text-headline-md text-on-blue-glass">Carpeta a PDF unificado</h2>
+          <p class="font-body text-body-md text-on-blue-glass">Une todos los PDFs, imágenes y TXT de una carpeta con cabecera y numeración</p>
+        </div>
+      </header>
+      <div id="zoneNum" class="border-2 border-dashed border-blue-glass-border rounded-lg p-gutter-md bg-light-surface-container-lowest/75 flex flex-wrap items-center justify-between gap-gutter-md">
+        <div>
+          <span class="font-label text-label-lg text-on-blue-glass block">Selecciona una carpeta</span>
+          <span id="folderFileInfo" class="font-label text-label-sm text-light-on-surface-variant">Ninguna carpeta seleccionada</span>
+        </div>
+        <label for="numFolder" class="inline-flex items-center gap-gutter-xs px-gutter-lg py-2.5 rounded-full bg-light-primary text-light-on-primary font-label text-label-lg cursor-pointer shadow-sm">
+          <span class="material-symbols-outlined text-title-md">drive_folder_upload</span> Seleccionar carpeta
+        </label>
+        <input type="file" id="numFolder" webkitdirectory multiple autocomplete="off" class="file-input">
+      </div>
+      <div>
+        <div class="flex justify-between font-label text-label-sm mb-1"><span id="statusNum">Listo</span><span id="pctNum" class="font-mono text-mono-sm">0 %</span></div>
+        <div class="bg-light-surface-container-lowest/80 h-2.5 rounded-full overflow-hidden"><div id="progNum" class="h-full bg-light-primary-container rounded-full transition-all" style="width: 0%"></div></div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter-sm">
+        <button type="button" id="btnNum_wa" class="py-3 px-gutter-md rounded-full bg-success text-on-success font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">chat</span>Enviar por WhatsApp</button>
+        <button type="button" id="btnNum_dl" class="py-3 px-gutter-md rounded-full bg-light-primary text-light-on-primary font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">download</span>Unir carpeta y descargar</button>
+        <button type="button" id="btnNum_em" class="py-3 px-gutter-md rounded-full bg-light-inverse-surface text-light-inverse-on-surface font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">mail</span>Enviar por Email</button>
+      </div>
+    </div>
+
+    <!-- PANEL 5: Renombrar con regex -->
+    <div id="panel-rename" class="tool-panel hidden flex-col gap-gutter-md">
+      <header class="flex items-center gap-gutter-md">
+        <div class="w-12 h-12 rounded-md bg-tab-rename text-on-tab-rename flex items-center justify-center shadow-sm">
+          <span class="material-symbols-outlined text-headline-md">auto_fix_high</span>
+        </div>
+        <div>
+          <h2 class="font-headline text-headline-md text-on-blue-glass">Renombrar archivos con regex</h2>
+          <p class="font-body text-body-md text-on-blue-glass">Renombra archivos masivamente y descárgalos en un ZIP</p>
+        </div>
+      </header>
+      <div id="zoneRename" class="border-2 border-dashed border-blue-glass-border rounded-lg p-gutter-md bg-light-surface-container-lowest/75 flex flex-wrap items-center justify-between gap-gutter-md">
+        <div>
+          <span class="font-label text-label-lg text-on-blue-glass block">Selecciona carpeta de archivos</span>
+          <span id="renameFileInfo" class="font-label text-label-sm text-light-on-surface-variant">0 archivos cargados</span>
+        </div>
+        <label for="renameFolder" class="inline-flex items-center gap-gutter-xs px-gutter-lg py-2.5 rounded-full bg-light-primary text-light-on-primary font-label text-label-lg cursor-pointer shadow-sm">
+          <span class="material-symbols-outlined text-title-md">folder</span> Seleccionar carpeta
+        </label>
+        <input type="file" id="renameFolder" webkitdirectory multiple autocomplete="off" class="file-input">
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter-sm">
+        <div>
+          <label for="regexIn" class="font-label text-label-sm text-on-blue-glass block mb-1">Patrón regex:</label>
+          <input type="text" id="regexIn" value="^(.+?)\s*-\s*(\d{4}-\d{2}-\d{2}\s+\d{4}(?:-\d+)?)(\.eml)$" class="w-full rounded-lg bg-light-surface-container-lowest border border-blue-glass-border px-3 py-2 font-mono text-mono-sm text-light-on-surface">
+        </div>
+        <div>
+          <label for="replaceFmt" class="font-label text-label-sm text-on-blue-glass block mb-1">Nuevo formato ($1, $2…):</label>
+          <input type="text" id="replaceFmt" value="$2.$1$3" class="w-full rounded-lg bg-light-surface-container-lowest border border-blue-glass-border px-3 py-2 font-mono text-mono-sm text-light-on-surface">
+        </div>
+      </div>
+      <div>
+        <div class="flex justify-between font-label text-label-sm mb-1"><span id="statusRename">Listo</span><span id="pctRename" class="font-mono text-mono-sm">0 %</span></div>
+        <div class="bg-light-surface-container-lowest/80 h-2.5 rounded-full overflow-hidden"><div id="progRename" class="h-full bg-light-primary-container rounded-full transition-all" style="width: 0%"></div></div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter-sm">
+        <button type="button" id="btnRename_wa" class="py-3 px-gutter-md rounded-full bg-success text-on-success font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">chat</span>Enviar por WhatsApp</button>
+        <button type="button" id="btnRename_dl" class="py-3 px-gutter-md rounded-full bg-light-primary text-light-on-primary font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">download</span>Renombrar y descargar ZIP</button>
+        <button type="button" id="btnRename_em" class="py-3 px-gutter-md rounded-full bg-light-inverse-surface text-light-inverse-on-surface font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">mail</span>Enviar por Email</button>
+      </div>
+    </div>
+
+    <!-- PANEL 6: .eml a Excel -->
+    <div id="panel-eml" class="tool-panel hidden flex-col gap-gutter-md">
+      <header class="flex items-center gap-gutter-md">
+        <div class="w-12 h-12 rounded-md bg-tab-eml text-on-tab-eml flex items-center justify-center shadow-sm">
+          <span class="material-symbols-outlined text-headline-md">mark_email_read</span>
+        </div>
+        <div>
+          <h2 class="font-headline text-headline-md text-on-blue-glass">Extraer correos .eml a Excel</h2>
+          <p class="font-body text-body-md text-on-blue-glass">Extrae fecha, remitente, asunto, destinatario y cuerpo a una hoja Excel (.xlsx)</p>
+        </div>
+      </header>
+      <div id="zoneEml" class="border-2 border-dashed border-blue-glass-border rounded-lg p-gutter-md bg-light-surface-container-lowest/75 flex flex-wrap items-center justify-between gap-gutter-md">
+        <div>
+          <span class="font-label text-label-lg text-on-blue-glass block">Selecciona carpeta con archivos .eml</span>
+          <span id="emlFileInfo" class="font-label text-label-sm text-light-on-surface-variant">0 correos .eml seleccionados</span>
+        </div>
+        <label for="emlFolder" class="inline-flex items-center gap-gutter-xs px-gutter-lg py-2.5 rounded-full bg-light-primary text-light-on-primary font-label text-label-lg cursor-pointer shadow-sm">
+          <span class="material-symbols-outlined text-title-md">folder</span> Seleccionar carpeta .eml
+        </label>
+        <input type="file" id="emlFolder" webkitdirectory multiple autocomplete="off" class="file-input">
+      </div>
+      <div>
+        <div class="flex justify-between font-label text-label-sm mb-1"><span id="statusEml">Listo</span><span id="pctEml" class="font-mono text-mono-sm">0 %</span></div>
+        <div class="bg-light-surface-container-lowest/80 h-2.5 rounded-full overflow-hidden"><div id="progEml" class="h-full bg-light-primary-container rounded-full transition-all" style="width: 0%"></div></div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter-sm">
+        <button type="button" id="btnEml_wa" class="py-3 px-gutter-md rounded-full bg-success text-on-success font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">chat</span>Enviar por WhatsApp</button>
+        <button type="button" id="btnEml_dl" class="py-3 px-gutter-md rounded-full bg-light-primary text-light-on-primary font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">download</span>Generar y descargar Excel</button>
+        <button type="button" id="btnEml_em" class="py-3 px-gutter-md rounded-full bg-light-inverse-surface text-light-inverse-on-surface font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">mail</span>Enviar por Email</button>
+      </div>
+    </div>
+
+    <!-- PANEL 7: CSVs a PDF -->
+    <div id="panel-csv" class="tool-panel hidden flex-col gap-gutter-md">
+      <header class="flex items-center gap-gutter-md">
+        <div class="w-12 h-12 rounded-md bg-tab-csv text-on-tab-csv flex items-center justify-center shadow-sm">
+          <span class="material-symbols-outlined text-headline-md">table_view</span>
+        </div>
+        <div>
+          <h2 class="font-headline text-headline-md text-on-blue-glass">Unir CSVs y convertir a PDF</h2>
+          <p class="font-body text-body-md text-on-blue-glass">Combina varios archivos CSV en una tabla PDF apaisada</p>
+        </div>
+      </header>
+      <div id="zoneCsv" class="border-2 border-dashed border-blue-glass-border rounded-lg p-gutter-md bg-light-surface-container-lowest/75 flex flex-wrap items-center justify-between gap-gutter-md">
+        <div>
+          <span class="font-label text-label-lg text-on-blue-glass block">Selecciona archivos CSV</span>
+          <span id="csvFileInfo" class="font-label text-label-sm text-light-on-surface-variant">0 archivos CSV seleccionados</span>
+        </div>
+        <label for="csvFiles" class="inline-flex items-center gap-gutter-xs px-gutter-lg py-2.5 rounded-full bg-light-primary text-light-on-primary font-label text-label-lg cursor-pointer shadow-sm">
+          <span class="material-symbols-outlined text-title-md">upload_file</span> Seleccionar CSVs
+        </label>
+        <input type="file" id="csvFiles" accept=".csv" multiple autocomplete="off" class="file-input">
+      </div>
+      <div>
+        <div class="flex justify-between font-label text-label-sm mb-1"><span id="statusCsv">Listo</span><span id="pctCsv" class="font-mono text-mono-sm">0 %</span></div>
+        <div class="bg-light-surface-container-lowest/80 h-2.5 rounded-full overflow-hidden"><div id="progCsv" class="h-full bg-light-primary-container rounded-full transition-all" style="width: 0%"></div></div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter-sm">
+        <button type="button" id="btnCsv_wa" class="py-3 px-gutter-md rounded-full bg-success text-on-success font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">chat</span>Enviar por WhatsApp</button>
+        <button type="button" id="btnCsv_dl" class="py-3 px-gutter-md rounded-full bg-light-primary text-light-on-primary font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">download</span>Convertir y descargar PDF</button>
+        <button type="button" id="btnCsv_em" class="py-3 px-gutter-md rounded-full bg-light-inverse-surface text-light-inverse-on-surface font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">mail</span>Enviar por Email</button>
+      </div>
+    </div>
+
+    <!-- PANEL 8: PDF a PowerPoint -->
+    <div id="panel-ppt" class="tool-panel hidden flex-col gap-gutter-md">
+      <header class="flex items-center gap-gutter-md">
+        <div class="w-12 h-12 rounded-md bg-tab-ppt text-on-tab-ppt flex items-center justify-center shadow-sm">
+          <span class="material-symbols-outlined text-headline-md">slideshow</span>
+        </div>
+        <div>
+          <h2 class="font-headline text-headline-md text-on-blue-glass">PDF a PowerPoint con hojas numeradas</h2>
+          <p class="font-body text-body-md text-on-blue-glass">Convierte cada página de tus PDFs en una diapositiva PPTX numerada</p>
+        </div>
+      </header>
+      <div id="zonePpt" class="border-2 border-dashed border-blue-glass-border rounded-lg p-gutter-md bg-light-surface-container-lowest/75 flex flex-wrap items-center justify-between gap-gutter-md">
+        <div>
+          <span class="font-label text-label-lg text-on-blue-glass block">Selecciona uno o varios PDFs</span>
+          <span id="pptFileInfo" class="font-label text-label-sm text-light-on-surface-variant">0 PDFs seleccionados</span>
+        </div>
+        <label for="pdfPpt" class="inline-flex items-center gap-gutter-xs px-gutter-lg py-2.5 rounded-full bg-light-primary text-light-on-primary font-label text-label-lg cursor-pointer shadow-sm">
+          <span class="material-symbols-outlined text-title-md">upload_file</span> Seleccionar PDFs
+        </label>
+        <input type="file" id="pdfPpt" accept="application/pdf" multiple autocomplete="off" class="file-input">
+      </div>
+      <div>
+        <div class="flex justify-between font-label text-label-sm mb-1"><span id="statusPpt">Listo</span><span id="pctPpt" class="font-mono text-mono-sm">0 %</span></div>
+        <div class="bg-light-surface-container-lowest/80 h-2.5 rounded-full overflow-hidden"><div id="progPpt" class="h-full bg-light-primary-container rounded-full transition-all" style="width: 0%"></div></div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter-sm">
+        <button type="button" id="btnPpt_wa" class="py-3 px-gutter-md rounded-full bg-success text-on-success font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">chat</span>Enviar por WhatsApp</button>
+        <button type="button" id="btnPpt_dl" class="py-3 px-gutter-md rounded-full bg-light-primary text-light-on-primary font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">download</span>Crear y descargar PPTX</button>
+        <button type="button" id="btnPpt_em" class="py-3 px-gutter-md rounded-full bg-light-inverse-surface text-light-inverse-on-surface font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">mail</span>Enviar por Email</button>
+      </div>
+    </div>
+
+    <!-- PANEL 9: Firma visual -->
+    <div id="panel-sign" class="tool-panel hidden flex-col gap-gutter-md">
+      <header class="flex items-center gap-gutter-md">
+        <div class="w-12 h-12 rounded-md bg-tab-sign text-on-tab-sign flex items-center justify-center shadow-sm">
+          <span class="material-symbols-outlined text-headline-md">draw</span>
+        </div>
+        <div>
+          <h2 class="font-headline text-headline-md text-on-blue-glass">Añadir firma visual al PDF</h2>
+          <p class="font-body text-body-md text-on-blue-glass">Dibuja tu firma o sube una imagen PNG/JPG y colócala en el PDF</p>
+        </div>
+      </header>
+      <div id="zoneSign" class="border-2 border-dashed border-blue-glass-border rounded-lg p-gutter-md bg-light-surface-container-lowest/75 flex flex-wrap items-center justify-between gap-gutter-md">
+        <div>
+          <span class="font-label text-label-lg text-on-blue-glass block">Selecciona el PDF a firmar</span>
+          <span id="signFileInfo" class="font-label text-label-sm text-light-on-surface-variant">Ningún PDF seleccionado</span>
+        </div>
+        <label for="signPdf" class="inline-flex items-center gap-gutter-xs px-gutter-lg py-2.5 rounded-full bg-light-primary text-light-on-primary font-label text-label-lg cursor-pointer shadow-sm">
+          <span class="material-symbols-outlined text-title-md">upload_file</span> Seleccionar PDF
+        </label>
+        <input type="file" id="signPdf" accept="application/pdf" autocomplete="off" class="file-input">
+      </div>
+      <div class="flex flex-wrap gap-gutter-md items-center">
+        <label class="inline-flex items-center gap-1.5 font-label text-label-sm text-on-blue-glass cursor-pointer">
+          <input type="radio" name="signType" value="draw" checked class="text-light-primary"> Dibujar firma
+        </label>
+        <label class="inline-flex items-center gap-1.5 font-label text-label-sm text-on-blue-glass cursor-pointer">
+          <input type="radio" name="signType" value="image" class="text-light-primary"> Subir imagen de firma
+        </label>
+        <label class="inline-flex items-center gap-1.5 font-label text-label-sm text-on-blue-glass cursor-pointer ml-auto">
+          <input type="checkbox" id="signAllPages" checked class="rounded text-light-primary"> Aplicar en todas las páginas
+        </label>
+      </div>
+      <div id="signDrawArea" class="rounded-lg bg-light-surface-container-lowest p-3 border border-blue-glass-border">
+        <canvas id="signatureCanvas" width="600" height="160" class="w-full h-40 border border-dashed border-light-outline-variant rounded-md bg-light-surface-container-lowest touch-none"></canvas>
+        <button type="button" id="clearSignatureBtn" class="mt-2 px-3 py-1 rounded-full bg-light-surface-container text-light-on-surface font-label text-label-sm">Borrar firma</button>
+      </div>
+      <div id="signImageArea" class="hidden rounded-lg bg-light-surface-container-lowest/75 p-gutter-md border border-dashed border-blue-glass-border flex items-center justify-between">
+        <span id="signImagePreview" class="font-label text-label-sm text-on-blue-glass">Sube PNG o JPG de tu firma</span>
+        <label for="signImageInput" class="px-4 py-2 rounded-full bg-light-primary text-light-on-primary font-label text-label-sm cursor-pointer">Seleccionar imagen</label>
+        <input type="file" id="signImageInput" accept="image/png,image/jpeg" autocomplete="off" class="file-input">
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-gutter-sm">
+        <div><label for="signPosX" class="font-label text-label-sm text-on-blue-glass block mb-1">Posición X (%)</label><input type="number" id="signPosX" value="70" min="0" max="100" class="w-full rounded-lg bg-light-surface-container-lowest border border-blue-glass-border px-2.5 py-1.5 text-light-on-surface"></div>
+        <div><label for="signPosY" class="font-label text-label-sm text-on-blue-glass block mb-1">Posición Y (%)</label><input type="number" id="signPosY" value="15" min="0" max="100" class="w-full rounded-lg bg-light-surface-container-lowest border border-blue-glass-border px-2.5 py-1.5 text-light-on-surface"></div>
+        <div><label for="signWidth" class="font-label text-label-sm text-on-blue-glass block mb-1">Ancho (%)</label><input type="number" id="signWidth" value="20" min="5" max="50" class="w-full rounded-lg bg-light-surface-container-lowest border border-blue-glass-border px-2.5 py-1.5 text-light-on-surface"></div>
+        <div><label for="signHeight" class="font-label text-label-sm text-on-blue-glass block mb-1">Alto (%)</label><input type="number" id="signHeight" value="10" min="5" max="30" class="w-full rounded-lg bg-light-surface-container-lowest border border-blue-glass-border px-2.5 py-1.5 text-light-on-surface"></div>
+      </div>
+      <div>
+        <div class="flex justify-between font-label text-label-sm mb-1"><span id="statusSign">Listo</span><span id="pctSign" class="font-mono text-mono-sm">0 %</span></div>
+        <div class="bg-light-surface-container-lowest/80 h-2.5 rounded-full overflow-hidden"><div id="progSign" class="h-full bg-light-primary-container rounded-full transition-all" style="width: 0%"></div></div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter-sm">
+        <button type="button" id="btnSign_wa" class="py-3 px-gutter-md rounded-full bg-success text-on-success font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">chat</span>Enviar por WhatsApp</button>
+        <button type="button" id="btnSign_dl" class="py-3 px-gutter-md rounded-full bg-light-primary text-light-on-primary font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">download</span>Firmar y descargar PDF</button>
+        <button type="button" id="btnSign_em" class="py-3 px-gutter-md rounded-full bg-light-inverse-surface text-light-inverse-on-surface font-label text-label-lg flex items-center justify-center gap-gutter-xs"><span class="material-symbols-outlined text-title-md">mail</span>Enviar por Email</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script>
+    if (typeof pdfjsLib !== 'undefined') {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+
+    const $ = (id) => document.getElementById(id);
+
+    // ============================================================
+    // UTILIDADES GLOBALES (Progreso, Descarga, Compartir)
+    // ============================================================
+    function setToolProgress(barId, pctId, statusId, pct, text) {
+      const bar = $(barId);
+      const pctEl = $(pctId);
+      const stEl = $(statusId);
+      if (bar) bar.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+      if (pctEl) pctEl.textContent = `${Math.round(pct)} %`;
+      if (stEl && text !== undefined) stEl.textContent = text;
+    }
+
+    function triggerDownload(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+    }
+
+    async function shareOrDownload(blob, filename, mode, statusId) {
+      if (mode === 'wa') {
+        const shareFile = new File([blob], filename, { type: blob.type || 'application/octet-stream' });
+        if (navigator.canShare && navigator.canShare({ files: [shareFile] })) {
+          await navigator.share({ files: [shareFile], title: filename });
+        } else {
+          triggerDownload(blob, filename);
+          window.open(`https://wa.me/?text=${encodeURIComponent('Te envío el archivo: ' + filename)}`, '_blank', 'noopener');
+        }
+      } else if (mode === 'em') {
+        triggerDownload(blob, filename);
+        window.location.href = `mailto:?subject=${encodeURIComponent(filename + ' - ServiPDF Pro')}&body=${encodeURIComponent('Adjunto el archivo generado con ServiPDF Pro: ' + filename)}`;
+      } else {
+        triggerDownload(blob, filename);
+      }
+      if (statusId && $(statusId)) $(statusId).textContent = `Listo: ${filename}`;
+    }
+
+    function safeWinAnsi(str) {
+      return String(str || '').replace(/[^\x20-\x7E\xA0-\xFF]/g, '?');
+    }
+
+    async function imageFileToPngBytes(file) {
+      const url = URL.createObjectURL(file);
+      try {
+        const img = await new Promise((resolve, reject) => {
+          const i = new Image();
+          i.onload = () => resolve(i);
+          i.onerror = reject;
+          i.src = url;
+        });
+        const cvs = document.createElement('canvas');
+        cvs.width = img.naturalWidth || img.width;
+        cvs.height = img.naturalHeight || img.height;
+        cvs.getContext('2d').drawImage(img, 0, 0);
+        const blob = await new Promise((res) => cvs.toBlob(res, 'image/png'));
+        return new Uint8Array(await blob.arrayBuffer());
+      } finally {
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    function setupDropZone(zoneId, inputId, onFiles) {
+      const zone = $(zoneId);
+      const inp = $(inputId);
+      if (!zone || !inp) return;
+      inp.addEventListener('change', () => { if (inp.files?.length) onFiles(inp.files); });
+      zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('opacity-90'); });
+      zone.addEventListener('dragleave', () => zone.classList.remove('opacity-90'));
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        zone.classList.remove('opacity-90');
+        if (e.dataTransfer.files?.length) onFiles(e.dataTransfer.files);
+      });
+    }
+
+    // ============================================================
+    // NAVEGACIÓN ENTRE LAS 9 SOLAPAS Y LA PORTADA
+    // ============================================================
+    let activeTool = 'merge';
+    const portadaEl = $('portadaView');
+    const mergeEl = $('mergeWorkspace');
+    const toggleLabel = $('togglePortadaLabel');
+
+    function showPortada(show) {
+      portadaEl.classList.toggle('hidden', !show);
+      portadaEl.classList.toggle('flex', show);
+      mergeEl.classList.toggle('hidden', show);
+      toggleLabel.textContent = show ? 'Volver a herramienta' : 'Ver portada (9 herramientas)';
+    }
+
+    function switchTool(toolKey) {
+      activeTool = toolKey;
+      showPortada(false);
+      document.querySelectorAll('.tool-panel').forEach((p) => {
+        const isTarget = p.id === `panel-${toolKey}`;
+        p.classList.toggle('hidden', !isTarget);
+        p.classList.toggle('flex', isTarget);
+      });
+      document.querySelectorAll('.tool-tab').forEach((btn) => {
+        const isTarget = btn.dataset.tool === toolKey;
+        btn.classList.toggle('ring-2', isTarget);
+        btn.classList.toggle('ring-light-on-surface', isTarget);
+        btn.classList.toggle('shadow-sm', isTarget);
+      });
+    }
+
+    document.querySelectorAll('[data-tool]').forEach((btn) => {
+      btn.addEventListener('click', () => switchTool(btn.dataset.tool));
+    });
+    $('togglePortadaBtn').addEventListener('click', () => showPortada(portadaEl.classList.contains('hidden')));
+    $('brandPortadaBtn').addEventListener('click', () => showPortada(true));
+    $('backToMergeBtn').addEventListener('click', () => switchTool(activeTool));
+
+    // ============================================================
+    // ESTADO DE ARCHIVOS DE LAS 9 HERRAMIENTAS + LIMPIEZA AUTOMÁTICA
+    // ============================================================
+    let sampleItems = [];
+    let compressFile = null;
+    let imageFilesList = [];
+    let folderFilesList = [];
+    let renameFilesList = [];
+    let emlFilesList = [];
+    let csvFilesList = [];
+    let pptFilesList = [];
+    let signPdfFile = null;
+    let signImageData = null;
+
+    const sigCanvas = $('signatureCanvas');
+    const signaturePad = (sigCanvas && typeof SignaturePad !== 'undefined') ? new SignaturePad(sigCanvas, { minWidth: 2, maxWidth: 4 }) : null;
+
+    function clearAllUploadedFiles() {
+      sampleItems.forEach((item) => {
+        if (item.thumbUrl && item.thumbUrl.startsWith('blob:')) {
+          try { URL.revokeObjectURL(item.thumbUrl); } catch (e) {}
+        }
+      });
+      sampleItems = [];
+      compressFile = null;
+      imageFilesList = [];
+      folderFilesList = [];
+      renameFilesList = [];
+      emlFilesList = [];
+      csvFilesList = [];
+      pptFilesList = [];
+      signPdfFile = null;
+      signImageData = null;
+      if (signaturePad) signaturePad.clear();
+
+      ['demoAddFiles', 'compressPdf', 'imagesFiles', 'numFolder', 'renameFolder', 'emlFolder', 'csvFiles', 'pdfPpt', 'signPdf', 'signImageInput'].forEach((id) => {
+        const el = $(id);
+        if (el) el.value = '';
+      });
+
+      if ($('compressFileName')) $('compressFileName').textContent = 'Ningún archivo seleccionado';
+      if ($('imagesFileInfo')) $('imagesFileInfo').textContent = '0 imágenes seleccionadas';
+      if ($('folderFileInfo')) $('folderFileInfo').textContent = 'Ninguna carpeta seleccionada';
+      if ($('renameFileInfo')) $('renameFileInfo').textContent = '0 archivos cargados';
+      if ($('emlFileInfo')) $('emlFileInfo').textContent = '0 correos .eml seleccionados';
+      if ($('csvFileInfo')) $('csvFileInfo').textContent = '0 archivos CSV seleccionados';
+      if ($('pptFileInfo')) $('pptFileInfo').textContent = '0 PDFs seleccionados';
+      if ($('signFileInfo')) $('signFileInfo').textContent = 'Ningún PDF seleccionado';
+      if ($('signImagePreview')) $('signImagePreview').textContent = 'Sube PNG o JPG de tu firma';
+
+      setToolProgress('mergeProgBar', 'mergeProgPct', 'mergeStatusText', 0, 'Añade archivos para unir');
+      setToolProgress('progCompress', 'pctCompress', 'statusCompress', 0, 'Listo');
+      setToolProgress('progImages', 'pctImages', 'statusImages', 0, 'Listo');
+      setToolProgress('progNum', 'pctNum', 'statusNum', 0, 'Listo');
+      setToolProgress('progRename', 'pctRename', 'statusRename', 0, 'Listo');
+      setToolProgress('progEml', 'pctEml', 'statusEml', 0, 'Listo');
+      setToolProgress('progCsv', 'pctCsv', 'statusCsv', 0, 'Listo');
+      setToolProgress('progPpt', 'pctPpt', 'statusPpt', 0, 'Listo');
+      setToolProgress('progSign', 'pctSign', 'statusSign', 0, 'Listo');
+
+      renderDemoGrid();
+    }
+
+    // ============================================================
+    // 3. UNIR FORMATOS (Miniaturas + Drag & Drop + PDF/Img/TXT/DOCX)
+    // ============================================================
+    let dragSrc = null;
+    const grid = $('demoGrid');
+
+    function moveItem(from, to) {
+      if (to < 0 || to >= sampleItems.length || from === to) return;
+      const [m] = sampleItems.splice(from, 1);
+      sampleItems.splice(to, 0, m);
+      renderDemoGrid();
+    }
+
+    function renderDemoGrid() {
+      grid.innerHTML = '';
+      $('demoCounter').textContent = `${sampleItems.length} archivo${sampleItems.length === 1 ? '' : 's'} en cola`;
+      $('demoStatusBadge').textContent = sampleItems.length ? `${sampleItems.length} archivo${sampleItems.length === 1 ? '' : 's'} listo${sampleItems.length === 1 ? '' : 's'}` : 'Sin archivos';
+
+      if (sampleItems.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full flex flex-col items-center justify-center py-8 text-center text-on-blue-glass/80">
+            <span class="material-symbols-outlined text-headline-lg mb-1 opacity-75">folder_open</span>
+            <p class="font-body text-body-md">Lista vacía. Añade PDFs, imágenes, texto o Word para ver su contenido en pequeño y ordenarlos.</p>
+          </div>`;
+        return;
+      }
+
+      sampleItems.forEach((item, idx) => {
+        const card = document.createElement('article');
+        card.draggable = true;
+        card.className = 'thumb-card rounded-md bg-light-surface-container-lowest border border-light-outline-variant/70 p-gutter-sm shadow-sm flex flex-col gap-2 cursor-grab active:cursor-grabbing select-none';
+
+        const preview = item.thumbUrl
+          ? `<img src="${item.thumbUrl}" alt="${item.name}" class="w-full h-36 object-contain rounded-sm bg-light-surface-container-low border border-light-outline-variant/40 pointer-events-none">`
+          : (item.textSnippet
+            ? `<div class="w-full h-36 rounded-sm bg-light-surface-container-lowest border border-light-outline-variant/60 p-2 text-left overflow-hidden pointer-events-none"><p class="font-mono text-mono-sm text-light-on-surface-variant leading-tight">${item.textSnippet}</p></div>`
+            : `<div class="w-full h-36 rounded-sm bg-light-surface-container-low border border-light-outline-variant/60 flex flex-col items-center justify-center p-2 pointer-events-none"><span class="material-symbols-outlined text-headline-md text-light-primary">description</span><span class="font-label text-label-sm text-light-on-surface-variant mt-1">${item.pages}</span></div>`);
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between gap-1">
+            <span class="font-mono text-mono-sm px-2 py-0.5 rounded-full bg-light-primary-container text-light-on-primary-container">#${idx + 1}</span>
+            <span class="font-label text-label-sm text-light-on-surface-variant">${item.pages}</span>
+            <button type="button" data-rm="${idx}" aria-label="Quitar" class="w-6 h-6 rounded-full bg-light-surface-container text-light-on-surface hover:bg-light-error-container hover:text-light-on-error-container flex items-center justify-center">
+              <span class="material-symbols-outlined text-body-md" aria-hidden="true">close</span>
+            </button>
+          </div>
+          ${preview}
+          <p class="font-label text-label-sm text-light-on-surface truncate" title="${item.name}">${item.name}</p>
+          <div class="flex items-center justify-between gap-1 pt-1 border-t border-light-outline-variant/40">
+            <button type="button" data-left="${idx}" ${idx === 0 ? 'disabled' : ''} class="flex-1 py-0.5 rounded-sm bg-light-surface-container disabled:opacity-30 hover:bg-light-surface-container-high flex items-center justify-center">
+              <span class="material-symbols-outlined text-body-md" aria-hidden="true">chevron_left</span>
+            </button>
+            <span class="material-symbols-outlined text-body-md text-light-outline" aria-hidden="true">drag_indicator</span>
+            <button type="button" data-right="${idx}" ${idx === sampleItems.length - 1 ? 'disabled' : ''} class="flex-1 py-0.5 rounded-sm bg-light-surface-container disabled:opacity-30 hover:bg-light-surface-container-high flex items-center justify-center">
+              <span class="material-symbols-outlined text-body-md" aria-hidden="true">chevron_right</span>
+            </button>
+          </div>
+        `;
+
+        card.querySelector(`[data-rm="${idx}"]`).addEventListener('click', () => {
+          const [removed] = sampleItems.splice(idx, 1);
+          if (removed?.thumbUrl?.startsWith('blob:')) { try { URL.revokeObjectURL(removed.thumbUrl); } catch (e) {} }
+          renderDemoGrid();
+        });
+        card.querySelector(`[data-left="${idx}"]`).addEventListener('click', () => moveItem(idx, idx - 1));
+        card.querySelector(`[data-right="${idx}"]`).addEventListener('click', () => moveItem(idx, idx + 1));
+
+        card.addEventListener('dragstart', () => { dragSrc = idx; card.classList.add('dragging'); });
+        card.addEventListener('dragover', (e) => { e.preventDefault(); card.classList.add('drag-over'); });
+        card.addEventListener('dragleave', () => card.classList.remove('drag-over'));
+        card.addEventListener('drop', (e) => {
+          e.preventDefault();
+          card.classList.remove('drag-over');
+          if (dragSrc !== null && dragSrc !== idx) moveItem(dragSrc, idx);
+        });
+        card.addEventListener('dragend', () => { card.classList.remove('dragging'); dragSrc = null; });
+
+        grid.appendChild(card);
+      });
+    }
+
+    async function addRealFiles(fileList) {
+      for (const file of Array.from(fileList)) {
+        const ext = file.name.split('.').pop().toLowerCase();
+        let thumbUrl = null, textSnippet = null, pages = `${Math.max(1, Math.round(file.size / 1024))} KB`;
+        if (ext === 'pdf' && typeof pdfjsLib !== 'undefined') {
+          try {
+            const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+            const page = await pdf.getPage(1);
+            const vp = page.getViewport({ scale: 0.45 });
+            const cvs = document.createElement('canvas');
+            cvs.width = vp.width; cvs.height = vp.height;
+            await page.render({ canvasContext: cvs.getContext('2d'), viewport: vp }).promise;
+            thumbUrl = cvs.toDataURL('image/jpeg', 0.8);
+            pages = `${pdf.numPages} pág.`;
+          } catch (e) {}
+        } else if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
+          thumbUrl = URL.createObjectURL(file);
+          pages = 'Imagen';
+        } else if (ext === 'txt') {
+          textSnippet = (await file.text()).slice(0, 180).replace(/</g, '&lt;');
+          pages = 'TXT';
+        } else if (ext === 'docx') {
+          pages = 'Word';
+        }
+        sampleItems.push({ id: Date.now() + Math.random(), name: file.name, ext, pages, thumbUrl, textSnippet, file });
+      }
+      renderDemoGrid();
+    }
+
+    async function docxToPdfDoc(file) {
+      if (typeof mammoth === 'undefined' || typeof html2canvas === 'undefined') {
+        throw new Error('Librerías de Word no disponibles');
+      }
+      const result = await mammoth.convertToHtml({ arrayBuffer: await file.arrayBuffer() });
+      const container = document.createElement('div');
+      container.style.cssText = 'position:absolute;left:-99999px;top:0;width:794px;padding:48px 56px;background:#fff;color:#111;font-family:Arial,sans-serif;font-size:12pt;line-height:1.5;box-sizing:border-box;';
+      container.innerHTML = result.value || '<p>(Documento vacío)</p>';
+      document.body.appendChild(container);
+      try {
+        const canvas = await html2canvas(container, { scale: 1.5, useCORS: true, backgroundColor: '#ffffff', logging: false });
+        const pdfDoc = await PDFLib.PDFDocument.create();
+        const A4_W = 595.28, A4_H = 841.89;
+        const pageHeightPx = (A4_H * canvas.width) / A4_W;
+        let yOffset = 0;
+        while (yOffset < canvas.height - 1) {
+          const sliceH = Math.min(pageHeightPx, canvas.height - yOffset);
+          const sliceCvs = document.createElement('canvas');
+          sliceCvs.width = canvas.width;
+          sliceCvs.height = sliceH;
+          const sCtx = sliceCvs.getContext('2d');
+          sCtx.fillStyle = '#ffffff';
+          sCtx.fillRect(0, 0, sliceCvs.width, sliceCvs.height);
+          sCtx.drawImage(canvas, 0, yOffset, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
+          const jpgBytes = await (await fetch(sliceCvs.toDataURL('image/jpeg', 0.9))).arrayBuffer();
+          const img = await pdfDoc.embedJpg(jpgBytes);
+          const page = pdfDoc.addPage([A4_W, A4_H]);
+          const drawH = (sliceH * A4_W) / canvas.width;
+          page.drawImage(img, { x: 0, y: A4_H - drawH, width: A4_W, height: drawH });
+          yOffset += sliceH;
+        }
+        return pdfDoc;
+      } finally {
+        container.remove();
+      }
+    }
+
+    async function appendFileToPdf(mergedPdf, file, ext, addHeader, font) {
+      if (ext === 'pdf') {
+        const srcPdf = await PDFLib.PDFDocument.load(await file.arrayBuffer(), { ignoreEncryption: true });
+        const copied = await mergedPdf.copyPages(srcPdf, srcPdf.getPageIndices());
+        copied.forEach((p) => {
+          if (addHeader) {
+            const { height } = p.getSize();
+            p.drawText(safeWinAnsi(file.name), { x: 24, y: height - 18, size: 9, font, color: PDFLib.rgb(0.15, 0.35, 0.25) });
+          }
+          mergedPdf.addPage(p);
+        });
+      } else if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
+        let embedded;
+        const buf = new Uint8Array(await file.arrayBuffer());
+        if (ext === 'png') embedded = await mergedPdf.embedPng(buf);
+        else if (ext === 'jpg' || ext === 'jpeg') embedded = await mergedPdf.embedJpg(buf);
+        else embedded = await mergedPdf.embedPng(await imageFileToPngBytes(file));
+        const page = mergedPdf.addPage([595.28, 841.89]);
+        const topOffset = addHeader ? 42 : 24;
+        const maxW = 595.28 - 48, maxH = 841.89 - topOffset - 24;
+        const scale = Math.min(maxW / embedded.width, maxH / embedded.height, 1);
+        const drawW = embedded.width * scale, drawH = embedded.height * scale;
+        page.drawImage(embedded, { x: (595.28 - drawW) / 2, y: (841.89 - topOffset - drawH) / 2 + 12, width: drawW, height: drawH });
+        if (addHeader) page.drawText(safeWinAnsi(file.name), { x: 24, y: 841.89 - 22, size: 9, font, color: PDFLib.rgb(0.15, 0.35, 0.25) });
+      } else if (ext === 'txt') {
+        const lines = safeWinAnsi(await file.text()).split(/\r?\n/);
+        let page = mergedPdf.addPage([595.28, 841.89]);
+        let y = addHeader ? 798 : 812;
+        if (addHeader) page.drawText(safeWinAnsi(file.name), { x: 24, y: 820, size: 9, font, color: PDFLib.rgb(0.15, 0.35, 0.25) });
+        for (const rawLine of lines) {
+          const chunks = rawLine.match(/.{1,90}/g) || [''];
+          for (const line of chunks) {
+            if (y < 40) { page = mergedPdf.addPage([595.28, 841.89]); y = 812; }
+            page.drawText(line, { x: 32, y, size: 10.5, font, color: PDFLib.rgb(0.1, 0.14, 0.12) });
+            y -= 15;
+          }
+        }
+      } else if (ext === 'docx') {
+        const docxPdf = await docxToPdfDoc(file);
+        const copied = await mergedPdf.copyPages(docxPdf, docxPdf.getPageIndices());
+        copied.forEach((p) => {
+          if (addHeader) {
+            const { height } = p.getSize();
+            p.drawText(safeWinAnsi(file.name), { x: 24, y: height - 18, size: 9, font, color: PDFLib.rgb(0.15, 0.35, 0.25) });
+          }
+          mergedPdf.addPage(p);
+        });
+      }
+    }
+
+    async function mergeAndExport(mode) {
+      if (!sampleItems.length) { setToolProgress('mergeProgBar', 'mergeProgPct', 'mergeStatusText', 0, 'Añade al menos un archivo para unir.'); return; }
+      const addHeader = $('mergeHeaderCheck')?.checked;
+      try {
+        setToolProgress('mergeProgBar', 'mergeProgPct', 'mergeStatusText', 5, 'Preparando documento unido...');
+        const mergedPdf = await PDFLib.PDFDocument.create();
+        const font = await mergedPdf.embedFont(PDFLib.StandardFonts.Helvetica);
+        for (let i = 0; i < sampleItems.length; i++) {
+          const item = sampleItems[i];
+          setToolProgress('mergeProgBar', 'mergeProgPct', 'mergeStatusText', 5 + ((i + 0.5) / sampleItems.length) * 85, `Procesando (${i + 1}/${sampleItems.length}): ${item.name}`);
+          await appendFileToPdf(mergedPdf, item.file, item.ext, addHeader, font);
+        }
+        const blob = new Blob([await mergedPdf.save()], { type: 'application/pdf' });
+        await shareOrDownload(blob, `ServiPDF_Unido_${new Date().toISOString().slice(0, 10)}.pdf`, mode, 'mergeStatusText');
+        setToolProgress('mergeProgBar', 'mergeProgPct', 'mergeStatusText', 100, `PDF unido listo (${mergedPdf.getPageCount()} págs.)`);
+      } catch (err) {
+        console.error(err);
+        setToolProgress('mergeProgBar', 'mergeProgPct', 'mergeStatusText', 0, `Error: ${err.message}`);
+      }
+    }
+
+    setupDropZone('demoDropZone', 'demoAddFiles', (files) => { addRealFiles(files); $('demoAddFiles').value = ''; });
+    $('demoSortAZ').addEventListener('click', () => { sampleItems.sort((a, b) => a.name.localeCompare(b.name)); renderDemoGrid(); });
+    $('demoReverse').addEventListener('click', () => { sampleItems.reverse(); renderDemoGrid(); });
+    $('demoClear').addEventListener('click', clearAllUploadedFiles);
+    $('btnMergeDownload').addEventListener('click', () => mergeAndExport('dl'));
+    $('btnMergeWhatsApp').addEventListener('click', () => mergeAndExport('wa'));
+    $('btnMergeEmail').addEventListener('click', () => mergeAndExport('em'));
+
+    // ============================================================
+    // 1. COMPRIMIR PDF
+    // ============================================================
+    setupDropZone('zoneCompress', 'compressPdf', (files) => {
+      compressFile = files[0];
+      $('compressFileName').textContent = `${compressFile.name} (${(compressFile.size / 1024).toFixed(1)} KB)`;
+      setToolProgress('progCompress', 'pctCompress', 'statusCompress', 0, 'PDF listo para comprimir');
+    });
+    async function runCompress(mode) {
+      if (!compressFile) { setToolProgress('progCompress', 'pctCompress', 'statusCompress', 0, 'Selecciona un PDF primero.'); return; }
+      try {
+        const quality = parseFloat($('compressQuality').value);
+        setToolProgress('progCompress', 'pctCompress', 'statusCompress', 5, 'Comprimiendo páginas...');
+        const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(await compressFile.arrayBuffer()) }).promise;
+        const newPdf = await PDFLib.PDFDocument.create();
+        for (let p = 1; p <= pdf.numPages; p++) {
+          const page = await pdf.getPage(p);
+          const vp = page.getViewport({ scale: 1.2 });
+          const cvs = document.createElement('canvas');
+          cvs.width = vp.width; cvs.height = vp.height;
+          await page.render({ canvasContext: cvs.getContext('2d'), viewport: vp }).promise;
+          const jpgBlob = await new Promise((res) => cvs.toBlob(res, 'image/jpeg', quality));
+          const img = await newPdf.embedJpg(await jpgBlob.arrayBuffer());
+          const np = newPdf.addPage([img.width, img.height]);
+          np.drawImage(img, { x: 0, y: 0, width: img.width, height: img.height });
+          setToolProgress('progCompress', 'pctCompress', 'statusCompress', 5 + (p / pdf.numPages) * 90, `Página ${p} de ${pdf.numPages}...`);
+        }
+        const bytes = await newPdf.save();
+        const red = ((1 - bytes.byteLength / compressFile.size) * 100).toFixed(1);
+        await shareOrDownload(new Blob([bytes], { type: 'application/pdf' }), 'PDF_COMPRIMIDO.pdf', mode, 'statusCompress');
+        setToolProgress('progCompress', 'pctCompress', 'statusCompress', 100, `Comprimido: ${(bytes.byteLength / 1024).toFixed(1)} KB (${red}% reducción)`);
+      } catch (e) { setToolProgress('progCompress', 'pctCompress', 'statusCompress', 0, `Error: ${e.message}`); }
+    }
+    $('btnCompress_wa').addEventListener('click', () => runCompress('wa'));
+    $('btnCompress_dl').addEventListener('click', () => runCompress('dl'));
+    $('btnCompress_em').addEventListener('click', () => runCompress('em'));
+
+    // ============================================================
+    // 2. FOTOS A PDF
+    // ============================================================
+    setupDropZone('zoneImages', 'imagesFiles', (files) => {
+      imageFilesList = Array.from(files).filter((f) => ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(f.name.split('.').pop().toLowerCase()));
+      $('imagesFileInfo').textContent = `${imageFilesList.length} imagen(es) seleccionadas`;
+      setToolProgress('progImages', 'pctImages', 'statusImages', 0, 'Listo para crear PDF');
+    });
+    async function runImages(mode) {
+      if (!imageFilesList.length) { setToolProgress('progImages', 'pctImages', 'statusImages', 0, 'Selecciona al menos una imagen.'); return; }
+      try {
+        const pdfDoc = await PDFLib.PDFDocument.create();
+        for (let i = 0; i < imageFilesList.length; i++) {
+          const f = imageFilesList[i];
+          const ext = f.name.split('.').pop().toLowerCase();
+          const img = ext === 'png' ? await pdfDoc.embedPng(await f.arrayBuffer()) : (['jpg', 'jpeg'].includes(ext) ? await pdfDoc.embedJpg(await f.arrayBuffer()) : await pdfDoc.embedPng(await imageFileToPngBytes(f)));
+          const page = pdfDoc.addPage([img.width, img.height]);
+          page.drawImage(img, { x: 0, y: 0, width: img.width, height: img.height });
+          setToolProgress('progImages', 'pctImages', 'statusImages', ((i + 1) / imageFilesList.length) * 90, `Añadiendo ${f.name}...`);
+        }
+        await shareOrDownload(new Blob([await pdfDoc.save()], { type: 'application/pdf' }), 'IMAGENES_UNIDAS.pdf', mode, 'statusImages');
+        setToolProgress('progImages', 'pctImages', 'statusImages', 100, `PDF creado con ${imageFilesList.length} imagen(es)`);
+      } catch (e) { setToolProgress('progImages', 'pctImages', 'statusImages', 0, `Error: ${e.message}`); }
+    }
+    $('btnImages_wa').addEventListener('click', () => runImages('wa'));
+    $('btnImages_dl').addEventListener('click', () => runImages('dl'));
+    $('btnImages_em').addEventListener('click', () => runImages('em'));
+
+    // ============================================================
+    // 4. CARPETA A PDF UNIFICADO
+    // ============================================================
+    setupDropZone('zoneNum', 'numFolder', (files) => {
+      folderFilesList = Array.from(files).filter((f) => ['pdf', 'jpg', 'jpeg', 'png', 'gif', 'webp', 'txt'].includes(f.name.split('.').pop().toLowerCase()));
+      $('folderFileInfo').textContent = `${folderFilesList.length} archivos compatibles encontrados`;
+      setToolProgress('progNum', 'pctNum', 'statusNum', 0, 'Carpeta lista');
+    });
+    async function runFolder(mode) {
+      if (!folderFilesList.length) { setToolProgress('progNum', 'pctNum', 'statusNum', 0, 'Selecciona una carpeta con PDFs, fotos o TXT.'); return; }
+      try {
+        const sorted = [...folderFilesList].sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+        const destPdf = await PDFLib.PDFDocument.create();
+        const font = await destPdf.embedFont(PDFLib.StandardFonts.HelveticaBold);
+        let pageCounter = 1;
+        for (let idx = 0; idx < sorted.length; idx++) {
+          const f = sorted[idx];
+          const ext = f.name.split('.').pop().toLowerCase();
+          const tempDoc = await PDFLib.PDFDocument.create();
+          await appendFileToPdf(tempDoc, f, ext, false, font);
+          const copied = await destPdf.copyPages(tempDoc, tempDoc.getPageIndices());
+          const baseName = safeWinAnsi(f.name.replace(/\.[^.]+$/, ''));
+          copied.forEach((p) => {
+            const page = destPdf.addPage(p);
+            const { width, height } = page.getSize();
+            const tW = font.widthOfTextAtSize(baseName, 11);
+            page.drawText(baseName, { x: (width - tW) / 2, y: height - 26, size: 11, font, color: PDFLib.rgb(0, 0.42, 0.17) });
+            const nT = `Pagina ${pageCounter++}`;
+            const nW = font.widthOfTextAtSize(nT, 11);
+            page.drawText(nT, { x: (width - nW) / 2, y: 24, size: 11, font, color: PDFLib.rgb(0, 0.42, 0.17) });
+          });
+          setToolProgress('progNum', 'pctNum', 'statusNum', ((idx + 1) / sorted.length) * 90, `Procesando ${f.name}...`);
+        }
+        await shareOrDownload(new Blob([await destPdf.save()], { type: 'application/pdf' }), 'CARPETA_UNIFICADA.pdf', mode, 'statusNum');
+        setToolProgress('progNum', 'pctNum', 'statusNum', 100, `Carpeta unificada (${pageCounter - 1} págs.)`);
+      } catch (e) { setToolProgress('progNum', 'pctNum', 'statusNum', 0, `Error: ${e.message}`); }
+    }
+    $('btnNum_wa').addEventListener('click', () => runFolder('wa'));
+    $('btnNum_dl').addEventListener('click', () => runFolder('dl'));
+    $('btnNum_em').addEventListener('click', () => runFolder('em'));
+
+    // ============================================================
+    // 5. RENOMBRAR CON REGEX (ZIP)
+    // ============================================================
+    setupDropZone('zoneRename', 'renameFolder', (files) => {
+      renameFilesList = Array.from(files);
+      $('renameFileInfo').textContent = `${renameFilesList.length} archivos cargados`;
+      setToolProgress('progRename', 'pctRename', 'statusRename', 0, 'Listo para renombrar');
+    });
+    async function runRename(mode) {
+      if (!renameFilesList.length) { setToolProgress('progRename', 'pctRename', 'statusRename', 0, 'Selecciona una carpeta primero.'); return; }
+      try {
+        const regex = new RegExp($('regexIn').value.trim(), 'i');
+        const repl = $('replaceFmt').value.trim();
+        const zip = new JSZip();
+        let renamedCount = 0;
+        for (let i = 0; i < renameFilesList.length; i++) {
+          const f = renameFilesList[i];
+          const m = f.name.match(regex);
+          let nuevo = f.name;
+          if (m) {
+            nuevo = repl;
+            m.forEach((g, idx) => { if (idx > 0) nuevo = nuevo.replaceAll(`$${idx}`, g || ''); });
+            renamedCount++;
+          }
+          zip.file(nuevo, await f.arrayBuffer());
+          setToolProgress('progRename', 'pctRename', 'statusRename', ((i + 1) / renameFilesList.length) * 90, `Procesando ${f.name}...`);
+        }
+        const blob = await zip.generateAsync({ type: 'blob' });
+        await shareOrDownload(blob, 'CARPETA_RENOMBRADA.zip', mode, 'statusRename');
+        setToolProgress('progRename', 'pctRename', 'statusRename', 100, `ZIP generado (${renamedCount} renombrados)`);
+      } catch (e) { setToolProgress('progRename', 'pctRename', 'statusRename', 0, `Error: ${e.message}`); }
+    }
+    $('btnRename_wa').addEventListener('click', () => runRename('wa'));
+    $('btnRename_dl').addEventListener('click', () => runRename('dl'));
+    $('btnRename_em').addEventListener('click', () => runRename('em'));
+
+    // ============================================================
+    // 6. .EML A EXCEL (Parser nativo + SheetJS)
+    // ============================================================
+    setupDropZone('zoneEml', 'emlFolder', (files) => {
+      emlFilesList = Array.from(files).filter((f) => f.name.toLowerCase().endsWith('.eml'));
+      $('emlFileInfo').textContent = `${emlFilesList.length} correos .eml encontrados`;
+      setToolProgress('progEml', 'pctEml', 'statusEml', 0, 'Listo para extraer a Excel');
+    });
+    function parseSimpleEml(raw) {
+      const splitIdx = raw.search(/\r?\n\r?\n/);
+      const headerBlock = splitIdx >= 0 ? raw.slice(0, splitIdx) : raw;
+      const bodyBlock = splitIdx >= 0 ? raw.slice(splitIdx).trim() : '';
+      const unfolded = headerBlock.replace(/\r?\n[ \t]+/g, ' ');
+      const getHdr = (name) => {
+        const m = unfolded.match(new RegExp(`^${name}:\\s*(.+)$`, 'im'));
+        return m ? m[1].trim() : '';
+      };
+      return {
+        Fecha: getHdr('Date'),
+        Remitente: getHdr('From'),
+        Asunto: getHdr('Subject'),
+        Destinatario: getHdr('To'),
+        Cuerpo: bodyBlock.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').slice(0, 32767)
+      };
+    }
+    async function runEml(mode) {
+      if (!emlFilesList.length) { setToolProgress('progEml', 'pctEml', 'statusEml', 0, 'Selecciona una carpeta con archivos .eml.'); return; }
+      try {
+        const rows = [];
+        for (let i = 0; i < emlFilesList.length; i++) {
+          rows.push(parseSimpleEml(await emlFilesList[i].text()));
+          setToolProgress('progEml', 'pctEml', 'statusEml', ((i + 1) / emlFilesList.length) * 90, `Extrayendo ${emlFilesList[i].name}...`);
+        }
+        const ws = XLSX.utils.json_to_sheet(rows);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Mails');
+        const out = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([out], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        await shareOrDownload(blob, 'Mails.xlsx', mode, 'statusEml');
+        setToolProgress('progEml', 'pctEml', 'statusEml', 100, `Excel generado (${rows.length} correos)`);
+      } catch (e) { setToolProgress('progEml', 'pctEml', 'statusEml', 0, `Error: ${e.message}`); }
+    }
+    $('btnEml_wa').addEventListener('click', () => runEml('wa'));
+    $('btnEml_dl').addEventListener('click', () => runEml('dl'));
+    $('btnEml_em').addEventListener('click', () => runEml('em'));
+
+    // ============================================================
+    // 7. CSVs A PDF
+    // ============================================================
+    setupDropZone('zoneCsv', 'csvFiles', (files) => {
+      csvFilesList = Array.from(files).filter((f) => f.name.toLowerCase().endsWith('.csv'));
+      $('csvFileInfo').textContent = `${csvFilesList.length} archivo(s) CSV seleccionados`;
+      setToolProgress('progCsv', 'pctCsv', 'statusCsv', 0, 'Listo para convertir');
+    });
+    async function runCsv(mode) {
+      if (!csvFilesList.length) { setToolProgress('progCsv', 'pctCsv', 'statusCsv', 0, 'Selecciona al menos un CSV.'); return; }
+      try {
+        let headers = [], allRows = [];
+        for (let i = 0; i < csvFilesList.length; i++) {
+          const parsed = Papa.parse(await csvFilesList[i].text(), { skipEmptyLines: true });
+          if (parsed.data.length > 0) {
+            if (i === 0) { headers = parsed.data[0]; allRows.push(...parsed.data.slice(1)); }
+            else { allRows.push(...parsed.data.slice(1)); }
+          }
+          setToolProgress('progCsv', 'pctCsv', 'statusCsv', ((i + 1) / csvFilesList.length) * 60, `Leyendo ${csvFilesList[i].name}...`);
+        }
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: 'landscape' });
+        doc.autoTable({ head: [headers], body: allRows, startY: 18, theme: 'striped', styles: { fontSize: 8 } });
+        await shareOrDownload(doc.output('blob'), 'CSVS_UNIDOS.pdf', mode, 'statusCsv');
+        setToolProgress('progCsv', 'pctCsv', 'statusCsv', 100, `PDF tabulado listo (${allRows.length} filas)`);
+      } catch (e) { setToolProgress('progCsv', 'pctCsv', 'statusCsv', 0, `Error: ${e.message}`); }
+    }
+    $('btnCsv_wa').addEventListener('click', () => runCsv('wa'));
+    $('btnCsv_dl').addEventListener('click', () => runCsv('dl'));
+    $('btnCsv_em').addEventListener('click', () => runCsv('em'));
+
+    // ============================================================
+    // 8. PDF A POWERPOINT
+    // ============================================================
+    setupDropZone('zonePpt', 'pdfPpt', (files) => {
+      pptFilesList = Array.from(files).filter((f) => f.name.toLowerCase().endsWith('.pdf'));
+      $('pptFileInfo').textContent = `${pptFilesList.length} PDF(s) seleccionados`;
+      setToolProgress('progPpt', 'pctPpt', 'statusPpt', 0, 'Listo para convertir a PPTX');
+    });
+    async function runPpt(mode) {
+      if (!pptFilesList.length) { setToolProgress('progPpt', 'pctPpt', 'statusPpt', 0, 'Selecciona al menos un PDF.'); return; }
+      try {
+        const pres = new PptxGenJS();
+        pres.layout = 'LAYOUT_4x3';
+        let slideNum = 1;
+        for (let fi = 0; fi < pptFilesList.length; fi++) {
+          const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(await pptFilesList[fi].arrayBuffer()) }).promise;
+          for (let p = 1; p <= pdf.numPages; p++) {
+            const page = await pdf.getPage(p);
+            const vp = page.getViewport({ scale: 1.5 });
+            const cvs = document.createElement('canvas');
+            cvs.width = vp.width; cvs.height = vp.height;
+            await page.render({ canvasContext: cvs.getContext('2d'), viewport: vp }).promise;
+            const slide = pres.addSlide();
+            slide.addImage({ data: cvs.toDataURL('image/jpeg', 0.85), x: 0, y: 0, w: '100%', h: '100%', sizing: { type: 'contain' } });
+            slide.addText(String(slideNum++), { x: '85%', y: '88%', w: '10%', fontSize: 20, bold: true, color: '006B2C', align: 'center' });
+          }
+          setToolProgress('progPpt', 'pctPpt', 'statusPpt', ((fi + 1) / pptFilesList.length) * 90, `Convirtiendo ${pptFilesList[fi].name}...`);
+        }
+        const pptxBlob = await pres.write({ outputType: 'blob' });
+        await shareOrDownload(pptxBlob, 'Presentacion.pptx', mode, 'statusPpt');
+        setToolProgress('progPpt', 'pctPpt', 'statusPpt', 100, `PPTX generado (${slideNum - 1} diapositivas)`);
+      } catch (e) { setToolProgress('progPpt', 'pctPpt', 'statusPpt', 0, `Error: ${e.message}`); }
+    }
+    $('btnPpt_wa').addEventListener('click', () => runPpt('wa'));
+    $('btnPpt_dl').addEventListener('click', () => runPpt('dl'));
+    $('btnPpt_em').addEventListener('click', () => runPpt('em'));
+
+    // ============================================================
+    // 9. FIRMA VISUAL
+    // ============================================================
+    $('clearSignatureBtn')?.addEventListener('click', () => signaturePad?.clear());
+    document.querySelectorAll('input[name="signType"]').forEach((radio) => {
+      radio.addEventListener('change', function() {
+        $('signDrawArea').classList.toggle('hidden', this.value !== 'draw');
+        $('signImageArea').classList.toggle('hidden', this.value === 'draw');
+      });
+    });
+    setupDropZone('signImageArea', 'signImageInput', (files) => {
+      const reader = new FileReader();
+      reader.onload = (e) => { signImageData = e.target.result; $('signImagePreview').textContent = `Imagen lista: ${files[0].name}`; };
+      reader.readAsDataURL(files[0]);
+    });
+    setupDropZone('zoneSign', 'signPdf', (files) => {
+      signPdfFile = files[0];
+      $('signFileInfo').textContent = `PDF listo: ${signPdfFile.name}`;
+      setToolProgress('progSign', 'pctSign', 'statusSign', 0, 'Dibuja o sube tu firma');
+    });
+    async function runSign(mode) {
+      if (!signPdfFile) { setToolProgress('progSign', 'pctSign', 'statusSign', 0, 'Selecciona un PDF primero.'); return; }
+      const signType = document.querySelector('input[name="signType"]:checked').value;
+      let sigBlob;
+      if (signType === 'draw') {
+        if (!signaturePad || signaturePad.isEmpty()) { setToolProgress('progSign', 'pctSign', 'statusSign', 0, 'Dibuja tu firma en el recuadro.'); return; }
+        sigBlob = await (await fetch(signaturePad.toDataURL('image/png'))).blob();
+      } else {
+        if (!signImageData) { setToolProgress('progSign', 'pctSign', 'statusSign', 0, 'Sube una imagen de firma.'); return; }
+        sigBlob = await (await fetch(signImageData)).blob();
+      }
+      try {
+        const pdfDoc = await PDFLib.PDFDocument.load(await signPdfFile.arrayBuffer(), { ignoreEncryption: true });
+        const sigBytes = await sigBlob.arrayBuffer();
+        const image = signType === 'image' && signImageData.startsWith('data:image/jpeg') ? await pdfDoc.embedJpg(sigBytes) : await pdfDoc.embedPng(sigBytes);
+        const pages = $('signAllPages').checked ? pdfDoc.getPages() : [pdfDoc.getPages()[0]];
+        const posX = parseFloat($('signPosX').value) / 100;
+        const posY = parseFloat($('signPosY').value) / 100;
+        const wPct = parseFloat($('signWidth').value) / 100;
+        const hPct = parseFloat($('signHeight').value) / 100;
+        pages.forEach((page) => {
+          const { width, height } = page.getSize();
+          page.drawImage(image, { x: (width * posX) - ((width * wPct) / 2), y: (height * posY) - ((height * hPct) / 2), width: width * wPct, height: height * hPct });
+        });
+        await shareOrDownload(new Blob([await pdfDoc.save()], { type: 'application/pdf' }), 'FIRMADO.pdf', mode, 'statusSign');
+        setToolProgress('progSign', 'pctSign', 'statusSign', 100, 'PDF firmado correctamente');
+      } catch (e) { setToolProgress('progSign', 'pctSign', 'statusSign', 0, `Error: ${e.message}`); }
+    }
+    $('btnSign_wa').addEventListener('click', () => runSign('wa'));
+    $('btnSign_dl').addEventListener('click', () => runSign('dl'));
+    $('btnSign_em').addEventListener('click', () => runSign('em'));
+
+    // ============================================================
+    // LIMPIEZA AUTOMÁTICA AL SALIR O RECARGAR
+    // ============================================================
+    window.addEventListener('pagehide', clearAllUploadedFiles);
+    window.addEventListener('beforeunload', clearAllUploadedFiles);
+    window.addEventListener('pageshow', (e) => { if (e.persisted) clearAllUploadedFiles(); });
+
+    clearAllUploadedFiles();
+    switchTool('merge');
+  </script>
+
+
+</body></html>
